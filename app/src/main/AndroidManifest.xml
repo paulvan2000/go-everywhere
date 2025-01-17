@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <!-- Location permissions -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyB0EPNYHnZ86S_VWxbB3LxgAKWA4cCYjHQ" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.GoEverywhere"
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignupActivity"
+            android:exported="true"
+            android:label="@string/title_activity_signup"
+            android:theme="@style/Theme.GoEverywhere">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- Google Maps API key -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB0EPNYHnZ86S_VWxbB3LxgAKWA4cCYjHQ" /> <!-- Firebase Database URL -->
+        <meta-data
+            android:name="firebase_database_url"
+            android:value="https://ed1demo-default-rtdb.firebaseio.com" /> <!-- MapsActivity as the Launcher Activity -->
+        <activity
+            android:name=".MapsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_maps" />
+    </application>
+
+</manifest>

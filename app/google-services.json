@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "746224408119",
+    "project_id": "ed1demo",
+    "storage_bucket": "ed1demo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746224408119:android:7b18b2368e91d2290bd1b2",
+        "android_client_info": {
+          "package_name": "com.example.goeverywhere"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCV1W2bfiFMqzww3hlipgBSl22gzOfpd4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
