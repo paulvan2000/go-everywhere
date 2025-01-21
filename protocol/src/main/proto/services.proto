@@ -1,0 +1,65 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package org.example.goeverywhere.protocol.grpc;
+
+import "google/protobuf/empty.proto";
+
+enum UserType {
+  DRIVER = 0;
+  RIDER = 1;
+}
+
+message SignUpRequest {
+  UserType userType = 1;
+  string name = 2;
+  string email = 3;
+  string password = 4;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string sessionId = 1;
+  UserType userType = 2;
+}
+
+message RideRequest {
+  string sessionId = 1;
+  string origin = 2;
+  string destination = 3;
+}
+
+message Ride {
+  string origin = 2;
+  string destination = 3;
+}
+
+enum RideStatus {
+  PENDING = 0;
+  ACCEPTED = 1;
+  IN_PROGRESS = 2;
+  COMPLETED = 3;
+  REJECTED = 4;
+  ABORTED = 5;
+}
+
+message RideUpdate {
+  RideStatus status = 1;
+  string message = 2; // Optional message for additional information
+}
+
+service UserService {
+  rpc signUp(SignUpRequest) returns (google.protobuf.Empty);
+  rpc login(LoginRequest) returns (LoginResponse);
+}
+
+service RiderService {
+  rpc requestRide(RideRequest) returns (stream RideUpdate);
+}
+
+service DriverService {
+  rpc getPendingRides(google.protobuf.Empty) returns (stream Ride);
+}

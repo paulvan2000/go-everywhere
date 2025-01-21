@@ -1,25 +1,35 @@
 package com.example.goeverywhere;
 
-import androidx.annotation.NonNull;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.common.util.concurrent.ListenableFuture;
+import dagger.hilt.android.AndroidEntryPoint;
+import io.grpc.ManagedChannel;
+import org.example.goeverywhere.protocol.grpc.LoginRequest;
+import org.example.goeverywhere.protocol.grpc.LoginResponse;
+import org.example.goeverywhere.protocol.grpc.UserServiceGrpc;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import javax.inject.Inject;
+import java.util.concurrent.atomic.AtomicReference;
 
+@AndroidEntryPoint
 public class LoginActivity extends AppCompatActivity {
+
+    @Inject
+    ManagedChannel managedChannel;
+
+    @Inject
+    AtomicReference<LoginResponse> sessionHolder;
 
     private EditText loginEmail, loginPassword;
     private Button loginButton;
     private TextView signupRedirectText;
 
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         loginPassword = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.login_button);
         signupRedirectText = findViewById(R.id.signupRedirectText);
-
-
-        mAuth = FirebaseAuth.getInstance();
 
         //Login button click
         loginButton.setOnClickListener(view -> {
@@ -64,19 +71,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Redirect to MainActivity
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        if (user != null) {
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+        UserServiceGrpc.UserServiceFutureStub asyncUserService = UserServiceGrpc.newFutureStub(managedChannel);
+        ListenableFuture<LoginResponse> asyncLoginResult = asyncUserService.login(LoginRequest.newBuilder()
+                .setEmail(email)
+                .setPassword(password)
+                .build());
+        asyncLoginResult.addListener(() -> {
+            try {
+                LoginResponse loginResponse = asyncLoginResult.get();
+                sessionHolder.set(loginResponse);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            } catch (Exception e) {
+                Toast.makeText(LoginActivity.this, "Login failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                throw new RuntimeException(e);
+            }
+        }, Runnable::run); // replace Runnable::run with a custom executor if async execution is needed
     }
 }
