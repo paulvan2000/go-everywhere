@@ -1,10 +1,10 @@
 plugins {
-    id 'com.google.gms.google-services'
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-
+    id 'com.google.dagger.hilt.android'
+    id 'com.google.gms.google-services' version '4.4.2' apply false
 }
 
 android {
@@ -38,10 +38,32 @@ android {
     kotlinOptions {
         jvmTarget = '11'
     }
+
+    // Explicitly set source directories
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+            res.srcDirs = ['src/main/res']
+        }
+        test {
+            java.srcDirs = ['src/test/java']
+        }
+        androidTest {
+            java.srcDirs = ['src/androidTest/java']
+        }
+    }
 }
 
 dependencies {
-    implementation platform('com.google.firebase:firebase-bom:33.6.0')
+    implementation project(":protocol")
+    implementation "io.grpc:grpc-netty:1.58.0" // gRPC transport
+    implementation "io.grpc:grpc-protobuf:1.58.0" // Protobuf support
+    implementation "io.grpc:grpc-stub:1.58.0" // Stub support
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.dagger:hilt-android:2.48.1'
+    annotationProcessor 'com.google.dagger:hilt-android-compiler:2.48.1'
+
     implementation libs.appcompat
     implementation libs.material
     implementation libs.constraintlayout
@@ -56,12 +78,10 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
-    implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.android.gms:play-services-maps:19.0.0'
     implementation 'com.google.firebase:firebase-database:21.0.0'
     implementation 'com.google.maps:google-maps-services:2.2.0'
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
-    implementation 'com.google.firebase:firebase-auth:22.1.1'
     implementation 'androidx.annotation:annotation:1.6.0'
     androidTestImplementation platform(libs.compose.bom)
     androidTestImplementation libs.ui.test.junit4

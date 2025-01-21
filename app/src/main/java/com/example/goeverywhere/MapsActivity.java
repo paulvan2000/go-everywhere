@@ -1,18 +1,13 @@
 package com.example.goeverywhere;
 
-import androidx.fragment.app.FragmentActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Toast;
-import android.content.Intent;
-import androidx.annotation.NonNull;
-
-
-
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -20,39 +15,49 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.protobuf.Empty;
+import dagger.hilt.android.AndroidEntryPoint;
+import io.grpc.ManagedChannel;
+import io.grpc.stub.StreamObserver;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.example.goeverywhere.protocol.grpc.DriverServiceGrpc;
+import org.example.goeverywhere.protocol.grpc.LoginResponse;
+import org.example.goeverywhere.protocol.grpc.Ride;
+import org.example.goeverywhere.protocol.grpc.RideRequest;
+import org.example.goeverywhere.protocol.grpc.RideStatus;
+import org.example.goeverywhere.protocol.grpc.RideUpdate;
+import org.example.goeverywhere.protocol.grpc.RiderServiceGrpc;
+import org.example.goeverywhere.protocol.grpc.UserType;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import javax.inject.Inject;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
+
+@AndroidEntryPoint
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private DatabaseReference rideRequestsRef;
+
+    @Inject
+    ManagedChannel managedChannel;
+
+    @Inject
+    AtomicReference<LoginResponse> sessionHolder;
 
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser == null) {
+        if (sessionHolder.get() == null) {
             //Redirect to SignupActivity if the user is not authenticated
             Intent intent = new Intent(MapsActivity.this, SignupActivity.class);
             startActivity(intent);
@@ -66,35 +71,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        //Initialize Firebase reference for ride requests
-        rideRequestsRef = FirebaseDatabase.getInstance().getReference("ride_requests");
-
         //Obtain the SupportMapFragment and get notified when the map is ready to be used
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        //Listen for real-time updates from Firebase
-        listenForRideRequests();
-
-        //Get latitude and longitude from MainActivity
-        Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("latitude") && intent.hasExtra("longitude")) {
-            double latitude = intent.getDoubleExtra("latitude", 0.0);
-            double longitude = intent.getDoubleExtra("longitude", 0.0);
-
-            if (latitude != 0.0 && longitude != 0.0) {
-                //Example origin for testing
-                LatLng origin = new LatLng(26.270033371253067, -80.26316008718736);
-                LatLng destination = new LatLng(latitude, longitude);
-
-                //Submit the ride request using the destination from MainActivity
-                submitRideRequest(origin.latitude + "," + origin.longitude, destination.latitude + "," + destination.longitude);
-            } else {
-                Toast.makeText(this, "Invalid location data received.", Toast.LENGTH_SHORT).show();
-            }
+        if(sessionHolder.get().getUserType() == UserType.DRIVER)  {
+            listenForRideRequests();
         } else {
-            Toast.makeText(this, "No location data received.", Toast.LENGTH_SHORT).show();
+            //Get latitude and longitude from MainActivity
+            Intent intent = getIntent();
+            if (intent != null && intent.hasExtra("latitude") && intent.hasExtra("longitude")) {
+                double latitude = intent.getDoubleExtra("latitude", 0.0);
+                double longitude = intent.getDoubleExtra("longitude", 0.0);
+
+                if (latitude != 0.0 && longitude != 0.0) {
+                    //Example origin for testing
+                    LatLng origin = new LatLng(26.270033371253067, -80.26316008718736);
+                    LatLng destination = new LatLng(latitude, longitude);
+
+                    //Submit the ride request using the destination from MainActivity
+                    submitRideRequest(origin.latitude + "," + origin.longitude, destination.latitude + "," + destination.longitude);
+                } else {
+                    Toast.makeText(this, "Invalid location data received.", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "No location data received.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -102,8 +105,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
         } else {
@@ -145,92 +146,72 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     //Submit a ride request to Firebase
     private void submitRideRequest(String origin, String destination) {
-        //getting the logged-in user's unique ID
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser == null) {
+        //getting the logged-in user sessionId
+        if (sessionHolder.get() == null) {
             Toast.makeText(this, "User not authenticated. Please log in again.", Toast.LENGTH_SHORT).show();
             return;
         }
-        String userId = currentUser.getUid();
+        String sessionId = sessionHolder.get().getSessionId();
 
-        //references user node
-        DatabaseReference userRequestsRef = rideRequestsRef.child(userId);
-
-        //checks for user's previous ride requests
-        userRequestsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        RiderServiceGrpc.RiderServiceStub rideService = RiderServiceGrpc.newStub(managedChannel);
+        rideService.requestRide(RideRequest.newBuilder()
+                .setSessionId(sessionId)
+                .setOrigin(origin)
+                .setDestination(destination)
+                .build(), new StreamObserver<>() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
-                    //removes the last ride request
-                    for (DataSnapshot rideRequestSnapshot : snapshot.getChildren()) {
-                        rideRequestSnapshot.getRef().removeValue()
-                                .addOnSuccessListener(aVoid -> {
-                                    Toast.makeText(MapsActivity.this, "Previous ride request cleared.", Toast.LENGTH_SHORT).show();
-                                    addNewRideRequest(userRequestsRef, origin, destination);
-                                })
-                                .addOnFailureListener(e -> {
-                                    Toast.makeText(MapsActivity.this, "Failed to clear previous ride request: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                });
-                        break; //ensures that only the first (last added) ride request is removed
-                    }
-                } else {
-                    //No previous ride requests, directly add the new one
-                    addNewRideRequest(userRequestsRef, origin, destination);
+            public void onNext(RideUpdate rideUpdate) {
+                if(rideUpdate.getStatus() == RideStatus.PENDING) {
+                    Toast.makeText(MapsActivity.this, "Ride request submitted!", Toast.LENGTH_SHORT).show();
+                }
+                if(rideUpdate.getStatus() == RideStatus.IN_PROGRESS) {
+                    Toast.makeText(MapsActivity.this, "Ride is in progress", Toast.LENGTH_SHORT).show();
+                }
+
+                if(rideUpdate.getStatus() == RideStatus.REJECTED) {
+                    Toast.makeText(MapsActivity.this, "Ride is rejected", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                Toast.makeText(MapsActivity.this, "Failed to check ride request existence: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onError(Throwable throwable) {
+                Toast.makeText(MapsActivity.this, "Failed to complete the ride request: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCompleted() {
+                Toast.makeText(MapsActivity.this, "The ride is complete.", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-    private void addNewRideRequest(DatabaseReference userRequestsRef, String origin, String destination) {
-        String requestId = userRequestsRef.push().getKey(); //Generates a unique request id
-        RideRequest newRequest = new RideRequest(origin, destination, "pending", System.currentTimeMillis());
-
-        userRequestsRef.child(requestId).setValue(newRequest)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(MapsActivity.this, "Ride request submitted!", Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(MapsActivity.this, "Failed to submit ride request: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
-    }
-
-
-
 
 
     //Listen for ride requests in real-time
     private void listenForRideRequests() {
-        rideRequestsRef.addValueEventListener(new ValueEventListener() {
+        DriverServiceGrpc.DriverServiceStub rideService = DriverServiceGrpc.newStub(managedChannel);
+
+        rideService.getPendingRides(Empty.getDefaultInstance(), new StreamObserver<>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                mMap.clear(); //Clear existing markers and routes
-
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    RideRequest request = snapshot.getValue(RideRequest.class);
-
-                    if (request != null) {
-                        //Display the ride request on the map
-                        displayRequestOnMap(request);
-                    }
-                }
+            public void onNext(Ride ride) {
+                displayRideOnMap(ride);
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                Toast.makeText(MapsActivity.this, "Failed to load ride requests.", Toast.LENGTH_SHORT).show();
+            public void onError(Throwable throwable) {
+                Toast.makeText(MapsActivity.this, "Failed to load ride requests: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCompleted() {
+                Toast.makeText(MapsActivity.this, "Ride requests loaded.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void displayRequestOnMap(RideRequest request) {
+    private void displayRideOnMap(Ride request) {
         //Parse origin and destination
-        String[] originCoords = request.origin.split(",");
-        String[] destinationCoords = request.destination.split(",");
+        String[] originCoords = request.getOrigin().split(",");
+        String[] destinationCoords = request.getDestination().split(",");
         LatLng origin = new LatLng(Double.parseDouble(originCoords[0]), Double.parseDouble(originCoords[1]));
         LatLng destination = new LatLng(Double.parseDouble(destinationCoords[0]), Double.parseDouble(destinationCoords[1]));
 
@@ -309,22 +290,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             poly.add(point);
         }
         return poly;
-    }
-}
-
-//RideRequest class
-class RideRequest {
-    public String origin;
-    public String destination;
-    public String status;
-    public long timestamp;
-
-    public RideRequest() {} // Default constructor required for Firebase
-
-    public RideRequest(String origin, String destination, String status, long timestamp) {
-        this.origin = origin;
-        this.destination = destination;
-        this.status = status;
-        this.timestamp = timestamp;
     }
 }

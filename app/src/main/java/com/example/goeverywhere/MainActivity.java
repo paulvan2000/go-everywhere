@@ -7,35 +7,31 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import dagger.hilt.android.AndroidEntryPoint;
+import org.example.goeverywhere.protocol.grpc.LoginResponse;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
+import javax.inject.Inject;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicReference;
 
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     private EditText inputAddress;
     private Button submitButton;
 
-    private FirebaseAuth mAuth;
+    @Inject
+    AtomicReference<LoginResponse> sessionHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Firebase Auth initialization
-        mAuth = FirebaseAuth.getInstance();
-
-        //checks if the user is logged in, if they aren't they'll be put back the login screen
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser == null) {
+        if (sessionHolder.get() == null) {
             redirectToLogin();
             return;
         }
