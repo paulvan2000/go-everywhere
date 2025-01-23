@@ -2,6 +2,7 @@ package com.example.goeverywhere;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,42 +54,34 @@ public class SignupActivity extends AppCompatActivity {
         int selectedRoleId = roleRadioGroup.getCheckedRadioButtonId();
         UserType role = (selectedRoleId == R.id.radio_rider) ? RIDER : DRIVER;
 
-        signupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String name = signupName.getText().toString().trim();
-                String email = signupEmail.getText().toString().trim();
-                String password = signupPassword.getText().toString().trim();
+        signupButton.setOnClickListener(view -> {
+            String name = signupName.getText().toString().trim();
+            String email = signupEmail.getText().toString().trim();
+            String password = signupPassword.getText().toString().trim();
+            if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(SignupActivity.this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                UserServiceGrpc.UserServiceFutureStub asyncUserService = UserServiceGrpc.newFutureStub(managedChannel);
+            if (password.length() < 6) {
+                Toast.makeText(SignupActivity.this, "Password must be at least 6 characters.", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(SignupActivity.this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (password.length() < 6) {
-                    Toast.makeText(SignupActivity.this, "Password must be at least 6 characters.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                ListenableFuture<Empty> asyncSignUpResult = asyncUserService.signUp(SignUpRequest.newBuilder()
+            UserServiceGrpc.UserServiceBlockingStub userService = UserServiceGrpc.newBlockingStub(managedChannel);
+            try {
+                userService.signUp(SignUpRequest.newBuilder()
                         .setUserType(role)
                         .setName(name)
                         .setEmail(email)
                         .setPassword(password)
                         .build());
+                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
 
-                asyncSignUpResult.addListener(() -> {
-                    try {
-                        asyncSignUpResult.get();
-                    } catch (Exception e) {
-                        Toast.makeText(SignupActivity.this, "Signup failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }, Runnable::run); // replace Runnable::run with a custom executor if async execution is needed
+            } catch (Exception e) {
+                Toast.makeText(SignupActivity.this, "Signup failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
