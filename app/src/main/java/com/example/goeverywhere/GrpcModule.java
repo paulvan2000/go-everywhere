@@ -18,7 +18,7 @@ public class GrpcModule {
     @Singleton
     public ManagedChannel provideManagedChannel() {
         return ManagedChannelBuilder
-                .forAddress("localhost", 9001) // FIXME: configure from environment
+                .forAddress("10.0.2.2", 9001) // FIXME: configure from environment
                 .usePlaintext() // Disable TLS for development
                 .build();
     }

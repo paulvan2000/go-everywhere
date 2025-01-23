@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin) // Keep only one instance
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id 'com.google.dagger.hilt.android'
@@ -27,6 +27,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    packaging {
+        resources {
+            pickFirsts.add("META-INF/INDEX.LIST")
+            pickFirsts.add("META-INF/*.SF")
+            pickFirsts.add("META-INF/*.DSA")
+            pickFirsts.add("META-INF/*.RSA")
+            pickFirsts.add("META-INF/io.netty.versions.properties")
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
