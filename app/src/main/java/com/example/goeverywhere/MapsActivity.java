@@ -15,7 +15,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.protobuf.Empty;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.grpc.ManagedChannel;
 import io.grpc.stub.StreamObserver;
@@ -24,14 +23,7 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.example.goeverywhere.protocol.grpc.DriverServiceGrpc;
-import org.example.goeverywhere.protocol.grpc.LoginResponse;
-import org.example.goeverywhere.protocol.grpc.Ride;
-import org.example.goeverywhere.protocol.grpc.RideRequest;
-import org.example.goeverywhere.protocol.grpc.RideStatus;
-import org.example.goeverywhere.protocol.grpc.RideUpdate;
-import org.example.goeverywhere.protocol.grpc.RiderServiceGrpc;
-import org.example.goeverywhere.protocol.grpc.UserType;
+import org.example.goeverywhere.protocol.grpc.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -77,7 +69,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         if(sessionHolder.get().getUserType() == UserType.DRIVER)  {
-            listenForRideRequests();
+            registerForRides();
         } else {
             //Get latitude and longitude from MainActivity
             Intent intent = getIntent();
@@ -154,22 +146,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String sessionId = sessionHolder.get().getSessionId();
 
         RiderServiceGrpc.RiderServiceStub rideService = RiderServiceGrpc.newStub(managedChannel);
+
+        // Request ride create a stream observer which will receive events from the server as long as the ride is active
         rideService.requestRide(RideRequest.newBuilder()
                 .setSessionId(sessionId)
                 .setOrigin(origin)
                 .setDestination(destination)
                 .build(), new StreamObserver<>() {
             @Override
-            public void onNext(RideUpdate rideUpdate) {
-                if(rideUpdate.getStatus() == RideStatus.PENDING) {
-                    Toast.makeText(MapsActivity.this, "Ride request submitted!", Toast.LENGTH_SHORT).show();
-                }
-                if(rideUpdate.getStatus() == RideStatus.IN_PROGRESS) {
-                    Toast.makeText(MapsActivity.this, "Ride is in progress", Toast.LENGTH_SHORT).show();
-                }
-
-                if(rideUpdate.getStatus() == RideStatus.REJECTED) {
-                    Toast.makeText(MapsActivity.this, "Ride is rejected", Toast.LENGTH_SHORT).show();
+            public void onNext(RiderEvent rideUpdate) {
+                switch (rideUpdate.getEventCase()) {
+                    case RIDE_REQUESTED:
+                        // notify the user that his request is accepted by the system
+                        Toast.makeText(MapsActivity.this, "Ride request submitted!", Toast.LENGTH_SHORT).show();
+                    case DRIVER_ACCEPTED:
+                        // notify the user that some driver has accepted this request, an event of this type may contain
+                        // an information about the driver and his car
+                        Toast.makeText(MapsActivity.this, "Driver accepted the ride", Toast.LENGTH_SHORT).show();
+                    case DRIVER_ON_THE_WAY:
+                        // render the latest driver location here
+                    case DRIVER_ARRIVED:
+                        // notify the user that the driver as arrived
+                        Toast.makeText(MapsActivity.this, "Driver has arrived", Toast.LENGTH_SHORT).show();
+                    case RIDE_STARTED:
+                        // notify the user about that the ride is started
+                        Toast.makeText(MapsActivity.this, "Ride started!", Toast.LENGTH_SHORT).show();
+                    case RIDE_IN_PROGRESS:
+                        // render the latest location to the map
+                    case RIDE_COMPLETED:
+                        Toast.makeText(MapsActivity.this, "Ride completed!", Toast.LENGTH_SHORT).show();
+                    default:
+                        Toast.makeText(MapsActivity.this, "Event is not supported yet", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -186,14 +193,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    //Listen for ride requests in real-time
-    private void listenForRideRequests() {
-        DriverServiceGrpc.DriverServiceStub rideService = DriverServiceGrpc.newStub(managedChannel);
+    /**
+     * Notify the server that the driver is available to accept rides and wait for the ride request
+     */
+    private void registerForRides() {
+        DriverServiceGrpc.DriverServiceStub driverService = DriverServiceGrpc.newStub(managedChannel);
+        DriverServiceGrpc.DriverServiceBlockingStub blockingDriverService = DriverServiceGrpc.newBlockingStub(managedChannel);
+        UserServiceGrpc.UserServiceBlockingStub userService = UserServiceGrpc.newBlockingStub(managedChannel);
 
-        rideService.getPendingRides(Empty.getDefaultInstance(), new StreamObserver<>() {
+        // Noti
+
+        // Subscribe for ride events is
+        driverService.subscribeForRideEvents(SubscribeForRideEvents.newBuilder()
+                .setSessionId(sessionHolder.get().getSessionId()).build(), new StreamObserver<>() {
             @Override
-            public void onNext(Ride ride) {
-                displayRideOnMap(ride);
+            public void onNext(DriverEvent driverEvent) {
+                switch (driverEvent.getEventCase()) {
+                    case RIDE_REQUESTED:
+                        // The system picked a driver, notify the driver here
+
+                        // Accepting the ride
+                        blockingDriverService.acceptRide(AcceptRideRequest.newBuilder()
+                                .setSessionId(sessionHolder.get().getSessionId())
+                                .setRideId(driverEvent.getRideRequested().getRideId())
+                                .build());
+
+                        // once the ride is accepted we need to send a location periodically
+                        userService.updateCurrentLocation(UpdateCurrentLocationRequest.newBuilder().build());
+
+                        return;
+                    case RIDE_CANCELLED:
+                        // Rider cancelled the ride, notify the driver
+                        return;
+                }
+
             }
 
             @Override
@@ -208,20 +241,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-    private void displayRideOnMap(Ride request) {
-        //Parse origin and destination
-        String[] originCoords = request.getOrigin().split(",");
-        String[] destinationCoords = request.getDestination().split(",");
-        LatLng origin = new LatLng(Double.parseDouble(originCoords[0]), Double.parseDouble(originCoords[1]));
-        LatLng destination = new LatLng(Double.parseDouble(destinationCoords[0]), Double.parseDouble(destinationCoords[1]));
-
-        //Add markers to the map
-        mMap.addMarker(new MarkerOptions().position(origin).title("Ride Request Origin"));
-        mMap.addMarker(new MarkerOptions().position(destination).title("Ride Request Destination"));
-
-        //Optionally draw a route between the origin and destination
-        addRoute(origin, destination);
-    }
+//    private void displayRideOnMap(Ride request) {
+//        //Parse origin and destination
+//        String[] originCoords = request.getOrigin().split(",");
+//        String[] destinationCoords = request.getDestination().split(",");
+//        LatLng origin = new LatLng(Double.parseDouble(originCoords[0]), Double.parseDouble(originCoords[1]));
+//        LatLng destination = new LatLng(Double.parseDouble(destinationCoords[0]), Double.parseDouble(destinationCoords[1]));
+//
+//        //Add markers to the map
+//        mMap.addMarker(new MarkerOptions().position(origin).title("Ride Request Origin"));
+//        mMap.addMarker(new MarkerOptions().position(destination).title("Ride Request Destination"));
+//
+//        //Optionally draw a route between the origin and destination
+//        addRoute(origin, destination);
+//    }
 
     private void addRoute(LatLng origin, LatLng destination) {
         String url = "https://maps.googleapis.com/maps/api/directions/json?origin="

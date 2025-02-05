@@ -50,7 +50,7 @@ public class UserServiceIntegrationTest extends IntegrationTestBase {
         LoginResponse response = riderLogin();
         assertNotNull(response.getSessionId());
         var userFromDB = userRepository.findByEmail(riderLogin).get();
-        var userFromSessionStore = sessionStore.getUser(UUID.fromString(response.getSessionId()));
+        var userFromSessionStore = sessionStore.getUser(response.getSessionId());
         assertThat(userFromDB)
                 .usingRecursiveComparison()
                 .isEqualTo(userFromSessionStore);

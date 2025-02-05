@@ -13,15 +13,15 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Component
 public class SessionStore {
-    private final Map<UUID, User> sessionStore = new ConcurrentHashMap<>();
+    private final Map<String, User> sessionStore = new ConcurrentHashMap<>();
 
     /**
      * Registers a session for the specified user.
      *
      * @param user the user for whom the session is to be registered.
-     * @return the UUID of the newly registered session.
+     * @return the id of the newly registered session.
      */
-    public void registerSession(UUID sessionId, User user) {
+    public void registerSession(String sessionId, User user) {
         sessionStore.put(sessionId, user);
     }
 
@@ -32,8 +32,11 @@ public class SessionStore {
      * @param sessionId the session ID to look up.
      * @return the role associated with the session ID, or null if no such role exists.
      */
-    public UserType getUserType(UUID sessionId) {
+    public UserType getUserType(String sessionId) {
         User user = sessionStore.get(sessionId);
+        if (user == null) {
+            throw new IllegalArgumentException("sessionId not found: " + sessionId);
+        }
         return user.getUserType();
 
     }
@@ -44,7 +47,7 @@ public class SessionStore {
      * @param sessionId the session ID to look up.
      * @return the user associated with the session ID, or null if no such user exists.
      */
-    public User getUser(UUID sessionId) {
+    public User getUser(String sessionId) {
         return sessionStore.get(sessionId);
 
     }

@@ -3,11 +3,9 @@ package org.example.goeverywhere.server.grpc;
 import com.google.protobuf.Empty;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
-import org.example.goeverywhere.protocol.grpc.LoginRequest;
-import org.example.goeverywhere.protocol.grpc.LoginResponse;
-import org.example.goeverywhere.protocol.grpc.SignUpRequest;
-import org.example.goeverywhere.protocol.grpc.UserServiceGrpc;
+import org.example.goeverywhere.protocol.grpc.*;
 import org.example.goeverywhere.server.exceptions.FailedAuthenticationException;
+import org.example.goeverywhere.server.service.UserRegistry;
 import org.example.goeverywhere.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +18,9 @@ public class UserServiceGrpcImpl extends UserServiceGrpc.UserServiceImplBase {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRegistry userRegistry;
 
     /**
      * Handles user login requests.
@@ -67,6 +68,14 @@ public class UserServiceGrpcImpl extends UserServiceGrpc.UserServiceImplBase {
             }
             return;
         }
+        responseObserver.onNext(Empty.getDefaultInstance());
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void updateCurrentLocation(UpdateCurrentLocationRequest request, StreamObserver<Empty> responseObserver) {
+        userRegistry.updateUserLocation(request.getSessionId(), request.getLocation());
+
         responseObserver.onNext(Empty.getDefaultInstance());
         responseObserver.onCompleted();
     }
