@@ -18,7 +18,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private org.example.goeverywhere.server.service.SessionStore sessionStore;
+    private SessionStore sessionStore;
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -39,7 +39,7 @@ public class UserService {
             if (passwordEncoder.matches(rawPassword, encodedPassword)) {
                 // Generate a new session token
                 var sessionId = UUID.randomUUID();
-                sessionStore.registerSession(sessionId, userOpt.get());
+                sessionStore.registerSession(sessionId.toString(), userOpt.get());
 
                 // Send the session token back to the client
                 return LoginResponse.newBuilder().setSessionId(sessionId.toString()).setUserType(userOpt.get().getUserType()).build();
