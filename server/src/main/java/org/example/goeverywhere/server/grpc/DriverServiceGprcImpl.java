@@ -4,10 +4,17 @@ import com.google.protobuf.Empty;
 import io.grpc.stub.StreamObserver;
 import org.example.goeverywhere.protocol.grpc.*;
 import org.example.goeverywhere.server.flow.RideEvent;
+import org.example.goeverywhere.server.flow.RideState;
 import org.example.goeverywhere.server.flow.RideStateMachineService;
 import org.example.goeverywhere.server.service.UserRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.statemachine.StateMachine;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
+
+import static org.example.goeverywhere.server.flow.RideStateMachineConfig.fromContext;
+import static org.example.goeverywhere.server.service.DriverService.DRIVER_SESSION_ID_KEY;
 
 @Service
 public class DriverServiceGprcImpl extends DriverServiceGrpc.DriverServiceImplBase {
@@ -18,7 +25,6 @@ public class DriverServiceGprcImpl extends DriverServiceGrpc.DriverServiceImplBa
     @Autowired
     private RideStateMachineService rideStateMachineService;
 
-
     @Override
     public void subscribeForRideEvents(SubscribeForRideEvents request, StreamObserver<DriverEvent> responseObserver) {
         userRegistry.registerDriver(request.getSessionId(), responseObserver);
@@ -26,15 +32,27 @@ public class DriverServiceGprcImpl extends DriverServiceGrpc.DriverServiceImplBa
 
 
     @Override
-    public void acceptRide(AcceptRideRequest request, StreamObserver<AcceptRideResponse> responseObserver) {
-        rideStateMachineService.sendEvent(request.getRideId(), RideEvent.DRIVER_ACCEPTED);
-
-        responseObserver.onNext(AcceptRideResponse.newBuilder()
-                .setRoute("Here goes a route definition to the user location")
-                .build());
-
-        // TODO: here we need a scheduled regular driver location updates sent to a user
-
+    public void acceptRide(AcceptRideRequest request, StreamObserver<Empty> responseObserver) {
+        validateIdentity(request.getSessionId(), request.getRideId());
+        responseObserver.onNext(Empty.getDefaultInstance());
         responseObserver.onCompleted();
+        rideStateMachineService.sendEvent(request.getRideId(), RideEvent.DRIVER_ACCEPTED);
+    }
+
+    @Override
+    public void driverArrived(DriverArrivedRequest request, StreamObserver<Empty> responseObserver) {
+        validateIdentity(request.getSessionId(), request.getRideId());
+        responseObserver.onNext(Empty.getDefaultInstance());
+        responseObserver.onCompleted();
+        rideStateMachineService.sendEvent(request.getRideId(), RideEvent.DRIVER_ARRIVED);
+    }
+
+    private void validateIdentity(String sessionId, String riderId) {
+        Objects.requireNonNull(sessionId);
+        Objects.requireNonNull(riderId);
+        StateMachine<RideState, RideEvent> stateMachine = rideStateMachineService.getStateMachine(riderId);
+        if(!stateMachine.getExtendedState().getVariables().get(DRIVER_SESSION_ID_KEY).equals(sessionId)) {
+            throw new RuntimeException("Invalid session id");
+        };
     }
 }

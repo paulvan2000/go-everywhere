@@ -54,15 +54,14 @@ message UpdateCurrentLocationRequest {
 
 message RiderEvent {
   oneof event {
-    RideRequested ride_requested = 1;
-    DriverAccepted driver_accepted = 2;
-    DriverOnTheWay driver_on_the_way = 3;
-    DriverArrived driver_arrived = 4;
-    RideStarted ride_started = 5;
-    RideInProgress ride_in_progress = 6;
-    RideCompleted ride_completed = 7;
-    DriverRejected driver_rejected = 8;
-    SystemCancelled system_cancelled = 9;
+    RideAccepted ride_accepted = 1;
+    DriverEnRoute driver_en_route = 2;
+    DriverArrived driver_arrived = 3;
+    RideStarted ride_started = 4;
+    RideInProgress ride_in_progress = 5;
+    RideCompleted ride_completed = 6;
+    DriverRejected driver_rejected = 7;
+    SystemCancelled system_cancelled = 8;
   }
 }
 
@@ -70,7 +69,7 @@ message DriverAccepted {
 
 }
 
-message DriverOnTheWay {
+message DriverEnRoute {
   google.type.LatLng location = 1;
 }
 
@@ -98,6 +97,7 @@ message DriverEvent {
   oneof event {
     RideRequested ride_requested = 1;
     RiderCancelled ride_cancelled = 2;
+    RideAccepted ride_accepted = 3;
   }
 }
 
@@ -109,7 +109,7 @@ message RideRequested {
 }
 
 message RideAccepted {
-  string ride_id = 1;
+  Route route = 1;
 }
 
 message RideRejected {
@@ -119,6 +119,7 @@ message RideRejected {
 
 message DriverArrived {
   string ride_id = 1;
+  google.type.LatLng location = 2;
 }
 
 message RideStarted {
@@ -139,8 +140,21 @@ message AcceptRideRequest {
   string ride_id = 2;
 }
 
-message AcceptRideResponse {
-  string route = 1; // temporary definition, need better representation for route
+message DriverArrivedRequest {
+  string session_id = 1;
+  string ride_id = 2;
+}
+
+message Route {
+  repeated Waypoint waypoints = 1;
+  double total_distance_km = 2;
+  double total_duration_min = 3;
+}
+
+message Waypoint {
+  google.type.LatLng location = 1;
+  double distance_from_start_km = 2;
+  double duration_from_start_min = 3;
 }
 
 service UserService {
@@ -155,5 +169,6 @@ service RiderService {
 
 service DriverService {
   rpc subscribeForRideEvents(SubscribeForRideEvents) returns (stream DriverEvent);
-  rpc acceptRide(AcceptRideRequest) returns (AcceptRideResponse);
+  rpc acceptRide(AcceptRideRequest) returns (google.protobuf.Empty);
+  rpc driverArrived(DriverArrivedRequest) returns (google.protobuf.Empty);
 }

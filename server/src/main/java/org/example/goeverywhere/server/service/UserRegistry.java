@@ -1,12 +1,11 @@
 package org.example.goeverywhere.server.service;
 
-import com.google.protobuf.GeneratedMessageV3;
 import com.google.type.LatLng;
 import io.grpc.stub.StreamObserver;
 import org.example.goeverywhere.protocol.grpc.DriverEvent;
-import org.example.goeverywhere.protocol.grpc.RideRequested;
 import org.example.goeverywhere.protocol.grpc.RiderEvent;
 import org.example.goeverywhere.protocol.grpc.UserType;
+import org.example.goeverywhere.server.service.routing.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -94,26 +93,10 @@ public class UserRegistry {
                     return driver.location != null && driver.available.get() && !driver.rejectedRides.contains(rideId);
                 })
                 .sorted((kv1, kv2) ->
-                        (int) (calculateDistance(kv1.getValue().location, location) - calculateDistance(kv2.getValue().location, location))
+                        (int) (RouteService.calculateDistance(kv1.getValue().location, location) - RouteService.calculateDistance(kv2.getValue().location, location))
                 )
                 .map(Map.Entry::getValue)
                 .findFirst();
-    }
-
-    /**
-     * Calculate distance between two points using Haversine formula (for Earth’s curvature)
-     * @param latLng1 lat/long of the first point
-     * @param latLng2 lat/long of the second point
-     * @return the distance in meters
-     */
-    public static double calculateDistance(LatLng latLng1, LatLng latLng2) {
-        double dLat = Math.toRadians(latLng2.getLatitude() - latLng1.getLatitude());
-        double dLon = Math.toRadians(latLng2.getLongitude() - latLng1.getLongitude());
-        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-                + Math.cos(Math.toRadians(latLng2.getLatitude())) * Math.cos(Math.toRadians(latLng1.getLatitude()))
-                * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return EARTH_RADIUS * c * METERS_IN_KILOMETER;
     }
 
 

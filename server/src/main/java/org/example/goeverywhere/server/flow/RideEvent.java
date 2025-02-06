@@ -10,7 +10,7 @@ public enum RideEvent {
     //  The driver rejects the ride.
     DRIVER_REJECTED,
     // Driver drives to the pick up location.
-    DRIVER_ON_THE_WAY,
+    DRIVER_EN_ROUTE,
     // The driver arrives at the pickup location.
     DRIVER_ARRIVED,
     //  The rider gets into the car.
