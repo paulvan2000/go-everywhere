@@ -13,8 +13,6 @@ public enum RideEvent {
     DRIVER_EN_ROUTE,
     // The driver arrives at the pickup location.
     DRIVER_ARRIVED,
-    //  The rider gets into the car.
-    RIDER_ONBOARD,
     // The ride starts.
     RIDE_STARTED,
     //  The ride ends.

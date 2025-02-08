@@ -1,6 +1,6 @@
 package org.example.goeverywhere.server.flow;
 
-import org.example.goeverywhere.server.service.DriverService;
+import org.example.goeverywhere.server.service.EventProcessor;
 import org.example.goeverywhere.server.service.RiderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import org.springframework.statemachine.config.builders.StateMachineTransitionCo
 public class RideStateMachineConfig extends EnumStateMachineConfigurerAdapter<RideState, RideEvent> {
 
     @Autowired
-    private DriverService driverService;
+    private EventProcessor eventProcessor;
 
     @Autowired
     private RiderService riderService;
@@ -41,44 +41,51 @@ public class RideStateMachineConfig extends EnumStateMachineConfigurerAdapter<Ri
                 .withExternal()
                 .source(RideState.INITIATED)
                 .event(RideEvent.RIDE_REQUESTED)
-                .action(driverService.requestRide())
+                .action(eventProcessor.requestRide())
                 .target(RideState.REQUESTED)
                 .and()
                 // Processing cancellation
                 .withExternal()
                 .source(RideState.INITIATED)
                 .event(RideEvent.NO_AVAILABLE_DRIVERS)
-                .action(riderService.noAvailableDrivers())
+                .action(eventProcessor.noAvailableDrivers())
                 .target(RideState.CANCELLED)
                 .and()
 
                 .withExternal()
                 .source(RideState.REQUESTED)
                 .event(RideEvent.DRIVER_ACCEPTED)
-                .action(driverService.prepareRouteAndSend())
+                .action(eventProcessor.prepareRouteAndSend())
                 .target(RideState.DRIVER_EN_ROUTE)
 
 
                 .and()
                 .withExternal()
                 .source(RideState.REQUESTED)
-                // TODO: add action for rejection
                 .event(RideEvent.DRIVER_REJECTED)
-                .target(RideState.REQUESTED)
-                .and()
+                .action(eventProcessor.driverRejected())
+                .target(RideState.INITIATED)
 
+                .and()
                 .withExternal()
                 .source(RideState.DRIVER_EN_ROUTE)
                 .event(RideEvent.DRIVER_ARRIVED)
-                .action(driverService.driverArrived())
+                .action(eventProcessor.driverArrived())
                 .target(RideState.DRIVER_ARRIVED)
 
+
                 .and()
-                .withExternal().source(RideState.DRIVER_ARRIVED).target(RideState.RIDER_ONBOARD).event(RideEvent.RIDER_ONBOARD)
+                .withExternal().source(RideState.DRIVER_ARRIVED)
+                .event(RideEvent.RIDE_STARTED)
+                .action(eventProcessor.rideStarted())
+                .target(RideState.IN_RIDE)
+
                 .and()
-                .withExternal().source(RideState.RIDER_ONBOARD).target(RideState.IN_RIDE).event(RideEvent.RIDE_STARTED)
-                .and()
-                .withExternal().source(RideState.IN_RIDE).target(RideState.COMPLETED).event(RideEvent.RIDE_COMPLETED);
+                .withExternal()
+                .source(RideState.IN_RIDE)
+                .event(RideEvent.RIDE_COMPLETED)
+                .action(eventProcessor.rideCompleted())
+                .target(RideState.COMPLETED);
     }
 
     public static <T> T fromContext(StateContext<RideState, RideEvent> context, String key) {

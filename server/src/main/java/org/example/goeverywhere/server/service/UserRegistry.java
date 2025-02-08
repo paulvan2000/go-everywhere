@@ -128,6 +128,10 @@ public class UserRegistry {
         public Driver(String sessionId, StreamObserver<DriverEvent> streamObserver) {
             super(sessionId, streamObserver);
         }
+
+        public void addRejectedRide(String rideId) {
+            rejectedRides.add(rideId);
+        }
     }
 
     public static class Rider extends AbstractUser<RiderEvent> {

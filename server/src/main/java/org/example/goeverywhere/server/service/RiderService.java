@@ -55,20 +55,6 @@ public class RiderService {
         }
     }
 
-    public Action<RideState, RideEvent> noAvailableDrivers() {
-        return context -> {
-            String sessionId = fromContext(context, RIDER_SESSION_ID_KEY);
-            userRegistry.getRiderMaybe(sessionId).ifPresent(rider -> {
-                rider.getStreamObserver().onNext(RiderEvent.newBuilder()
-                        .setSystemCancelled(SystemCancelled.newBuilder()
-                                .setMessage("No available drivers")
-                                .build())
-                        .build());
-            });
-
-        };
-    }
-
     private String generateRideId(RideRequest request) {
         return "ride-" + request.getSessionId() + "-" + System.currentTimeMillis();
     }

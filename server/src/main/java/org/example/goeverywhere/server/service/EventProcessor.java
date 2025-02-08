@@ -15,12 +15,15 @@ import org.springframework.statemachine.action.Action;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static org.example.goeverywhere.server.flow.RideStateMachineConfig.fromContext;
 import static org.example.goeverywhere.server.service.RiderService.*;
 
 @Service
-public class DriverService {
+public class EventProcessor {
+    private final ExecutorService executor = Executors.newFixedThreadPool(4);
     public static final String DRIVER_SESSION_ID_KEY = "driverSessionId";
 
     @Autowired
@@ -77,7 +80,7 @@ public class DriverService {
             Driver driver = getDriver(driverSessionId);
 
             Route route = routeService.generateRoute(driver.location, riderLocation);
-            RideAccepted.Builder rideAccepted = RideAccepted.newBuilder().setRoute(route);
+            RideAccepted.Builder rideAccepted = RideAccepted.newBuilder().setRouteToRider(route).setRideId(rideId);
             driver.getStreamObserver().onNext(DriverEvent.newBuilder().setRideAccepted(rideAccepted).build());
             sendEventToRider(riderSessionId, RiderEvent.newBuilder().setRideAccepted(rideAccepted).build());
 
@@ -86,13 +89,67 @@ public class DriverService {
         };
     }
 
-    public Action<RideState, RideEvent> driverArrived() {
+    public Action<RideState, RideEvent> driverRejected() {
         return context -> {
             String riderSessionId = fromContext(context, RIDER_SESSION_ID_KEY);
             String driverSessionId = fromContext(context, DRIVER_SESSION_ID_KEY);
             String rideId = fromContext(context, RIDE_ID_KEY);
+
             Driver driver = getDriver(driverSessionId);
+            driver.addRejectedRide(rideId);
+
+            sendEventToRider(riderSessionId, RiderEvent.newBuilder().setDriverRejected(DriverRejected.newBuilder()
+                    .setRideId(rideId).build())
+                    .build());
+            // attempting to restart event flow with another driver
+            sendEventToStateMachine(rideId, RideEvent.RIDE_REQUESTED);
+        };
+    }
+
+    public Action<RideState, RideEvent> driverArrived() {
+        return context -> {
+            String riderSessionId = fromContext(context, RIDER_SESSION_ID_KEY);
+            String driverSessionId = fromContext(context, DRIVER_SESSION_ID_KEY);
+            LatLng destinationLocation = fromContext(context, DESTINATION_KEY);
+            String rideId = fromContext(context, RIDE_ID_KEY);
+            Driver driver = getDriver(driverSessionId);
+            Route routeToDestination = routeService.generateRoute(driver.location, destinationLocation);
+            RideDetails.Builder rideDetails = RideDetails.newBuilder().setRideId(rideId).setRouteToDestination(routeToDestination);
+            driver.getStreamObserver().onNext(DriverEvent.newBuilder().setRideDetails(rideDetails).build());
             sendEventToRider(riderSessionId, RiderEvent.newBuilder().setDriverArrived(DriverArrived.newBuilder().setRideId(rideId).setLocation(driver.location).build()).build());
+        };
+    }
+
+    public Action<RideState, RideEvent> rideStarted() {
+        return context -> {
+            String riderSessionId = fromContext(context, RIDER_SESSION_ID_KEY);
+            String driverSessionId = fromContext(context, DRIVER_SESSION_ID_KEY);
+            String rideId = fromContext(context, RIDE_ID_KEY);
+            sendEventToRider(riderSessionId, RiderEvent.newBuilder().setRideStarted(RideStarted.newBuilder().setRideId(rideId).build()).build());
+        };
+    }
+
+    public Action<RideState, RideEvent> rideCompleted() {
+        return context -> {
+            String riderSessionId = fromContext(context, RIDER_SESSION_ID_KEY);
+            String driverSessionId = fromContext(context, DRIVER_SESSION_ID_KEY);
+            String rideId = fromContext(context, RIDE_ID_KEY);
+            driverLocationUpdateService.stopLocationUpdates(rideId);
+            sendEventToRider(riderSessionId, RiderEvent.newBuilder().setRideCompleted(RideCompleted.newBuilder().setRideId(rideId).build()).build());
+        };
+    }
+
+    public Action<RideState, RideEvent> noAvailableDrivers() {
+        return context -> {
+            String sessionId = fromContext(context, RIDER_SESSION_ID_KEY);
+            userRegistry.getRiderMaybe(sessionId).ifPresent(rider -> {
+                rider.getStreamObserver().onNext(RiderEvent.newBuilder()
+                        .setSystemCancelled(SystemCancelled.newBuilder()
+                                .setMessage("No available drivers")
+                                .build())
+                        .build());
+            });
+
         };
     }
 
@@ -110,8 +167,11 @@ public class DriverService {
     }
 
     private void sendEventToStateMachine(String rideId, RideEvent rideEvent) {
-        StateMachine<RideState, RideEvent> stateMachine = rideStateMachineService.getStateMachine(rideId);
-        stateMachine.sendEvent(rideEvent);
+        executor.submit(() -> {
+            StateMachine<RideState, RideEvent> stateMachine = rideStateMachineService.getStateMachine(rideId);
+            stateMachine.sendEvent(rideEvent);
+        });
+
     }
 
 }
