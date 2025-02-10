@@ -46,7 +46,7 @@ public class RideStateMachineConfig extends EnumStateMachineConfigurerAdapter<Ri
                 .and()
                 // Processing cancellation
                 .withExternal()
-                .source(RideState.INITIATED)
+                .source(RideState.REQUESTED)
                 .event(RideEvent.NO_AVAILABLE_DRIVERS)
                 .action(eventProcessor.noAvailableDrivers())
                 .target(RideState.CANCELLED)

@@ -10,8 +10,10 @@ import org.example.goeverywhere.server.service.UserRegistry.Driver;
 import org.example.goeverywhere.server.service.routing.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.statemachine.StateContext;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.action.Action;
+import org.springframework.statemachine.support.StateMachineInterceptorAdapter;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -23,7 +25,8 @@ import static org.example.goeverywhere.server.service.RiderService.*;
 
 @Service
 public class EventProcessor {
-    private final ExecutorService executor = Executors.newFixedThreadPool(4);
+
+
     public static final String DRIVER_SESSION_ID_KEY = "driverSessionId";
 
     @Autowired
@@ -39,9 +42,12 @@ public class EventProcessor {
     @Autowired
     private DriverLocationUpdateService driverLocationUpdateService;
 
+    private ExecutorService deferredEventsExecutor = Executors.newFixedThreadPool(4);
+
     /**
      * This method process "Request ride" event. A user sent a request for a ride,
      * now the system needs to find the closest driver that is not busy and send a request to him
+     *
      * @return
      */
     public Action<RideState, RideEvent> requestRide() {
@@ -99,7 +105,7 @@ public class EventProcessor {
             driver.addRejectedRide(rideId);
 
             sendEventToRider(riderSessionId, RiderEvent.newBuilder().setDriverRejected(DriverRejected.newBuilder()
-                    .setRideId(rideId).build())
+                            .setRideId(rideId).build())
                     .build());
             // attempting to restart event flow with another driver
             sendEventToStateMachine(rideId, RideEvent.RIDE_REQUESTED);
@@ -167,11 +173,17 @@ public class EventProcessor {
     }
 
     private void sendEventToStateMachine(String rideId, RideEvent rideEvent) {
-        executor.submit(() -> {
-            StateMachine<RideState, RideEvent> stateMachine = rideStateMachineService.getStateMachine(rideId);
-            stateMachine.sendEvent(rideEvent);
-        });
 
+        StateMachine<RideState, RideEvent> stateMachine = rideStateMachineService.getStateMachine(rideId);
+        stateMachine.getStateMachineAccessor().doWithAllRegions(accessor ->
+                accessor.addStateMachineInterceptor(new StateMachineInterceptorAdapter<>() {
+                    @Override
+                    public StateContext<RideState, RideEvent> postTransition(StateContext<RideState, RideEvent> stateContext) {
+                        // processing the event asynchronously to prevent deadlocks
+                        deferredEventsExecutor.submit(() -> stateMachine.sendEvent(rideEvent));
+                        return stateContext;
+                    }
+                }));
     }
 
 }
