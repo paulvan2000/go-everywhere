@@ -10,7 +10,6 @@
         android:value="AIzaSyB0EPNYHnZ86S_VWxbB3LxgAKWA4cCYjHQ" />
 
     <application
-        android:name="com.example.goeverywhere.GoEverywhereApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -33,16 +32,74 @@
             android:theme="@style/Theme.GoEverywhere">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- Google Maps API key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB0EPNYHnZ86S_VWxbB3LxgAKWA4cCYjHQ" /> <!-- Firebase Database URL -->
+        <meta-data
+            android:name="firebase_database_url"
+            android:value="https://ed1demo-default-rtdb.firebaseio.com" /> <!-- MapsActivity as the Launcher Activity -->
         <activity
             android:name=".MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
+
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false"
+            >
+        </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false"
+            >
+        </activity>
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="false"
+            >
+        </activity>
+
+        <activity
+            android:name=".SafetyActivity"
+            android:exported="false"
+            >
+        </activity>
+
+        <activity
+            android:name=".NotificationsActivity"
+            android:exported="false"
+            >
+        </activity>
+
+        <activity
+            android:name=".PlanActivity"
+            android:exported="false"
+            >
+        </activity>
+
+        <activity
+            android:name=".PaymentActivity"
+            android:exported="false"
+            >
+        </activity>
+
+        <activity
+            android:name=".WaitActivity"
+            android:exported="false"
+            >
+        </activity>
+
+        <activity
+            android:name=".CoffeeActivity"
+            android:exported="false"
+            >
+        </activity>
+
+
     </application>
 
 </manifest>
