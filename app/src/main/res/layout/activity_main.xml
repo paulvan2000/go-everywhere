@@ -29,8 +29,18 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Ride Booking"
+                android:layout_marginBottom="20dp"
+                android:textSize="36sp"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="@color/lavender"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Where would you like to go?"
-                android:textSize="26sp"
+                android:textSize="20sp"
                 android:textAlignment="center"
                 android:textStyle="bold"
                 android:textColor="@color/lavender"/>
@@ -49,14 +59,58 @@
                 android:textColor="@color/black"/>
 
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="Where do you want to be picked up from?"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="@color/lavender"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/input_pickup"
+                android:background="@drawable/lavender_border"
+                android:padding="8dp"
+                android:hint="Address"
+                android:drawableLeft="@drawable/baseline_map_24"
+                android:drawablePadding="8dp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="How many passengers?"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="@color/lavender"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/passenger_number"
+                android:background="@drawable/lavender_border"
+                android:padding="8dp"
+                android:hint="Passenger amount"
+                android:drawableLeft="@drawable/baseline_person_24"
+                android:drawablePadding="8dp"
+                android:textColor="@color/black"/>
+
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Go!"
+                android:text="Book Now!"
                 android:id="@+id/submit_button"
                 android:textSize="18sp"
                 android:layout_marginTop="30dp"
                 app:cornerRadius = "20dp"/>
+
 
 
         </LinearLayout>
