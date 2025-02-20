@@ -1,6 +1,7 @@
 package org.example.goeverywhere.server.flow;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.config.StateMachineFactory;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class RideStateMachineService {
+
+    @Lazy
     @Autowired
     private StateMachineFactory<RideState, RideEvent> stateMachineFactory;
 

@@ -5,11 +5,17 @@ package org.example.goeverywhere.protocol.grpc;
 import "google/protobuf/empty.proto";
 import "google/type/latlng.proto";
 
+/**
+ * Possible user types
+ */
 enum UserType {
   DRIVER = 0;
   RIDER = 1;
 }
 
+/**
+ * A request to create a new user
+ */
 message SignUpRequest {
   UserType userType = 1;
   string name = 2;
@@ -17,69 +23,92 @@ message SignUpRequest {
   string password = 4;
 }
 
+/**
+ * The first message user must send to register in the system
+ */
 message LoginRequest {
   string email = 1;
   string password = 2;
 }
 
+/**
+ * The response upon successful login
+ */
 message LoginResponse {
   string sessionId = 1;
   UserType userType = 2;
 }
 
+/**
+ * A request driver sends to get the updates from the system
+ */
 message SubscribeForUpdatesRequest {
   string sessionId = 1;
 }
 
+/**
+ * A request user sends to get from one point to theother
+ */
 message RideRequest {
   string sessionId = 1;
   string origin = 2;
   string destination = 3;
 }
 
-enum RideStatus {
-  RIDE_REQUESTED = 0;
-  DRIVER_ACCEPTED = 1;
-  DRIVER_ON_THE_WAY = 2;
-  RIDE_STARTED = 3;
-  RIDE_COMPLETED = 4;
-  DRIVER_REJECTED = 5;
-  RIDER_CANCELLED = 6;
-}
-
+/**
+ * A request that a registered user sends to keep the system updated about the latest location
+ */
 message UpdateCurrentLocationRequest {
   string sessionId = 1;
   google.type.LatLng location = 3;
 }
 
+/**
+ * An event received by a rider providing the latest information about the ride
+ */
 message RiderEvent {
   oneof event {
-    RideRequested ride_requested = 1;
-    DriverAccepted driver_accepted = 2;
-    DriverOnTheWay driver_on_the_way = 3;
+    RideRegistered ride_registered = 1;
+    RideAccepted ride_accepted = 2;
+    DriverEnRoute driver_en_route = 3;
     DriverArrived driver_arrived = 4;
     RideStarted ride_started = 5;
-    RideInProgress ride_in_progress = 6;
     RideCompleted ride_completed = 7;
     DriverRejected driver_rejected = 8;
     SystemCancelled system_cancelled = 9;
   }
 }
 
-message DriverAccepted {
-
+message RideRegistered {
+  string ride_id = 1;
 }
 
-message DriverOnTheWay {
+message RideAccepted {
+  string ride_id = 1;
+  Route routeToRider = 2;
+}
+
+message DriverEnRoute {
   google.type.LatLng location = 1;
 }
 
-message RideInProgress {
+message DriverArrived {
+  string ride_id = 1;
+  google.type.LatLng location = 2;
+}
 
+message RideStarted {
+  string session_id = 1;
+  string ride_id = 2;
+}
+
+message RideCompleted {
+  string ride_id = 1;
+  double fare = 2;
 }
 
 message DriverRejected {
-
+  string ride_id = 1;
 }
 
 message RiderCancelled {
@@ -98,6 +127,8 @@ message DriverEvent {
   oneof event {
     RideRequested ride_requested = 1;
     RiderCancelled ride_cancelled = 2;
+    RideAccepted ride_accepted = 3;
+    RideDetails ride_details = 4;
   }
 }
 
@@ -108,29 +139,13 @@ message RideRequested {
   google.type.LatLng destination = 4;
 }
 
-message RideAccepted {
+
+message RideDetails {
   string ride_id = 1;
+  Route routeToDestination = 2;
 }
 
-message RideRejected {
-  string ride_id = 1;
-  string reason = 2;
-}
-
-message DriverArrived {
-  string ride_id = 1;
-}
-
-message RideStarted {
-  string ride_id = 1;
-}
-
-message RideCompleted {
-  string ride_id = 1;
-  double fare = 2;
-}
-
-message SubscribeForRideEvents {
+message SubscribeForRideEventsRequest {
   string session_id = 1;
 }
 
@@ -139,8 +154,36 @@ message AcceptRideRequest {
   string ride_id = 2;
 }
 
-message AcceptRideResponse {
-  string route = 1; // temporary definition, need better representation for route
+message RejectRideRequest {
+  string session_id = 1;
+  string ride_id = 2;
+}
+
+message DriverArrivedRequest {
+  string session_id = 1;
+  string ride_id = 2;
+}
+
+message RideStartedRequest {
+  string session_id = 1;
+  string ride_id = 2;
+}
+
+message RideCompletedRequest {
+  string session_id = 1;
+  string ride_id = 2;
+}
+
+message Route {
+  repeated Waypoint waypoints = 1;
+  double total_distance_km = 2;
+  double total_duration_min = 3;
+}
+
+message Waypoint {
+  google.type.LatLng location = 1;
+  double distance_from_start_km = 2;
+  double duration_from_start_min = 3;
 }
 
 service UserService {
@@ -154,6 +197,10 @@ service RiderService {
 }
 
 service DriverService {
-  rpc subscribeForRideEvents(SubscribeForRideEvents) returns (stream DriverEvent);
-  rpc acceptRide(AcceptRideRequest) returns (AcceptRideResponse);
+  rpc subscribeForRideEvents(SubscribeForRideEventsRequest) returns (stream DriverEvent);
+  rpc acceptRide(AcceptRideRequest) returns (google.protobuf.Empty);
+  rpc rejectRide(RejectRideRequest) returns (google.protobuf.Empty);
+  rpc driverArrived(DriverArrivedRequest) returns (google.protobuf.Empty);
+  rpc rideStarted(RideStartedRequest) returns (google.protobuf.Empty);
+  rpc rideCompleted(RideCompletedRequest) returns (google.protobuf.Empty);
 }

@@ -4,6 +4,8 @@ import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import org.example.goeverywhere.server.grpc.DriverServiceGprcImpl;
+import org.example.goeverywhere.server.grpc.RiderServiceGrpcImpl;
 import org.example.goeverywhere.server.grpc.UserServiceGrpcImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -22,6 +24,10 @@ public class GoEverywhereServer {
 
     @Autowired
     private UserServiceGrpcImpl userServiceGrpc;
+    @Autowired
+    private RiderServiceGrpcImpl riderServiceGrpc;
+    @Autowired
+    private DriverServiceGprcImpl driverServiceGrpc;
     private ExecutorService serverDestroyer;
 
     /**
@@ -33,6 +39,8 @@ public class GoEverywhereServer {
     public void init()  throws IOException, InterruptedException {
         Server server = ServerBuilder.forPort(9001)
                 .addService(userServiceGrpc)
+                .addService(riderServiceGrpc)
+                .addService(driverServiceGrpc)
                 .build();
         System.out.println("Starting server...");
         server.start();

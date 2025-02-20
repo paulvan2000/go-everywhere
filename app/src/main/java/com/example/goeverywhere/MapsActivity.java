@@ -159,12 +159,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     case RIDE_REQUESTED:
                         // notify the user that his request is accepted by the system
                         Toast.makeText(MapsActivity.this, "Ride request submitted!", Toast.LENGTH_SHORT).show();
-                    case DRIVER_ACCEPTED:
-                        // notify the user that some driver has accepted this request, an event of this type may contain
-                        // an information about the driver and his car
-                        Toast.makeText(MapsActivity.this, "Driver accepted the ride", Toast.LENGTH_SHORT).show();
-                    case DRIVER_ON_THE_WAY:
-                        // render the latest driver location here
                     case DRIVER_ARRIVED:
                         // notify the user that the driver as arrived
                         Toast.makeText(MapsActivity.this, "Driver has arrived", Toast.LENGTH_SHORT).show();

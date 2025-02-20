@@ -1,18 +1,24 @@
 package org.example.goeverywhere.server.service;
 
-import com.google.maps.model.LatLng;
+import com.google.type.LatLng;
 import org.example.goeverywhere.protocol.grpc.RideRequest;
+import org.example.goeverywhere.protocol.grpc.RideRequested;
+import org.example.goeverywhere.protocol.grpc.RiderEvent;
+import org.example.goeverywhere.protocol.grpc.SystemCancelled;
 import org.example.goeverywhere.server.flow.RideEvent;
 import org.example.goeverywhere.server.flow.RideState;
 import org.example.goeverywhere.server.flow.RideStateMachineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.StateMachine;
+import org.springframework.statemachine.action.Action;
 import org.springframework.stereotype.Service;
+
+import static org.example.goeverywhere.server.flow.RideStateMachineConfig.fromContext;
 
 @Service
 public class RiderService {
 
-    public static final String SESSION_ID_KEY = "sessionId";
+    public static final String RIDER_SESSION_ID_KEY = "riderSessionId";
     public static final String RIDE_ID_KEY = "rideId";
     public static final String ORIGIN_KEY = "origin";
     public static final String DESTINATION_KEY = "destination";
@@ -37,7 +43,8 @@ public class RiderService {
             StateMachine<RideState, RideEvent> stateMachine = rideStateMachineService.createStateMachine(rideId);
 
             stateMachine.getExtendedState().getVariables().put(RIDE_ID_KEY, rideId);
-            stateMachine.getExtendedState().getVariables().put(SESSION_ID_KEY, request.getSessionId());
+            String riderSessionId = request.getSessionId();
+            stateMachine.getExtendedState().getVariables().put(RIDER_SESSION_ID_KEY, riderSessionId);
             stateMachine.getExtendedState().getVariables().put(ORIGIN_KEY, originCoordinates);
             stateMachine.getExtendedState().getVariables().put(DESTINATION_KEY, destinationCoordinates);
 

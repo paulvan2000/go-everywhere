@@ -2,11 +2,7 @@ package org.example.goeverywhere.server.grpc;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import org.example.goeverywhere.protocol.grpc.LoginRequest;
-import org.example.goeverywhere.protocol.grpc.LoginResponse;
-import org.example.goeverywhere.protocol.grpc.SignUpRequest;
-import org.example.goeverywhere.protocol.grpc.UserServiceGrpc;
-import org.example.goeverywhere.protocol.grpc.UserType;
+import org.example.goeverywhere.protocol.grpc.*;
 import org.example.goeverywhere.server.data.repository.UserRepository;
 import org.example.goeverywhere.server.service.SessionStore;
 import org.junit.jupiter.api.AfterEach;
@@ -19,7 +15,6 @@ import org.springframework.data.util.Pair;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.File;
-import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -54,6 +49,10 @@ public class IntegrationTestBase {
 
 
     protected UserServiceGrpc.UserServiceBlockingStub userServiceBlockingStub;
+    protected RiderServiceGrpc.RiderServiceStub riderServiceStub;
+    protected DriverServiceGrpc.DriverServiceStub driverServiceStub;
+    protected DriverServiceGrpc.DriverServiceBlockingStub driverServiceBlockingStub;
+
     protected ManagedChannel channel;
 
     @BeforeEach
@@ -67,6 +66,9 @@ public class IntegrationTestBase {
                 .usePlaintext()
                 .build();
         userServiceBlockingStub = UserServiceGrpc.newBlockingStub(channel);
+        riderServiceStub = RiderServiceGrpc.newStub(channel);
+        driverServiceStub = DriverServiceGrpc.newStub(channel);
+        driverServiceBlockingStub = DriverServiceGrpc.newBlockingStub(channel);
     }
 
     protected void signUpRider() {
@@ -87,7 +89,7 @@ public class IntegrationTestBase {
         return pair.getSecond();
     }
 
-    protected LoginResponse sellerLogin() {
+    protected LoginResponse driverLogin() {
         var pair = login(driverLogin);
         driverSessionId = pair.getFirst();
         return pair.getSecond();
