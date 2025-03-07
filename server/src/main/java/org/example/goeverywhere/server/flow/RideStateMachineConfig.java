@@ -5,6 +5,7 @@ import org.example.goeverywhere.server.service.RiderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.statemachine.StateContext;
+import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.config.EnableStateMachineFactory;
 import org.springframework.statemachine.config.EnumStateMachineConfigurerAdapter;
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer;
@@ -31,7 +32,8 @@ public class RideStateMachineConfig extends EnumStateMachineConfigurerAdapter<Ri
                 .state(RideState.RIDER_ONBOARD)
                 .state(RideState.IN_RIDE)
                 .end(RideState.COMPLETED)
-                .end(RideState.CANCELLED);
+                .end(RideState.CANCELLED)
+        ;
     }
 
     @Override
@@ -55,7 +57,7 @@ public class RideStateMachineConfig extends EnumStateMachineConfigurerAdapter<Ri
                 .withExternal()
                 .source(RideState.REQUESTED)
                 .event(RideEvent.DRIVER_ACCEPTED)
-                .action(eventProcessor.prepareRouteAndSend())
+                .action(eventProcessor.driverAccepted())
                 .target(RideState.DRIVER_EN_ROUTE)
 
 
@@ -75,7 +77,8 @@ public class RideStateMachineConfig extends EnumStateMachineConfigurerAdapter<Ri
 
 
                 .and()
-                .withExternal().source(RideState.DRIVER_ARRIVED)
+                .withExternal()
+                .source(RideState.DRIVER_ARRIVED)
                 .event(RideEvent.RIDE_STARTED)
                 .action(eventProcessor.rideStarted())
                 .target(RideState.IN_RIDE)
@@ -90,6 +93,17 @@ public class RideStateMachineConfig extends EnumStateMachineConfigurerAdapter<Ri
 
     public static <T> T fromContext(StateContext<RideState, RideEvent> context, String key) {
         return (T) context.getExtendedState().getVariables().get(key);
+    }
+    public static <T> T fromContext(StateMachine<RideState, RideEvent> stateMachine, String key) {
+        return (T) stateMachine.getExtendedState().getVariables().get(key);
+    }
+
+    public static void toContext(StateMachine<RideState, RideEvent> stateMachine, String key, Object value) {
+        stateMachine.getExtendedState().getVariables().put(key, value);
+    }
+
+    public static void toContext(StateContext<RideState, RideEvent> context, String key, Object value) {
+        context.getExtendedState().getVariables().put(key, value);
     }
 
 }
