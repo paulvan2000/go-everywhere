@@ -3,7 +3,6 @@ package org.example.goeverywhere.server.grpc;
 import com.google.type.LatLng;
 import io.grpc.stub.StreamObserver;
 import org.example.goeverywhere.protocol.grpc.*;
-import org.example.goeverywhere.server.service.routing.MockRouteService;
 import org.junit.jupiter.api.*;
 
 import java.util.List;
@@ -44,7 +43,7 @@ public class RiderFlowIntegrationTest extends IntegrationTestBase {
      */
     @Order(2)
     @Test
-    void fullRiderFlow() throws InterruptedException, ExecutionException {
+    void fullSingleRiderFlow() throws InterruptedException, ExecutionException {
         CountDownLatch driverLatch = new CountDownLatch(1);
         CountDownLatch riderLatch = new CountDownLatch(5);
         Future<?> riderFlowResult = riderExecutor.submit(() -> {
@@ -120,7 +119,7 @@ public class RiderFlowIntegrationTest extends IntegrationTestBase {
 
                             // a driver accepted the ride
                             driverServiceBlockingStub.acceptRide(AcceptRideRequest.newBuilder()
-                                    .setRideId(rideRequested.getRideId())
+                                    .setRiderId(rideRequested.getRiderId())
                                     .setSessionId(driverSessionId).build());
                             return;
 
@@ -144,7 +143,13 @@ public class RiderFlowIntegrationTest extends IntegrationTestBase {
                             }
                             driverServiceBlockingStub.driverArrived(DriverArrivedRequest.newBuilder()
                                     .setSessionId(driverSessionId)
-                                    .setRideId(rideAccepted.getRideId()).build());
+                                    .setRiderId(riderSessionId).build());
+
+                            // this call must be done manually once a driver picks up a rider
+                            driverServiceBlockingStub.rideStarted(RideStartedRequest.newBuilder()
+                                    .setSessionId(driverSessionId)
+                                    .setRiderId(riderSessionId)
+                                    .build());
                             return;
                         case RIDE_DETAILS:
                             System.out.println("Driver - Got a ride details");
@@ -152,7 +157,7 @@ public class RiderFlowIntegrationTest extends IntegrationTestBase {
                             // driver starts the ride once the rider gets in
                             driverServiceBlockingStub.rideStarted(RideStartedRequest.newBuilder()
                                     .setSessionId(driverSessionId)
-                                    .setRideId(rideDetails.getRideId())
+                                    .setRiderId(riderSessionId)
                                     .build());
                             List<Waypoint> waypointsList = rideDetails.getRouteToDestination().getWaypointsList();
                             // emulating moving to the destination
@@ -172,7 +177,7 @@ public class RiderFlowIntegrationTest extends IntegrationTestBase {
                             // driver completes the ride
                             driverServiceBlockingStub.rideCompleted(RideCompletedRequest.newBuilder()
                                     .setSessionId(driverSessionId)
-                                    .setRideId(rideDetails.getRideId())
+                                    .setRideId(riderSessionId)
                                     .build());
 
                     }
@@ -249,7 +254,7 @@ public class RiderFlowIntegrationTest extends IntegrationTestBase {
                             System.out.println("Driver - Ride requested, rejection");
                             RideRequested rideRequested = value.getRideRequested();
                             driverServiceBlockingStub.rejectRide(RejectRideRequest.newBuilder()
-                                    .setRideId(rideRequested.getRideId())
+                                    .setRiderId(riderSessionId)
                                     .setSessionId(driverSessionId).build());
                     }
                 }

@@ -35,10 +35,12 @@ public class RiderService {
             System.out.println("Decoded Origin: " + origin);
             System.out.println("Decoded Destination: " + destination);
 
+            String rideId = generateRideId(request);
             String riderSessionId = request.getSessionId();
 
             StateMachine<RideState, RideEvent> stateMachine = rideStateMachineService.createStateMachine(riderSessionId);
 
+            toContext(stateMachine, RIDE_ID_KEY, rideId);
             toContext(stateMachine, RIDER_SESSION_ID_KEY, riderSessionId);
 
 
@@ -53,4 +55,7 @@ public class RiderService {
         }
     }
 
+    private String generateRideId(RideRequest request) {
+        return "ride-" + request.getSessionId() + "-" + System.currentTimeMillis();
+    }
 }

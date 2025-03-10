@@ -67,7 +67,7 @@ public class MockRouteService implements RouteService {
 
     @Override
     public Route getRouteSegment(Route route, LatLng start, LatLng destination) {
-        return Route.newBuilder().addWaypoints(Waypoint.newBuilder().setLocation(start).setLocation(destination)).build();
+        return RouteUtils.generate3PointRoute(start, destination);
     }
 
 }
