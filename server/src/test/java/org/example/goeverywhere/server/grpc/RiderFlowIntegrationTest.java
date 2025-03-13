@@ -144,8 +144,6 @@ public class RiderFlowIntegrationTest extends IntegrationTestBase {
                             driverServiceBlockingStub.driverArrived(DriverArrivedRequest.newBuilder()
                                     .setSessionId(driverSessionId)
                                     .setRiderId(riderSessionId).build());
-
-                            // this call must be done manually once a driver picks up a rider
                             driverServiceBlockingStub.rideStarted(RideStartedRequest.newBuilder()
                                     .setSessionId(driverSessionId)
                                     .setRiderId(riderSessionId)
@@ -155,10 +153,6 @@ public class RiderFlowIntegrationTest extends IntegrationTestBase {
                             System.out.println("Driver - Got a ride details");
                             RideDetails rideDetails = value.getRideDetails();
                             // driver starts the ride once the rider gets in
-                            driverServiceBlockingStub.rideStarted(RideStartedRequest.newBuilder()
-                                    .setSessionId(driverSessionId)
-                                    .setRiderId(riderSessionId)
-                                    .build());
                             List<Waypoint> waypointsList = rideDetails.getRouteToDestination().getWaypointsList();
                             // emulating moving to the destination
                             for (Waypoint waypoint : waypointsList) {
@@ -179,6 +173,8 @@ public class RiderFlowIntegrationTest extends IntegrationTestBase {
                                     .setSessionId(driverSessionId)
                                     .setRideId(riderSessionId)
                                     .build());
+                        default:
+                            System.out.println("Driver - Default");
 
                     }
                 }
@@ -272,12 +268,12 @@ public class RiderFlowIntegrationTest extends IntegrationTestBase {
     private abstract class TestStreamObserver<T> implements StreamObserver<T> {
         @Override
         public void onError(Throwable t) {
-            // no op
+            System.out.println("Error: " + t.getMessage());
         }
 
         @Override
         public void onCompleted() {
-            // no op
+            System.out.println("Observer completed");
         }
     }
 

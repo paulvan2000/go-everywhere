@@ -153,10 +153,10 @@ public class UserRegistry {
         for (Driver driver : sorterDrivers) {
             Route currentRoute = driver.currentFullRoute;
             if(currentRoute == null) {
-                // if the driver is idle then there is no need to merge, we take rider's route
-                return Optional.of(Pair.of(driver, route));
+                // if the driver is idle then use the route from the current location to the rider's origin
+                currentRoute = routeService.generateRoute(driver.location, origin.getLocation());
             }
-            // checking if the driver's and rider's routes are mergeable
+            // checking if the driver's and rider's routes are mergeable and merge if possible
             Optional<Route> newRouteOpt = routeService.tryMergeRoutes(currentRoute, route);
             if(newRouteOpt.isPresent()) {
                 return Optional.of(Pair.of(driver, newRouteOpt.get()));

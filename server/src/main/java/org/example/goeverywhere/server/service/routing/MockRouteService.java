@@ -4,6 +4,7 @@ import com.google.type.LatLng;
 import org.example.goeverywhere.protocol.grpc.Route;
 import org.example.goeverywhere.protocol.grpc.Waypoint;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ import static org.example.goeverywhere.server.service.routing.RouteService.calcu
 public class MockRouteService implements RouteService {
 
     private volatile boolean returnEmptyOnMerge;
+
+    @Autowired
+    private GoogleMapsRouteService googleMapsRouteService;
 
     @Override
     public Route generateRoute(LatLng start, LatLng destination) {
@@ -67,7 +71,7 @@ public class MockRouteService implements RouteService {
 
     @Override
     public Route getRouteSegment(Route route, LatLng start, LatLng destination) {
-        return RouteUtils.generate3PointRoute(start, destination);
+        return googleMapsRouteService.getRouteSegment(route, start, destination);
     }
 
 }
