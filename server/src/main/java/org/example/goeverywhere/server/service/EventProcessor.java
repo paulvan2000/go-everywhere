@@ -50,7 +50,6 @@ public class EventProcessor {
      * This method process "Request ride" event. A user sent a request for a ride,
      * now the system needs to find the closest driver that is not busy and send a request to him.
      *
-     * @return
      */
     public Action<RideState, RideEvent> requestRide() {
         return context -> {
@@ -61,7 +60,7 @@ public class EventProcessor {
             LatLng riderLocation = rider.getOrigin();
             LatLng destinationLocation = rider.getDestination();
 
-            Route route = routeService.generateRoute(riderLocation, destinationLocation);
+            Route route = routeService.generateRoute(riderLocation, destinationLocation, riderSessionId);
 
             Optional<Pair<Driver, Route>> driverRoutePairOpt = userRegistry.findAvailableDriverAndNewRoute(route, rideId);
             if (driverRoutePairOpt.isEmpty()) {
@@ -108,7 +107,7 @@ public class EventProcessor {
             Route routeToOrigin = routeService.getRouteSegment(newFullRoute, driver.location, riderOrigin);
             RideAccepted.Builder rideAccepted = RideAccepted.newBuilder().setRouteToRider(routeToOrigin);
 
-            driver.getStreamObserver().onNext(DriverEvent.newBuilder().setRideAccepted(rideAccepted).build());
+            driver.getStreamObserver().onNext(DriverEvent.newBuilder().setRideDetails(RideDetails.newBuilder().setNewFullRoute(newFullRoute)).build());
             sendEventToRider(riderSessionId, RiderEvent.newBuilder().setRideAccepted(rideAccepted).build());
 
             // update all the previously added riders with the new route
@@ -174,8 +173,6 @@ public class EventProcessor {
             rider.setPickedUp(true);
             Route routeToDestination = routeService.getRouteSegment(driver.getCurrentFullRoute(), driver.location, rider.destination);
             rider.setCurrentRoute(routeToDestination);
-            RideDetails.Builder rideDetails = RideDetails.newBuilder().setRouteToDestination(routeToDestination);
-            driver.getStreamObserver().onNext(DriverEvent.newBuilder().setRideDetails(rideDetails).build());
             sendEventToRider(riderSessionId, RiderEvent.newBuilder().setRideStarted(RideStarted.newBuilder().build()).build());
         };
     }

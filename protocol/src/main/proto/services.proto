@@ -135,7 +135,6 @@ message DriverEvent {
   oneof event {
     RideRequested ride_requested = 1;
     RiderCancelled ride_cancelled = 2;
-    RideAccepted ride_accepted = 3;
     RideDetails ride_details = 4;
   }
 }
@@ -146,7 +145,7 @@ message RideRequested {
 }
 
 message RideDetails {
-  Route routeToDestination = 1;
+  Route new_full_route = 1;
 }
 
 message SubscribeForRideEventsRequest {
@@ -188,6 +187,18 @@ message Waypoint {
   google.type.LatLng location = 1;
   double distance_from_start_km = 2;
   double duration_from_start_min = 3;
+  repeated WaypointMetadata waypointMetadata = 4;
+}
+
+message WaypointMetadata {
+  WaypointType waypointType = 1;
+  string riderId = 2;
+}
+
+enum WaypointType {
+  UNDEFINED = 0;
+  ORIGIN = 1;
+  DESTINATION = 2;
 }
 
 service UserService {

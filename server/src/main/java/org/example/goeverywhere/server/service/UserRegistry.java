@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 
@@ -33,9 +32,8 @@ public class UserRegistry {
     // Radius of Earth in km
     public static final double EARTH_RADIUS = 6371;
     public static final int METERS_IN_KILOMETER = 1000;
-    private ConcurrentHashMap<String, Driver> drivers = new ConcurrentHashMap<>();
-    private ConcurrentHashMap<String, Rider> riders  = new ConcurrentHashMap<>();
-
+    private final ConcurrentHashMap<String, Driver> drivers = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, Rider> riders  = new ConcurrentHashMap<>();
     public void registerRider(String sessionId, StreamObserver<RiderEvent> streamObserver) {
         UserType userType = sessionStore.getUserType(sessionId);
         if(userType != UserType.RIDER) {
@@ -112,7 +110,7 @@ public class UserRegistry {
             // Update the driver's route
             driver.setCurrentFullRoute(updatedRoute.build());
 
-            System.out.println("Removed first waypoint. Next waypoint count: " + driver.currentFullRoute.getWaypointsCount());
+            System.out.println("Removed a waypoint. Next waypoint count: " + driver.currentFullRoute.getWaypointsCount());
         }
     }
 
@@ -139,7 +137,7 @@ public class UserRegistry {
      *
      */
     public Optional<Pair<Driver, Route>> findAvailableDriverAndNewRoute(Route route, String rideId) {
-        Waypoint origin = route.getWaypointsList().get(0);
+        Waypoint origin = route.getWaypointsList().getFirst();
         List<Driver> sorterDrivers = drivers.entrySet().parallelStream()
                 .filter(v -> {
                     Driver driver = v.getValue();
@@ -149,12 +147,12 @@ public class UserRegistry {
                         (int) (RouteService.calculateDistance(kv1.getValue().location, origin.getLocation()) - RouteService.calculateDistance(kv2.getValue().location, origin.getLocation()))
                 )
                 .map(Map.Entry::getValue)
-                .collect(Collectors.toList());
+                .toList();
         for (Driver driver : sorterDrivers) {
             Route currentRoute = driver.currentFullRoute;
             if(currentRoute == null) {
                 // if the driver is idle then use the route from the current location to the rider's origin
-                currentRoute = routeService.generateRoute(driver.location, origin.getLocation());
+                currentRoute = routeService.generateRoute(driver.location, origin.getLocation(), null);
             }
             // checking if the driver's and rider's routes are mergeable and merge if possible
             Optional<Route> newRouteOpt = routeService.tryMergeRoutes(currentRoute, route);
@@ -225,7 +223,6 @@ public class UserRegistry {
         volatile boolean isPickedUp = false;
         volatile LatLng origin;
         volatile LatLng destination;
-
 
         public LatLng getOrigin() {
             return origin;
