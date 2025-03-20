@@ -156,7 +156,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onNext(RiderEvent rideUpdate) {
                 switch (rideUpdate.getEventCase()) {
-                    case RIDE_REQUESTED:
+                    case RIDE_REGISTERED:
                         // notify the user that his request is accepted by the system
                         Toast.makeText(MapsActivity.this, "Ride request submitted!", Toast.LENGTH_SHORT).show();
                     case DRIVER_ARRIVED:
@@ -165,8 +165,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     case RIDE_STARTED:
                         // notify the user about that the ride is started
                         Toast.makeText(MapsActivity.this, "Ride started!", Toast.LENGTH_SHORT).show();
-                    case RIDE_IN_PROGRESS:
-                        // render the latest location to the map
                     case RIDE_COMPLETED:
                         Toast.makeText(MapsActivity.this, "Ride completed!", Toast.LENGTH_SHORT).show();
                     default:
@@ -198,7 +196,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Noti
 
         // Subscribe for ride events is
-        driverService.subscribeForRideEvents(SubscribeForRideEvents.newBuilder()
+        driverService.subscribeForRideEvents(SubscribeForRideEventsRequest.newBuilder()
                 .setSessionId(sessionHolder.get().getSessionId()).build(), new StreamObserver<>() {
             @Override
             public void onNext(DriverEvent driverEvent) {
@@ -209,7 +207,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         // Accepting the ride
                         blockingDriverService.acceptRide(AcceptRideRequest.newBuilder()
                                 .setSessionId(sessionHolder.get().getSessionId())
-                                .setRideId(driverEvent.getRideRequested().getRideId())
+                                .setRiderId(driverEvent.getRideRequested().getRiderId())
                                 .build());
 
                         // once the ride is accepted we need to send a location periodically

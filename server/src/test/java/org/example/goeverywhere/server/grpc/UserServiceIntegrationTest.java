@@ -8,8 +8,6 @@ import org.example.goeverywhere.protocol.grpc.LoginResponse;
 import org.example.goeverywhere.protocol.grpc.UserType;
 import org.junit.jupiter.api.Test;
 
-import java.util.UUID;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -37,19 +35,19 @@ public class UserServiceIntegrationTest extends IntegrationTestBase {
     @Test
     @Transactional
     public void testSuccessfulSignUp_rider() {
-        signUpRider();
-        var user = userRepository.findByEmail(riderLogin).get();
-        assertEquals(riderLogin, user.getEmail());
+        signUpRider1();
+        var user = userRepository.findByEmail(riderLogin1).get();
+        assertEquals(riderLogin1, user.getEmail());
         assertEquals(UserType.RIDER, user.getUserType());
         assertNotEquals(password, user.getPassword());
     }
 
     @Test
     public void testRiderLogin() {
-        signUpRider();
-        LoginResponse response = riderLogin();
+        signUpRider1();
+        LoginResponse response = riderLogin1();
         assertNotNull(response.getSessionId());
-        var userFromDB = userRepository.findByEmail(riderLogin).get();
+        var userFromDB = userRepository.findByEmail(riderLogin1).get();
         var userFromSessionStore = sessionStore.getUser(response.getSessionId());
         assertThat(userFromDB)
                 .usingRecursiveComparison()
@@ -59,8 +57,8 @@ public class UserServiceIntegrationTest extends IntegrationTestBase {
     @Test
     public void testRiderLoginIncorrectPassword() {
         userRepository.deleteAll();
-        signUpRider();
-        var loginRequest = LoginRequest.newBuilder().setEmail(riderLogin).setPassword("incorrect").build();
+        signUpRider1();
+        var loginRequest = LoginRequest.newBuilder().setEmail(riderLogin1).setPassword("incorrect").build();
         StatusRuntimeException statusRuntimeException = assertThrows(StatusRuntimeException.class, () -> userServiceBlockingStub.login(loginRequest));
         assertEquals(Status.UNAUTHENTICATED.getCode(), statusRuntimeException.getStatus().getCode());
         assertEquals("Invalid credentials", statusRuntimeException.getStatus().getDescription());

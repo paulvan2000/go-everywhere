@@ -4,6 +4,8 @@ import com.google.type.LatLng;
 import org.example.goeverywhere.protocol.grpc.Route;
 import org.example.goeverywhere.server.service.UserRegistry;
 
+import java.util.Optional;
+
 public interface RouteService {
     /**
      * Calculate distance between two points using Haversine formula (for Earth’s curvature)
@@ -21,5 +23,9 @@ public interface RouteService {
         return UserRegistry.EARTH_RADIUS * c * UserRegistry.METERS_IN_KILOMETER;
     }
 
-    Route generateRoute(LatLng start, LatLng destination);
+    Route generateRoute(LatLng start, LatLng destination, String riderSessionId);
+
+    Optional<Route> tryMergeRoutes(Route existingRoute, Route newPassengerRoute);
+
+    Route getRouteSegment(Route route, LatLng start, LatLng destination);
 }

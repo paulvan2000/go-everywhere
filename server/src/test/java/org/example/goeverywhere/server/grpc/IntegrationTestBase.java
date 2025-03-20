@@ -38,10 +38,12 @@ public class IntegrationTestBase {
     @Autowired
     protected SessionStore sessionStore;
 
-    protected SignUpRequest signUpRequestRider;
+    protected SignUpRequest signUpRequestRider1;
+    protected SignUpRequest signUpRequestRider2;
     protected SignUpRequest signUpRequestDriver;
 
-    protected String riderLogin;
+    protected String riderLogin1;
+    protected String riderLogin2;
     protected String driverLogin;
     protected String password;
     protected String riderSessionId;
@@ -57,10 +59,12 @@ public class IntegrationTestBase {
 
     @BeforeEach
     void setUp() {
-        riderLogin = "rider";
+        riderLogin1 = "rider1";
+        riderLogin2 = "rider2";
         driverLogin = "driver";
         password = "crackme";
-        signUpRequestRider = SignUpRequest.newBuilder().setUserType(UserType.RIDER).setEmail(riderLogin).setName("Alice").setPassword(password).build();
+        signUpRequestRider1 = SignUpRequest.newBuilder().setUserType(UserType.RIDER).setEmail(riderLogin1).setName("Alice").setPassword(password).build();
+        signUpRequestRider2 = SignUpRequest.newBuilder().setUserType(UserType.RIDER).setEmail(riderLogin2).setName("Carol").setPassword(password).build();
         signUpRequestDriver = SignUpRequest.newBuilder().setUserType(UserType.DRIVER).setEmail(driverLogin).setName("Bob").setPassword(password).build();
         channel = ManagedChannelBuilder.forAddress(serverHost, serverPort)
                 .usePlaintext()
@@ -71,9 +75,15 @@ public class IntegrationTestBase {
         driverServiceBlockingStub = DriverServiceGrpc.newBlockingStub(channel);
     }
 
-    protected void signUpRider() {
+    protected void signUpRider1() {
         if(riderSessionId == null) {
-            userServiceBlockingStub.signUp(signUpRequestRider);
+            userServiceBlockingStub.signUp(signUpRequestRider1);
+        }
+    }
+
+    protected void signUpRider2() {
+        if(riderSessionId == null) {
+            userServiceBlockingStub.signUp(signUpRequestRider2);
         }
     }
 
@@ -83,8 +93,14 @@ public class IntegrationTestBase {
         }
     }
 
-    protected LoginResponse riderLogin(){
-        var pair = login(riderLogin);
+    protected LoginResponse riderLogin1(){
+        var pair = login(riderLogin1);
+        riderSessionId = pair.getFirst();
+        return pair.getSecond();
+    }
+
+    protected LoginResponse riderLogin2(){
+        var pair = login(riderLogin2);
         riderSessionId = pair.getFirst();
         return pair.getSecond();
     }

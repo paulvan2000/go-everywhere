@@ -16,29 +16,33 @@ public class RideStateMachineService {
     private StateMachineFactory<RideState, RideEvent> stateMachineFactory;
 
 
-    // Stores rideId -> state machine mapping
+    // Stores riderId -> state machine mapping
     private final ConcurrentHashMap<String, StateMachine<RideState, RideEvent>> rideMachines = new ConcurrentHashMap<>();
 
 
-    // Create and store a state machine for a new ride
-    public StateMachine<RideState, RideEvent> createStateMachine(String rideId) {
+    // Create and store a state machine for a new rider
+    public StateMachine<RideState, RideEvent> createStateMachine(String riderId) {
         StateMachine<RideState, RideEvent> stateMachine = stateMachineFactory.getStateMachine();
         stateMachine.start();
-        rideMachines.put(rideId, stateMachine);
+        rideMachines.put(riderId, stateMachine);
         return stateMachine;
     }
 
     // Retrieve the state machine for a ride
-    public StateMachine<RideState, RideEvent> getStateMachine(String rideId) {
-        return rideMachines.get(rideId);
+    public StateMachine<RideState, RideEvent> getStateMachine(String riderId) {
+        return rideMachines.get(riderId);
     }
 
     // Trigger a state transition
-    public void sendEvent(String rideId, RideEvent event) {
-        StateMachine<RideState, RideEvent> stateMachine = getStateMachine(rideId);
+    public void sendEvent(String riderId, RideEvent event) {
+        StateMachine<RideState, RideEvent> stateMachine = getStateMachine(riderId);
         if (stateMachine != null) {
             stateMachine.sendEvent(event);
         }
+    }
+
+    public void unregisterStateMachine(String rideId) {
+        rideMachines.remove(rideId);
     }
 
 }

@@ -31,32 +31,37 @@ public class DriverServiceGprcImpl extends DriverServiceGrpc.DriverServiceImplBa
 
     @Override
     public void acceptRide(AcceptRideRequest request, StreamObserver<Empty> responseObserver) {
-        validateIdentity(request.getSessionId(), request.getRideId());
-        rideStateMachineService.sendEvent(request.getRideId(), RideEvent.DRIVER_ACCEPTED);
+        validateIdentity(request.getSessionId(), request.getRiderId());
+        rideStateMachineService.sendEvent(request.getRiderId(), RideEvent.DRIVER_ACCEPTED);
         responseObserver.onNext(Empty.getDefaultInstance());
         responseObserver.onCompleted();
     }
 
     @Override
     public void rejectRide(RejectRideRequest request, StreamObserver<Empty> responseObserver) {
-        validateIdentity(request.getSessionId(), request.getRideId());
-        rideStateMachineService.sendEvent(request.getRideId(), RideEvent.DRIVER_REJECTED);
+        validateIdentity(request.getSessionId(), request.getRiderId());
+        rideStateMachineService.sendEvent(request.getRiderId(), RideEvent.DRIVER_REJECTED);
         responseObserver.onNext(Empty.getDefaultInstance());
         responseObserver.onCompleted();
     }
 
     @Override
     public void driverArrived(DriverArrivedRequest request, StreamObserver<Empty> responseObserver) {
-        validateIdentity(request.getSessionId(), request.getRideId());
-        rideStateMachineService.sendEvent(request.getRideId(), RideEvent.DRIVER_ARRIVED);
+        String driverSessionId = request.getSessionId();
+        String riderSessionId = request.getRiderId(); // The sessionId of the rider
+
+        // Validate that this driver is associated with the triggering ride
+        validateIdentity(driverSessionId, riderSessionId);
+
+        rideStateMachineService.sendEvent(riderSessionId, RideEvent.DRIVER_ARRIVED);
         responseObserver.onNext(Empty.getDefaultInstance());
         responseObserver.onCompleted();
     }
 
     @Override
     public void rideStarted(RideStartedRequest request, StreamObserver<Empty> responseObserver) {
-        validateIdentity(request.getSessionId(), request.getRideId());
-        rideStateMachineService.sendEvent(request.getRideId(), RideEvent.RIDE_STARTED);
+        validateIdentity(request.getSessionId(), request.getRiderId());
+        rideStateMachineService.sendEvent(request.getRiderId(), RideEvent.RIDE_STARTED);
         responseObserver.onNext(Empty.getDefaultInstance());
         responseObserver.onCompleted();
     }
@@ -75,6 +80,6 @@ public class DriverServiceGprcImpl extends DriverServiceGrpc.DriverServiceImplBa
         StateMachine<RideState, RideEvent> stateMachine = rideStateMachineService.getStateMachine(rideId);
         if(!stateMachine.getExtendedState().getVariables().get(DRIVER_SESSION_ID_KEY).equals(sessionId)) {
             throw new RuntimeException("Invalid session id");
-        };
+        }
     }
 }

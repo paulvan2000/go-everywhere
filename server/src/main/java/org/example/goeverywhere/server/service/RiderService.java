@@ -2,51 +2,51 @@ package org.example.goeverywhere.server.service;
 
 import com.google.type.LatLng;
 import org.example.goeverywhere.protocol.grpc.RideRequest;
-import org.example.goeverywhere.protocol.grpc.RideRequested;
-import org.example.goeverywhere.protocol.grpc.RiderEvent;
-import org.example.goeverywhere.protocol.grpc.SystemCancelled;
 import org.example.goeverywhere.server.flow.RideEvent;
 import org.example.goeverywhere.server.flow.RideState;
 import org.example.goeverywhere.server.flow.RideStateMachineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.StateMachine;
-import org.springframework.statemachine.action.Action;
 import org.springframework.stereotype.Service;
 
-import static org.example.goeverywhere.server.flow.RideStateMachineConfig.fromContext;
+import static org.example.goeverywhere.server.flow.RideStateMachineConfig.toContext;
 
 @Service
 public class RiderService {
 
     public static final String RIDER_SESSION_ID_KEY = "riderSessionId";
+    public static final String NEW_ROUTE_CANDIDATE_KEY = "newRouteCandidate";
     public static final String RIDE_ID_KEY = "rideId";
-    public static final String ORIGIN_KEY = "origin";
-    public static final String DESTINATION_KEY = "destination";
+
     @Autowired
     private RideStateMachineService rideStateMachineService;
 
     @Autowired
     private GeocodingService geocodingService;
+
     @Autowired
     private UserRegistry userRegistry;
 
     public void requestRide(RideRequest request) {
         try {
-            LatLng originCoordinates = geocodingService.decodeAddress(request.getOrigin());
-            LatLng destinationCoordinates = geocodingService.decodeAddress(request.getDestination());
+            LatLng origin = geocodingService.decodeAddress(request.getOrigin());
+            LatLng destination = geocodingService.decodeAddress(request.getDestination());
 
-            System.out.println("Decoded Origin: " + originCoordinates);
-            System.out.println("Decoded Destination: " + destinationCoordinates);
+            System.out.println("Decoded Origin: " + origin);
+            System.out.println("Decoded Destination: " + destination);
 
             String rideId = generateRideId(request);
-
-            StateMachine<RideState, RideEvent> stateMachine = rideStateMachineService.createStateMachine(rideId);
-
-            stateMachine.getExtendedState().getVariables().put(RIDE_ID_KEY, rideId);
             String riderSessionId = request.getSessionId();
-            stateMachine.getExtendedState().getVariables().put(RIDER_SESSION_ID_KEY, riderSessionId);
-            stateMachine.getExtendedState().getVariables().put(ORIGIN_KEY, originCoordinates);
-            stateMachine.getExtendedState().getVariables().put(DESTINATION_KEY, destinationCoordinates);
+
+            StateMachine<RideState, RideEvent> stateMachine = rideStateMachineService.createStateMachine(riderSessionId);
+
+            toContext(stateMachine, RIDE_ID_KEY, rideId);
+            toContext(stateMachine, RIDER_SESSION_ID_KEY, riderSessionId);
+
+
+            UserRegistry.Rider rider = userRegistry.getRiderMaybe(riderSessionId).orElseThrow();
+            rider.setOrigin(origin);
+            rider.setDestination(destination);
 
             stateMachine.sendEvent(RideEvent.RIDE_REQUESTED);
         } catch (Exception e) {

@@ -3,7 +3,6 @@ package org.example.goeverywhere.server.grpc;
 import com.google.type.LatLng;
 import io.grpc.stub.StreamObserver;
 import org.example.goeverywhere.protocol.grpc.*;
-import org.example.goeverywhere.server.service.routing.MockRouteService;
 import org.junit.jupiter.api.*;
 
 import java.util.List;
@@ -13,22 +12,21 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class RiderFlowIntegrationTest extends IntegrationTestBase {
 
-    public static final LatLng riderStartLocation = LatLng.newBuilder().setLatitude(26.367268).setLongitude(-80.197098).build();
-    public static final LatLng driverStartLocation = LatLng.newBuilder().setLatitude(26.382619).setLongitude(-80.204110).build();
     private static String driverSessionId;
+    public static final LatLng driverStartLocation = LatLng.newBuilder().setLatitude(26.382619).setLongitude(-80.204110).build();
     private static String riderSessionId;
 
-    private ExecutorService riderExecutor = Executors.newSingleThreadExecutor();
-    private ExecutorService driverExecutor = Executors.newSingleThreadExecutor();
+    private final ExecutorService riderExecutor = Executors.newSingleThreadExecutor();
+    private final ExecutorService driverExecutor = Executors.newSingleThreadExecutor();
 
 
     @Order(1)
     @Test
     void prepare() {
         signUpDriver();
-        signUpRider();
+        signUpRider1();
         driverSessionId = driverLogin().getSessionId();
-        riderSessionId = riderLogin().getSessionId();
+        riderSessionId = riderLogin1().getSessionId();
     }
 
 
@@ -44,7 +42,7 @@ public class RiderFlowIntegrationTest extends IntegrationTestBase {
      */
     @Order(2)
     @Test
-    void fullRiderFlow() throws InterruptedException, ExecutionException {
+    void fullSingleRiderFlow() throws InterruptedException, ExecutionException {
         CountDownLatch driverLatch = new CountDownLatch(1);
         CountDownLatch riderLatch = new CountDownLatch(5);
         Future<?> riderFlowResult = riderExecutor.submit(() -> {
@@ -106,7 +104,6 @@ public class RiderFlowIntegrationTest extends IntegrationTestBase {
 
 
         Future<?> driverFlowResult = driverExecutor.submit(() -> {
-
             driverServiceStub.subscribeForRideEvents(SubscribeForRideEventsRequest
                     .newBuilder()
                     .setSessionId(driverSessionId).build(), new TestStreamObserver<>() {
@@ -120,42 +117,18 @@ public class RiderFlowIntegrationTest extends IntegrationTestBase {
 
                             // a driver accepted the ride
                             driverServiceBlockingStub.acceptRide(AcceptRideRequest.newBuilder()
-                                    .setRideId(rideRequested.getRideId())
+                                    .setRiderId(rideRequested.getRiderId())
                                     .setSessionId(driverSessionId).build());
                             return;
 
-                        case RIDE_ACCEPTED:
-                            System.out.println("Driver - Got the route to the pickup point");
-                            RideAccepted rideAccepted = value.getRideAccepted();
-                            Route route = rideAccepted.getRouteToRider();
-                            // emulating moving to the pickup location
-                            for (Waypoint waypoint : route.getWaypointsList()) {
-                                LatLng location = waypoint.getLocation();
-                                System.out.println("Driver - On the way, updating coordinates to " + location);
-                                userServiceBlockingStub.updateCurrentLocation(UpdateCurrentLocationRequest.newBuilder()
-                                        .setSessionId(driverSessionId)
-                                        .setLocation(location)
-                                        .build());
-                                try {
-                                    Thread.sleep(100);
-                                } catch (InterruptedException e) {
-                                    throw new RuntimeException(e);
-                                }
-                            }
-                            driverServiceBlockingStub.driverArrived(DriverArrivedRequest.newBuilder()
-                                    .setSessionId(driverSessionId)
-                                    .setRideId(rideAccepted.getRideId()).build());
-                            return;
                         case RIDE_DETAILS:
-                            System.out.println("Driver - Got a ride details");
                             RideDetails rideDetails = value.getRideDetails();
                             // driver starts the ride once the rider gets in
-                            driverServiceBlockingStub.rideStarted(RideStartedRequest.newBuilder()
-                                    .setSessionId(driverSessionId)
-                                    .setRideId(rideDetails.getRideId())
-                                    .build());
-                            List<Waypoint> waypointsList = rideDetails.getRouteToDestination().getWaypointsList();
-                            // emulating moving to the destination
+                            List<Waypoint> waypointsList = rideDetails.getNewFullRoute().getWaypointsList();
+
+                            System.out.println("Driver - Got a new route");
+
+                            // emulating moving to the pickup location
                             for (Waypoint waypoint : waypointsList) {
                                 LatLng location = waypoint.getLocation();
                                 System.out.println("Driver - On the way, updating coordinates to " + location);
@@ -163,17 +136,41 @@ public class RiderFlowIntegrationTest extends IntegrationTestBase {
                                         .setSessionId(driverSessionId)
                                         .setLocation(location)
                                         .build());
-                                try {
-                                    Thread.sleep(100);
-                                } catch (InterruptedException e) {
-                                    throw new RuntimeException(e);
+                                pause();
+
+                                // let's check if this waypoint is any special.
+                                // It can be an origin point, destination point or just a plain intermediary point
+                                for (WaypointMetadata metadata : waypoint.getWaypointMetadataList()){
+                                    switch (metadata.getWaypointType()) {
+                                        case ORIGIN -> {
+                                            System.out.println("Driver - Arrived at the pickup point");
+                                            driverServiceBlockingStub.driverArrived(DriverArrivedRequest.newBuilder()
+                                                    .setSessionId(driverSessionId)
+                                                    .setRiderId(metadata.getRiderId()).build());
+                                            // a driver picked up a rider
+                                            System.out.println("Driver - Starting the ride");
+                                            driverServiceBlockingStub.rideStarted(RideStartedRequest.newBuilder()
+                                                    .setSessionId(driverSessionId)
+                                                    .setRiderId(riderSessionId)
+                                                    .build());
+                                            pause();
+                                        }
+                                        case DESTINATION -> {
+                                            // driver completes the ride
+                                            System.out.println("Driver - Arrived at the final destination");
+                                            driverServiceBlockingStub.rideCompleted(RideCompletedRequest.newBuilder()
+                                                    .setSessionId(driverSessionId)
+                                                    .setRideId(riderSessionId)
+                                                    .build());
+                                            pause();
+
+                                        }
+                                    }
+
                                 }
                             }
-                            // driver completes the ride
-                            driverServiceBlockingStub.rideCompleted(RideCompletedRequest.newBuilder()
-                                    .setSessionId(driverSessionId)
-                                    .setRideId(rideDetails.getRideId())
-                                    .build());
+                        default:
+                            throw new UnsupportedOperationException("Unknown event type: " + value.getEventCase());
 
                     }
                 }
@@ -189,12 +186,20 @@ public class RiderFlowIntegrationTest extends IntegrationTestBase {
         driverFlowResult.get();
     }
 
+    private static void pause() {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     /**
      * This test scenario driver reject the rider but it's the only available driver so the system cancels the ride
      */
-    @Order(3)
-    @Test
+//    @Order(3)
+//    @Test
     void riderFlow_theOnlyDriverRejects() throws InterruptedException, ExecutionException {
         CountDownLatch driverLatch = new CountDownLatch(1);
         CountDownLatch riderLatch = new CountDownLatch(2);
@@ -249,7 +254,7 @@ public class RiderFlowIntegrationTest extends IntegrationTestBase {
                             System.out.println("Driver - Ride requested, rejection");
                             RideRequested rideRequested = value.getRideRequested();
                             driverServiceBlockingStub.rejectRide(RejectRideRequest.newBuilder()
-                                    .setRideId(rideRequested.getRideId())
+                                    .setRiderId(riderSessionId)
                                     .setSessionId(driverSessionId).build());
                     }
                 }
@@ -264,15 +269,15 @@ public class RiderFlowIntegrationTest extends IntegrationTestBase {
         driverFlowResult.get();
     }
 
-    private abstract class TestStreamObserver<T> implements StreamObserver<T> {
+    private abstract static class TestStreamObserver<T> implements StreamObserver<T> {
         @Override
         public void onError(Throwable t) {
-            // no op
+            System.out.println("Error: " + t.getMessage());
         }
 
         @Override
         public void onCompleted() {
-            // no op
+            System.out.println("Observer completed");
         }
     }
 

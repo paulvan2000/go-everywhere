@@ -17,8 +17,8 @@ dependencies {
     // Spring Data JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.3.3'
 
-    implementation "io.grpc:grpc-protobuf:1.58.0" // Protobuf support
-    implementation "io.grpc:grpc-stub:1.58.0" // Stub support
+    implementation "io.grpc:grpc-protobuf:1.71.0" // Protobuf support
+    implementation "io.grpc:grpc-stub:1.71.0" // Stub support
 
     // Protocol module (project dependency)
     implementation project(':protocol')
