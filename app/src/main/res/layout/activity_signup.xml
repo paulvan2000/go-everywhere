@@ -11,7 +11,7 @@
     android:background="@drawable/pagebkg"
     tools:context=".SignupActivity"
     >
-    
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
             android:layout_gravity="center_horizontal"
             android:padding="24dp"
             android:background="@drawable/lavender_border">
-            
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,24 +37,24 @@
                 android:textColor="@color/lavender"/>
 
             <RadioGroup
-                    android:id="@+id/role_radio_group"
-                    android:layout_width="match_parent"
+                android:id="@+id/role_radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
+                <RadioButton
+                    android:id="@+id/radio_rider"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="16dp">
+                    android:text="Rider"
+                    android:checked="true" />
 
                 <RadioButton
-                        android:id="@+id/radio_rider"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Rider"
-                        android:checked="true" />
-
-                <RadioButton
-                        android:id="@+id/radio_driver"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Driver" />
+                    android:id="@+id/radio_driver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Driver" />
             </RadioGroup>
 
             <EditText
@@ -93,7 +93,7 @@
                 android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
-            
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
