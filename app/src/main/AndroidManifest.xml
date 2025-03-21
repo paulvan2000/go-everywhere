@@ -43,6 +43,59 @@
             android:name=".MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
+
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false"
+            >
+        </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false"
+            >
+        </activity>
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="false"
+            >
+        </activity>
+
+        <activity
+            android:name=".SafetyActivity"
+            android:exported="false"
+            >
+        </activity>
+
+        <activity
+            android:name=".NotificationsActivity"
+            android:exported="false"
+            >
+        </activity>
+
+        <activity
+            android:name=".PlanActivity"
+            android:exported="false"
+            >
+        </activity>
+
+        <activity
+            android:name=".PaymentActivity"
+            android:exported="false"
+            >
+        </activity>
+
+        <activity
+            android:name=".WaitActivity"
+            android:exported="false"
+            >
+        </activity>
+
+        <activity
+            android:name=".CoffeeActivity"
+            android:exported="false"
+            >
+        </activity>
+
     </application>
 
 </manifest>
