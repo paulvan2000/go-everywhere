@@ -98,7 +98,6 @@ public class LoginActivity extends AppCompatActivity {
             LoginResponse loginResponse = userService.login(LoginRequest.newBuilder()
                     .setEmail(email)
                     .setPassword(password)
-
                     .build());
             sessionHolder.set(loginResponse);
             userService.updateCurrentLocation(UpdateCurrentLocationRequest.newBuilder()
@@ -108,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                             .setLongitude(result.getLongitude())
                             .build())
                     .build());
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
         } catch (Exception e) {
