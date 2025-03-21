@@ -32,8 +32,8 @@ public class RiderService {
             LatLng origin = geocodingService.decodeAddress(request.getOrigin());
             LatLng destination = geocodingService.decodeAddress(request.getDestination());
 
-            System.out.println("Decoded Origin: " + origin);
-            System.out.println("Decoded Destination: " + destination);
+            System.out.println("Decoded Origin:\n" + origin);
+            System.out.println("Decoded Destination:\n" + destination);
 
             String rideId = generateRideId(request);
             String riderSessionId = request.getSessionId();

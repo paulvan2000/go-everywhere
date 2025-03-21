@@ -359,7 +359,7 @@ public class GoogleMapsRouteService implements RouteService {
             }
         }
         // threshold of 50 meters, say
-        if (bestDist < 0.05 * 1000) {
+        if (bestDist < 0.1 * 1000) {
             return best;
         }
         return null;

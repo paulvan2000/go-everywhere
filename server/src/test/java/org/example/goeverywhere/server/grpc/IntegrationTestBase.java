@@ -118,6 +118,15 @@ public class IntegrationTestBase {
         return Pair.of(sessionId, response);
     }
 
+    protected static void pause() {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     @AfterEach
     public void cleanUp() throws InterruptedException {
         userRepository.deleteAll();
