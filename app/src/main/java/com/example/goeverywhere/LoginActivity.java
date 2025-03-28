@@ -98,22 +98,33 @@ public class LoginActivity extends AppCompatActivity {
             LoginResponse loginResponse = userService.login(LoginRequest.newBuilder()
                     .setEmail(email)
                     .setPassword(password)
-
                     .build());
             sessionHolder.set(loginResponse);
-            userService.updateCurrentLocation(UpdateCurrentLocationRequest.newBuilder()
-                    .setSessionId(loginResponse.getSessionId())
-                    .setLocation(LatLng.newBuilder()
-                            .setLatitude(result.getLatitude())
-                            .setLongitude(result.getLongitude())
-                            .build())
-                    .build());
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            
+            // Try to update location, but don't let it crash the app if it fails
+            try {
+                if (result != null) {
+                    userService.updateCurrentLocation(UpdateCurrentLocationRequest.newBuilder()
+                            .setSessionId(loginResponse.getSessionId())
+                            .setLocation(LatLng.newBuilder()
+                                    .setLatitude(result.getLatitude())
+                                    .setLongitude(result.getLongitude())
+                                    .build())
+                            .build());
+                }
+            } catch (Exception locationError) {
+                // Log the error but continue with login process
+                System.err.println("Failed to update location: " + locationError.getMessage());
+                // Not showing toast to avoid confusing the user
+            }
+            
+            // Redirect to HomeActivity instead of MainActivity
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
         } catch (Exception e) {
             Toast.makeText(LoginActivity.this, "Login failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            throw new RuntimeException(e);
+            e.printStackTrace(); // Just log the error instead of throwing it
         }
     }
 }
