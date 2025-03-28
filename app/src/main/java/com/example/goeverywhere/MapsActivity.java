@@ -208,9 +208,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 blockingDriverService.acceptRide(
                                         AcceptRideRequest.newBuilder()
                                                 .setSessionId(sessionHolder.get().getSessionId())
-                                                .setRideId(driverEvent.getRideRequested().getRideId())
+                                                .setRiderId(driverEvent.getRideRequested().getRiderId())
                                                 .build());
-                                userService.updateCurrentLocation(UpdateCurrentLocationRequest.newBuilder().build());
+                                
+                                // Get current location and update it with proper session ID
+                                if (ActivityCompat.checkSelfPermission(MapsActivity.this, 
+                                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                                    // Use last known location from the map if available
+                                    if (mMap != null && mMap.getMyLocation() != null) {
+                                        android.location.Location myLocation = mMap.getMyLocation();
+                                        userService.updateCurrentLocation(UpdateCurrentLocationRequest.newBuilder()
+                                                .setSessionId(sessionHolder.get().getSessionId())
+                                                .setLocation(com.google.type.LatLng.newBuilder()
+                                                        .setLatitude(myLocation.getLatitude())
+                                                        .setLongitude(myLocation.getLongitude())
+                                                        .build())
+                                                .build());
+                                    } else {
+                                        // If map location isn't available, just log for debugging
+                                        System.out.println("Cannot update location: Map or location is null");
+                                    }
+                                }
                                 break;
                             case RIDE_CANCELLED:
                                 // Rider cancelled the ride, notify the driver as needed

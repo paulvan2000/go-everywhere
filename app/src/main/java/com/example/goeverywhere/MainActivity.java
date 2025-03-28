@@ -32,8 +32,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (sessionHolder.get() == null) {
+            Toast.makeText(this, "Session is null in MainActivity!", Toast.LENGTH_LONG).show();
             redirectToLogin();
             return;
+        } else {
+            Toast.makeText(this, "Session is valid in MainActivity: " + sessionHolder.get().getSessionId().substring(0, 5) + "...", Toast.LENGTH_SHORT).show();
         }
 
         inputAddress = findViewById(R.id.input_address);
