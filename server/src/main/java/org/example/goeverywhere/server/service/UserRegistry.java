@@ -60,26 +60,36 @@ public class UserRegistry {
     }
 
     public void updateUserLocation(String sessionId, LatLng location) {
-        UserType userType = sessionStore.getUserType(sessionId);
-        switch (userType) {
-            case RIDER -> {
-                Rider rider = riders.get(sessionId);
-                if(rider == null) {
-                    throw new IllegalArgumentException("Unknown sessionId " + sessionId);
+        try {
+            UserType userType = sessionStore.getUserType(sessionId);
+            switch (userType) {
+                case RIDER -> {
+                    Rider rider = riders.get(sessionId);
+                    if(rider == null) {
+                        // If the rider isn't registered yet, we log a message
+                        // but don't throw an exception
+                        System.out.println("Rider not yet registered with sessionId " + sessionId);
+                        return;
+                    }
+                    rider.location = location;
                 }
-                rider.location = location;
-            }
-            case DRIVER -> {
-                Driver driver = drivers.get(sessionId);
-                if(driver == null) {
-                    throw new IllegalArgumentException("Unknown sessionId " + sessionId);
+                case DRIVER -> {
+                    Driver driver = drivers.get(sessionId);
+                    if(driver == null) {
+                        // If the driver isn't registered yet, we log a message
+                        // but don't throw an exception
+                        System.out.println("Driver not yet registered with sessionId " + sessionId);
+                        return;
+                    }
+                    driver.location = location;
+                    // Attempt to remove the waypoint if the driver is close enough
+                    checkAndRemoveWaypoint(driver);
                 }
-                driver.location = location;
-                // Attempt to remove the waypoint if the driver is close enough
-                checkAndRemoveWaypoint(driver);
             }
+        } catch (IllegalArgumentException e) {
+            // Log the error but don't rethrow
+            System.err.println("Error updating location: " + e.getMessage());
         }
-
     }
 
     /**
