@@ -74,10 +74,16 @@ public class UserServiceGrpcImpl extends UserServiceGrpc.UserServiceImplBase {
 
     @Override
     public void updateCurrentLocation(UpdateCurrentLocationRequest request, StreamObserver<Empty> responseObserver) {
-        userRegistry.updateUserLocation(request.getSessionId(), request.getLocation());
-
-        responseObserver.onNext(Empty.getDefaultInstance());
-        responseObserver.onCompleted();
+        try {
+            userRegistry.updateUserLocation(request.getSessionId(), request.getLocation());
+            responseObserver.onNext(Empty.getDefaultInstance());
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            System.err.println("Error updating user location: " + e.getMessage());
+            responseObserver.onError(Status.INTERNAL
+                .withDescription("Error updating user location: " + e.getMessage())
+                .asRuntimeException());
+        }
     }
 
 
