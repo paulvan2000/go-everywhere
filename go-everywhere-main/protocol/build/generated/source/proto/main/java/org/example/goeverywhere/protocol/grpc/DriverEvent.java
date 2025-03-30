@@ -25,6 +25,90 @@ private static final long serialVersionUID = 0L;
     return new DriverEvent();
   }
 
+  @java.lang.Override
+  public final com.google.protobuf.UnknownFieldSet
+  getUnknownFields() {
+    return this.unknownFields;
+  }
+  private DriverEvent(
+      com.google.protobuf.CodedInputStream input,
+      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+      throws com.google.protobuf.InvalidProtocolBufferException {
+    this();
+    if (extensionRegistry == null) {
+      throw new java.lang.NullPointerException();
+    }
+    com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+        com.google.protobuf.UnknownFieldSet.newBuilder();
+    try {
+      boolean done = false;
+      while (!done) {
+        int tag = input.readTag();
+        switch (tag) {
+          case 0:
+            done = true;
+            break;
+          case 10: {
+            org.example.goeverywhere.protocol.grpc.RideRequested.Builder subBuilder = null;
+            if (eventCase_ == 1) {
+              subBuilder = ((org.example.goeverywhere.protocol.grpc.RideRequested) event_).toBuilder();
+            }
+            event_ =
+                input.readMessage(org.example.goeverywhere.protocol.grpc.RideRequested.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((org.example.goeverywhere.protocol.grpc.RideRequested) event_);
+              event_ = subBuilder.buildPartial();
+            }
+            eventCase_ = 1;
+            break;
+          }
+          case 18: {
+            org.example.goeverywhere.protocol.grpc.RiderCancelled.Builder subBuilder = null;
+            if (eventCase_ == 2) {
+              subBuilder = ((org.example.goeverywhere.protocol.grpc.RiderCancelled) event_).toBuilder();
+            }
+            event_ =
+                input.readMessage(org.example.goeverywhere.protocol.grpc.RiderCancelled.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((org.example.goeverywhere.protocol.grpc.RiderCancelled) event_);
+              event_ = subBuilder.buildPartial();
+            }
+            eventCase_ = 2;
+            break;
+          }
+          case 34: {
+            org.example.goeverywhere.protocol.grpc.RideDetails.Builder subBuilder = null;
+            if (eventCase_ == 4) {
+              subBuilder = ((org.example.goeverywhere.protocol.grpc.RideDetails) event_).toBuilder();
+            }
+            event_ =
+                input.readMessage(org.example.goeverywhere.protocol.grpc.RideDetails.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((org.example.goeverywhere.protocol.grpc.RideDetails) event_);
+              event_ = subBuilder.buildPartial();
+            }
+            eventCase_ = 4;
+            break;
+          }
+          default: {
+            if (!parseUnknownField(
+                input, unknownFields, extensionRegistry, tag)) {
+              done = true;
+            }
+            break;
+          }
+        }
+      }
+    } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+      throw e.setUnfinishedMessage(this);
+    } catch (java.io.IOException e) {
+      throw new com.google.protobuf.InvalidProtocolBufferException(
+          e).setUnfinishedMessage(this);
+    } finally {
+      this.unknownFields = unknownFields.build();
+      makeExtensionsImmutable();
+    }
+  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return org.example.goeverywhere.protocol.grpc.Services.internal_static_org_example_goeverywhere_protocol_grpc_DriverEvent_descriptor;
@@ -39,7 +123,6 @@ private static final long serialVersionUID = 0L;
   }
 
   private int eventCase_ = 0;
-  @SuppressWarnings("serial")
   private java.lang.Object event_;
   public enum EventCase
       implements com.google.protobuf.Internal.EnumLite,
@@ -198,7 +281,7 @@ private static final long serialVersionUID = 0L;
     if (eventCase_ == 4) {
       output.writeMessage(4, (org.example.goeverywhere.protocol.grpc.RideDetails) event_);
     }
-    getUnknownFields().writeTo(output);
+    unknownFields.writeTo(output);
   }
 
   @java.lang.Override
@@ -219,7 +302,7 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(4, (org.example.goeverywhere.protocol.grpc.RideDetails) event_);
     }
-    size += getUnknownFields().getSerializedSize();
+    size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
   }
@@ -251,7 +334,7 @@ private static final long serialVersionUID = 0L;
       case 0:
       default:
     }
-    if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+    if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
 
@@ -278,7 +361,7 @@ private static final long serialVersionUID = 0L;
       case 0:
       default:
     }
-    hash = (29 * hash) + getUnknownFields().hashCode();
+    hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
@@ -395,27 +478,22 @@ private static final long serialVersionUID = 0L;
 
     // Construct using org.example.goeverywhere.protocol.grpc.DriverEvent.newBuilder()
     private Builder() {
-
+      maybeForceBuilderInitialization();
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-
+      maybeForceBuilderInitialization();
+    }
+    private void maybeForceBuilderInitialization() {
+      if (com.google.protobuf.GeneratedMessageV3
+              .alwaysUseFieldBuilders) {
+      }
     }
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      bitField0_ = 0;
-      if (rideRequestedBuilder_ != null) {
-        rideRequestedBuilder_.clear();
-      }
-      if (rideCancelledBuilder_ != null) {
-        rideCancelledBuilder_.clear();
-      }
-      if (rideDetailsBuilder_ != null) {
-        rideDetailsBuilder_.clear();
-      }
       eventCase_ = 0;
       event_ = null;
       return this;
@@ -444,33 +522,64 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public org.example.goeverywhere.protocol.grpc.DriverEvent buildPartial() {
       org.example.goeverywhere.protocol.grpc.DriverEvent result = new org.example.goeverywhere.protocol.grpc.DriverEvent(this);
-      if (bitField0_ != 0) { buildPartial0(result); }
-      buildPartialOneofs(result);
+      if (eventCase_ == 1) {
+        if (rideRequestedBuilder_ == null) {
+          result.event_ = event_;
+        } else {
+          result.event_ = rideRequestedBuilder_.build();
+        }
+      }
+      if (eventCase_ == 2) {
+        if (rideCancelledBuilder_ == null) {
+          result.event_ = event_;
+        } else {
+          result.event_ = rideCancelledBuilder_.build();
+        }
+      }
+      if (eventCase_ == 4) {
+        if (rideDetailsBuilder_ == null) {
+          result.event_ = event_;
+        } else {
+          result.event_ = rideDetailsBuilder_.build();
+        }
+      }
+      result.eventCase_ = eventCase_;
       onBuilt();
       return result;
     }
 
-    private void buildPartial0(org.example.goeverywhere.protocol.grpc.DriverEvent result) {
-      int from_bitField0_ = bitField0_;
+    @java.lang.Override
+    public Builder clone() {
+      return super.clone();
     }
-
-    private void buildPartialOneofs(org.example.goeverywhere.protocol.grpc.DriverEvent result) {
-      result.eventCase_ = eventCase_;
-      result.event_ = this.event_;
-      if (eventCase_ == 1 &&
-          rideRequestedBuilder_ != null) {
-        result.event_ = rideRequestedBuilder_.build();
-      }
-      if (eventCase_ == 2 &&
-          rideCancelledBuilder_ != null) {
-        result.event_ = rideCancelledBuilder_.build();
-      }
-      if (eventCase_ == 4 &&
-          rideDetailsBuilder_ != null) {
-        result.event_ = rideDetailsBuilder_.build();
-      }
+    @java.lang.Override
+    public Builder setField(
+        com.google.protobuf.Descriptors.FieldDescriptor field,
+        java.lang.Object value) {
+      return super.setField(field, value);
     }
-
+    @java.lang.Override
+    public Builder clearField(
+        com.google.protobuf.Descriptors.FieldDescriptor field) {
+      return super.clearField(field);
+    }
+    @java.lang.Override
+    public Builder clearOneof(
+        com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+      return super.clearOneof(oneof);
+    }
+    @java.lang.Override
+    public Builder setRepeatedField(
+        com.google.protobuf.Descriptors.FieldDescriptor field,
+        int index, java.lang.Object value) {
+      return super.setRepeatedField(field, index, value);
+    }
+    @java.lang.Override
+    public Builder addRepeatedField(
+        com.google.protobuf.Descriptors.FieldDescriptor field,
+        java.lang.Object value) {
+      return super.addRepeatedField(field, value);
+    }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
       if (other instanceof org.example.goeverywhere.protocol.grpc.DriverEvent) {
@@ -500,7 +609,7 @@ private static final long serialVersionUID = 0L;
           break;
         }
       }
-      this.mergeUnknownFields(other.getUnknownFields());
+      this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
     }
@@ -515,51 +624,17 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
+      org.example.goeverywhere.protocol.grpc.DriverEvent parsedMessage = null;
       try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              input.readMessage(
-                  getRideRequestedFieldBuilder().getBuilder(),
-                  extensionRegistry);
-              eventCase_ = 1;
-              break;
-            } // case 10
-            case 18: {
-              input.readMessage(
-                  getRideCancelledFieldBuilder().getBuilder(),
-                  extensionRegistry);
-              eventCase_ = 2;
-              break;
-            } // case 18
-            case 34: {
-              input.readMessage(
-                  getRideDetailsFieldBuilder().getBuilder(),
-                  extensionRegistry);
-              eventCase_ = 4;
-              break;
-            } // case 34
-            default: {
-              if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                done = true; // was an endgroup tag
-              }
-              break;
-            } // default:
-          } // switch (tag)
-        } // while (!done)
+        parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        parsedMessage = (org.example.goeverywhere.protocol.grpc.DriverEvent) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
-        onChanged();
-      } // finally
+        if (parsedMessage != null) {
+          mergeFrom(parsedMessage);
+        }
+      }
       return this;
     }
     private int eventCase_ = 0;
@@ -577,7 +652,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int bitField0_;
 
     private com.google.protobuf.SingleFieldBuilderV3<
         org.example.goeverywhere.protocol.grpc.RideRequested, org.example.goeverywhere.protocol.grpc.RideRequested.Builder, org.example.goeverywhere.protocol.grpc.RideRequestedOrBuilder> rideRequestedBuilder_;
@@ -653,9 +727,8 @@ private static final long serialVersionUID = 0L;
       } else {
         if (eventCase_ == 1) {
           rideRequestedBuilder_.mergeFrom(value);
-        } else {
-          rideRequestedBuilder_.setMessage(value);
         }
+        rideRequestedBuilder_.setMessage(value);
       }
       eventCase_ = 1;
       return this;
@@ -717,7 +790,7 @@ private static final long serialVersionUID = 0L;
         event_ = null;
       }
       eventCase_ = 1;
-      onChanged();
+      onChanged();;
       return rideRequestedBuilder_;
     }
 
@@ -795,9 +868,8 @@ private static final long serialVersionUID = 0L;
       } else {
         if (eventCase_ == 2) {
           rideCancelledBuilder_.mergeFrom(value);
-        } else {
-          rideCancelledBuilder_.setMessage(value);
         }
+        rideCancelledBuilder_.setMessage(value);
       }
       eventCase_ = 2;
       return this;
@@ -859,7 +931,7 @@ private static final long serialVersionUID = 0L;
         event_ = null;
       }
       eventCase_ = 2;
-      onChanged();
+      onChanged();;
       return rideCancelledBuilder_;
     }
 
@@ -937,9 +1009,8 @@ private static final long serialVersionUID = 0L;
       } else {
         if (eventCase_ == 4) {
           rideDetailsBuilder_.mergeFrom(value);
-        } else {
-          rideDetailsBuilder_.setMessage(value);
         }
+        rideDetailsBuilder_.setMessage(value);
       }
       eventCase_ = 4;
       return this;
@@ -1001,7 +1072,7 @@ private static final long serialVersionUID = 0L;
         event_ = null;
       }
       eventCase_ = 4;
-      onChanged();
+      onChanged();;
       return rideDetailsBuilder_;
     }
     @java.lang.Override
@@ -1037,18 +1108,7 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      Builder builder = newBuilder();
-      try {
-        builder.mergeFrom(input, extensionRegistry);
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(builder.buildPartial());
-      } catch (com.google.protobuf.UninitializedMessageException e) {
-        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(e)
-            .setUnfinishedMessage(builder.buildPartial());
-      }
-      return builder.buildPartial();
+      return new DriverEvent(input, extensionRegistry);
     }
   };
 

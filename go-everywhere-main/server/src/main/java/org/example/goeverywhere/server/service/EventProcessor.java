@@ -37,8 +37,9 @@ public class EventProcessor {
     @Autowired
     private RideStateMachineService rideStateMachineService;
 
+    // Updated injection to use the optimized solver
     @Autowired
-    @Qualifier("mockRouteService")
+    @Qualifier("optimizedRouteService")
     private RouteService routeService;
 
     @Autowired
@@ -46,11 +47,6 @@ public class EventProcessor {
 
     private final ExecutorService deferredEventsExecutor = Executors.newFixedThreadPool(4);
 
-    /**
-     * This method process "Request ride" event. A user sent a request for a ride,
-     * now the system needs to find the closest driver that is not busy and send a request to him.
-     *
-     */
     public Action<RideState, RideEvent> requestRide() {
         return context -> {
             String riderSessionId = fromContext(context, RIDER_SESSION_ID_KEY);
@@ -60,6 +56,7 @@ public class EventProcessor {
             LatLng riderLocation = rider.getOrigin();
             LatLng destinationLocation = rider.getDestination();
 
+            // Now uses the optimized route service.
             Route route = routeService.generateRoute(riderLocation, destinationLocation, riderSessionId);
 
             Optional<Pair<Driver, Route>> driverRoutePairOpt = userRegistry.findAvailableDriverAndNewRoute(route, rideId);
@@ -69,14 +66,14 @@ public class EventProcessor {
             }
 
             Pair<Driver, Route> driverRoutePair = driverRoutePairOpt.get();
-            Driver driver = driverRoutePair.getFirst() ;
+            Driver driver = driverRoutePair.getFirst();
             Route newRoute = driverRoutePair.getSecond();
 
-            // notifying a rider that the system got the request and came up with a route
+            // Notifying the rider.
             rider.getStreamObserver().onNext(RiderEvent.newBuilder()
                     .setRideRegistered(RideRegistered.newBuilder()
-            // user gets a route from his location to the final destination
-                    .setNewRoute(routeService.getRouteSegment(newRoute, riderLocation, destinationLocation))).build());
+                            .setNewRoute(routeService.getRouteSegment(newRoute, riderLocation, destinationLocation)))
+                    .build());
 
             toContext(context, NEW_ROUTE_CANDIDATE_KEY, newRoute);
             toContext(context, DRIVER_SESSION_ID_KEY, driver.getSessionId());

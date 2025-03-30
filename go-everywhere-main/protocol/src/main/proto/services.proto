@@ -53,6 +53,7 @@ message RideRequest {
   string sessionId = 1;
   string origin = 2;
   string destination = 3;
+  int64 scheduled_pickup_time = 4; // epoch seconds (or another time format)
 }
 
 /**

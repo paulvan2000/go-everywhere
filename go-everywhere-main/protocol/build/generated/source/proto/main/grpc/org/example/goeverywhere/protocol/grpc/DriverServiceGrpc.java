@@ -5,7 +5,7 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.58.0)",
+    value = "by gRPC proto compiler (version 1.71.0)",
     comments = "Source: services.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class DriverServiceGrpc {
@@ -216,6 +216,21 @@ public final class DriverServiceGrpc {
   }
 
   /**
+   * Creates a new blocking-style stub that supports all types of calls on the service
+   */
+  public static DriverServiceBlockingV2Stub newBlockingV2Stub(
+      io.grpc.Channel channel) {
+    io.grpc.stub.AbstractStub.StubFactory<DriverServiceBlockingV2Stub> factory =
+      new io.grpc.stub.AbstractStub.StubFactory<DriverServiceBlockingV2Stub>() {
+        @java.lang.Override
+        public DriverServiceBlockingV2Stub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+          return new DriverServiceBlockingV2Stub(channel, callOptions);
+        }
+      };
+    return DriverServiceBlockingV2Stub.newStub(factory, channel);
+  }
+
+  /**
    * Creates a new blocking-style stub that supports unary and streaming output calls on the service
    */
   public static DriverServiceBlockingStub newBlockingStub(
@@ -370,6 +385,67 @@ public final class DriverServiceGrpc {
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service DriverService.
+   */
+  public static final class DriverServiceBlockingV2Stub
+      extends io.grpc.stub.AbstractBlockingStub<DriverServiceBlockingV2Stub> {
+    private DriverServiceBlockingV2Stub(
+        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+      super(channel, callOptions);
+    }
+
+    @java.lang.Override
+    protected DriverServiceBlockingV2Stub build(
+        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+      return new DriverServiceBlockingV2Stub(channel, callOptions);
+    }
+
+    /**
+     */
+    @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/10918")
+    public io.grpc.stub.BlockingClientCall<?, org.example.goeverywhere.protocol.grpc.DriverEvent>
+        subscribeForRideEvents(org.example.goeverywhere.protocol.grpc.SubscribeForRideEventsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingV2ServerStreamingCall(
+          getChannel(), getSubscribeForRideEventsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.google.protobuf.Empty acceptRide(org.example.goeverywhere.protocol.grpc.AcceptRideRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getAcceptRideMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.google.protobuf.Empty rejectRide(org.example.goeverywhere.protocol.grpc.RejectRideRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getRejectRideMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.google.protobuf.Empty driverArrived(org.example.goeverywhere.protocol.grpc.DriverArrivedRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDriverArrivedMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.google.protobuf.Empty rideStarted(org.example.goeverywhere.protocol.grpc.RideStartedRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getRideStartedMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.google.protobuf.Empty rideCompleted(org.example.goeverywhere.protocol.grpc.RideCompletedRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getRideCompletedMethod(), getCallOptions(), request);
+    }
+  }
+
+  /**
+   * A stub to allow clients to do limited synchronous rpc calls to service DriverService.
    */
   public static final class DriverServiceBlockingStub
       extends io.grpc.stub.AbstractBlockingStub<DriverServiceBlockingStub> {

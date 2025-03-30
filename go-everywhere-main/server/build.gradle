@@ -1,3 +1,5 @@
+// Main application's build.gradle (Ensure these versions are set)
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.3.3'
@@ -7,18 +9,24 @@ plugins {
 group = 'com.example'
 version = '1.0.0-SNAPSHOT'
 
+ext {
+    grpcVersion = '1.71.0'
+    protobufVersion = '3.19.4' // Ensure this is the desired version
+}
+
 dependencies {
 
     implementation project(":protocol")
 
+    implementation 'com.google.ortools:ortools-java:9.10.4067'
+    implementation "com.google.protobuf:protobuf-java:${protobufVersion}"
+    implementation "io.grpc:grpc-protobuf:${grpcVersion}"
+    implementation "io.grpc:grpc-stub:${grpcVersion}"
     // Spring Boot starter
     implementation 'org.springframework.boot:spring-boot-starter:3.3.3'
 
     // Spring Data JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.3.3'
-
-    implementation "io.grpc:grpc-protobuf:1.71.0" // Protobuf support
-    implementation "io.grpc:grpc-stub:1.71.0" // Stub support
 
     // Protocol module (project dependency)
     implementation project(':protocol')

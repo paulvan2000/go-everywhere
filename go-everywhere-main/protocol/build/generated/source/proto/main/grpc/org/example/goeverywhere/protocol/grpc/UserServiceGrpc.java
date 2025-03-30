@@ -5,7 +5,7 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.58.0)",
+    value = "by gRPC proto compiler (version 1.71.0)",
     comments = "Source: services.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class UserServiceGrpc {
@@ -123,6 +123,21 @@ public final class UserServiceGrpc {
   }
 
   /**
+   * Creates a new blocking-style stub that supports all types of calls on the service
+   */
+  public static UserServiceBlockingV2Stub newBlockingV2Stub(
+      io.grpc.Channel channel) {
+    io.grpc.stub.AbstractStub.StubFactory<UserServiceBlockingV2Stub> factory =
+      new io.grpc.stub.AbstractStub.StubFactory<UserServiceBlockingV2Stub>() {
+        @java.lang.Override
+        public UserServiceBlockingV2Stub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+          return new UserServiceBlockingV2Stub(channel, callOptions);
+        }
+      };
+    return UserServiceBlockingV2Stub.newStub(factory, channel);
+  }
+
+  /**
    * Creates a new blocking-style stub that supports unary and streaming output calls on the service
    */
   public static UserServiceBlockingStub newBlockingStub(
@@ -232,6 +247,44 @@ public final class UserServiceGrpc {
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service UserService.
+   */
+  public static final class UserServiceBlockingV2Stub
+      extends io.grpc.stub.AbstractBlockingStub<UserServiceBlockingV2Stub> {
+    private UserServiceBlockingV2Stub(
+        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+      super(channel, callOptions);
+    }
+
+    @java.lang.Override
+    protected UserServiceBlockingV2Stub build(
+        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+      return new UserServiceBlockingV2Stub(channel, callOptions);
+    }
+
+    /**
+     */
+    public com.google.protobuf.Empty signUp(org.example.goeverywhere.protocol.grpc.SignUpRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSignUpMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public org.example.goeverywhere.protocol.grpc.LoginResponse login(org.example.goeverywhere.protocol.grpc.LoginRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getLoginMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.google.protobuf.Empty updateCurrentLocation(org.example.goeverywhere.protocol.grpc.UpdateCurrentLocationRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateCurrentLocationMethod(), getCallOptions(), request);
+    }
+  }
+
+  /**
+   * A stub to allow clients to do limited synchronous rpc calls to service UserService.
    */
   public static final class UserServiceBlockingStub
       extends io.grpc.stub.AbstractBlockingStub<UserServiceBlockingStub> {

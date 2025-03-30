@@ -31,6 +31,61 @@ private static final long serialVersionUID = 0L;
     return new RideRegistered();
   }
 
+  @java.lang.Override
+  public final com.google.protobuf.UnknownFieldSet
+  getUnknownFields() {
+    return this.unknownFields;
+  }
+  private RideRegistered(
+      com.google.protobuf.CodedInputStream input,
+      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+      throws com.google.protobuf.InvalidProtocolBufferException {
+    this();
+    if (extensionRegistry == null) {
+      throw new java.lang.NullPointerException();
+    }
+    com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+        com.google.protobuf.UnknownFieldSet.newBuilder();
+    try {
+      boolean done = false;
+      while (!done) {
+        int tag = input.readTag();
+        switch (tag) {
+          case 0:
+            done = true;
+            break;
+          case 10: {
+            org.example.goeverywhere.protocol.grpc.Route.Builder subBuilder = null;
+            if (newRoute_ != null) {
+              subBuilder = newRoute_.toBuilder();
+            }
+            newRoute_ = input.readMessage(org.example.goeverywhere.protocol.grpc.Route.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(newRoute_);
+              newRoute_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
+          default: {
+            if (!parseUnknownField(
+                input, unknownFields, extensionRegistry, tag)) {
+              done = true;
+            }
+            break;
+          }
+        }
+      }
+    } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+      throw e.setUnfinishedMessage(this);
+    } catch (java.io.IOException e) {
+      throw new com.google.protobuf.InvalidProtocolBufferException(
+          e).setUnfinishedMessage(this);
+    } finally {
+      this.unknownFields = unknownFields.build();
+      makeExtensionsImmutable();
+    }
+  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return org.example.goeverywhere.protocol.grpc.Services.internal_static_org_example_goeverywhere_protocol_grpc_RideRegistered_descriptor;
@@ -67,7 +122,7 @@ private static final long serialVersionUID = 0L;
    */
   @java.lang.Override
   public org.example.goeverywhere.protocol.grpc.RouteOrBuilder getNewRouteOrBuilder() {
-    return newRoute_ == null ? org.example.goeverywhere.protocol.grpc.Route.getDefaultInstance() : newRoute_;
+    return getNewRoute();
   }
 
   private byte memoizedIsInitialized = -1;
@@ -87,7 +142,7 @@ private static final long serialVersionUID = 0L;
     if (newRoute_ != null) {
       output.writeMessage(1, getNewRoute());
     }
-    getUnknownFields().writeTo(output);
+    unknownFields.writeTo(output);
   }
 
   @java.lang.Override
@@ -100,7 +155,7 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(1, getNewRoute());
     }
-    size += getUnknownFields().getSerializedSize();
+    size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
   }
@@ -120,7 +175,7 @@ private static final long serialVersionUID = 0L;
       if (!getNewRoute()
           .equals(other.getNewRoute())) return false;
     }
-    if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+    if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
 
@@ -135,7 +190,7 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + NEW_ROUTE_FIELD_NUMBER;
       hash = (53 * hash) + getNewRoute().hashCode();
     }
-    hash = (29 * hash) + getUnknownFields().hashCode();
+    hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
@@ -258,21 +313,26 @@ private static final long serialVersionUID = 0L;
 
     // Construct using org.example.goeverywhere.protocol.grpc.RideRegistered.newBuilder()
     private Builder() {
-
+      maybeForceBuilderInitialization();
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-
+      maybeForceBuilderInitialization();
+    }
+    private void maybeForceBuilderInitialization() {
+      if (com.google.protobuf.GeneratedMessageV3
+              .alwaysUseFieldBuilders) {
+      }
     }
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      bitField0_ = 0;
-      newRoute_ = null;
-      if (newRouteBuilder_ != null) {
-        newRouteBuilder_.dispose();
+      if (newRouteBuilder_ == null) {
+        newRoute_ = null;
+      } else {
+        newRoute_ = null;
         newRouteBuilder_ = null;
       }
       return this;
@@ -301,20 +361,47 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public org.example.goeverywhere.protocol.grpc.RideRegistered buildPartial() {
       org.example.goeverywhere.protocol.grpc.RideRegistered result = new org.example.goeverywhere.protocol.grpc.RideRegistered(this);
-      if (bitField0_ != 0) { buildPartial0(result); }
+      if (newRouteBuilder_ == null) {
+        result.newRoute_ = newRoute_;
+      } else {
+        result.newRoute_ = newRouteBuilder_.build();
+      }
       onBuilt();
       return result;
     }
 
-    private void buildPartial0(org.example.goeverywhere.protocol.grpc.RideRegistered result) {
-      int from_bitField0_ = bitField0_;
-      if (((from_bitField0_ & 0x00000001) != 0)) {
-        result.newRoute_ = newRouteBuilder_ == null
-            ? newRoute_
-            : newRouteBuilder_.build();
-      }
+    @java.lang.Override
+    public Builder clone() {
+      return super.clone();
     }
-
+    @java.lang.Override
+    public Builder setField(
+        com.google.protobuf.Descriptors.FieldDescriptor field,
+        java.lang.Object value) {
+      return super.setField(field, value);
+    }
+    @java.lang.Override
+    public Builder clearField(
+        com.google.protobuf.Descriptors.FieldDescriptor field) {
+      return super.clearField(field);
+    }
+    @java.lang.Override
+    public Builder clearOneof(
+        com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+      return super.clearOneof(oneof);
+    }
+    @java.lang.Override
+    public Builder setRepeatedField(
+        com.google.protobuf.Descriptors.FieldDescriptor field,
+        int index, java.lang.Object value) {
+      return super.setRepeatedField(field, index, value);
+    }
+    @java.lang.Override
+    public Builder addRepeatedField(
+        com.google.protobuf.Descriptors.FieldDescriptor field,
+        java.lang.Object value) {
+      return super.addRepeatedField(field, value);
+    }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
       if (other instanceof org.example.goeverywhere.protocol.grpc.RideRegistered) {
@@ -330,7 +417,7 @@ private static final long serialVersionUID = 0L;
       if (other.hasNewRoute()) {
         mergeNewRoute(other.getNewRoute());
       }
-      this.mergeUnknownFields(other.getUnknownFields());
+      this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
     }
@@ -345,40 +432,19 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
+      org.example.goeverywhere.protocol.grpc.RideRegistered parsedMessage = null;
       try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              input.readMessage(
-                  getNewRouteFieldBuilder().getBuilder(),
-                  extensionRegistry);
-              bitField0_ |= 0x00000001;
-              break;
-            } // case 10
-            default: {
-              if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                done = true; // was an endgroup tag
-              }
-              break;
-            } // default:
-          } // switch (tag)
-        } // while (!done)
+        parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        parsedMessage = (org.example.goeverywhere.protocol.grpc.RideRegistered) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
-        onChanged();
-      } // finally
+        if (parsedMessage != null) {
+          mergeFrom(parsedMessage);
+        }
+      }
       return this;
     }
-    private int bitField0_;
 
     private org.example.goeverywhere.protocol.grpc.Route newRoute_;
     private com.google.protobuf.SingleFieldBuilderV3<
@@ -388,7 +454,7 @@ private static final long serialVersionUID = 0L;
      * @return Whether the newRoute field is set.
      */
     public boolean hasNewRoute() {
-      return ((bitField0_ & 0x00000001) != 0);
+      return newRouteBuilder_ != null || newRoute_ != null;
     }
     /**
      * <code>.org.example.goeverywhere.protocol.grpc.Route new_route = 1;</code>
@@ -410,11 +476,11 @@ private static final long serialVersionUID = 0L;
           throw new NullPointerException();
         }
         newRoute_ = value;
+        onChanged();
       } else {
         newRouteBuilder_.setMessage(value);
       }
-      bitField0_ |= 0x00000001;
-      onChanged();
+
       return this;
     }
     /**
@@ -424,11 +490,11 @@ private static final long serialVersionUID = 0L;
         org.example.goeverywhere.protocol.grpc.Route.Builder builderForValue) {
       if (newRouteBuilder_ == null) {
         newRoute_ = builderForValue.build();
+        onChanged();
       } else {
         newRouteBuilder_.setMessage(builderForValue.build());
       }
-      bitField0_ |= 0x00000001;
-      onChanged();
+
       return this;
     }
     /**
@@ -436,38 +502,38 @@ private static final long serialVersionUID = 0L;
      */
     public Builder mergeNewRoute(org.example.goeverywhere.protocol.grpc.Route value) {
       if (newRouteBuilder_ == null) {
-        if (((bitField0_ & 0x00000001) != 0) &&
-          newRoute_ != null &&
-          newRoute_ != org.example.goeverywhere.protocol.grpc.Route.getDefaultInstance()) {
-          getNewRouteBuilder().mergeFrom(value);
+        if (newRoute_ != null) {
+          newRoute_ =
+            org.example.goeverywhere.protocol.grpc.Route.newBuilder(newRoute_).mergeFrom(value).buildPartial();
         } else {
           newRoute_ = value;
         }
+        onChanged();
       } else {
         newRouteBuilder_.mergeFrom(value);
       }
-      bitField0_ |= 0x00000001;
-      onChanged();
+
       return this;
     }
     /**
      * <code>.org.example.goeverywhere.protocol.grpc.Route new_route = 1;</code>
      */
     public Builder clearNewRoute() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      newRoute_ = null;
-      if (newRouteBuilder_ != null) {
-        newRouteBuilder_.dispose();
+      if (newRouteBuilder_ == null) {
+        newRoute_ = null;
+        onChanged();
+      } else {
+        newRoute_ = null;
         newRouteBuilder_ = null;
       }
-      onChanged();
+
       return this;
     }
     /**
      * <code>.org.example.goeverywhere.protocol.grpc.Route new_route = 1;</code>
      */
     public org.example.goeverywhere.protocol.grpc.Route.Builder getNewRouteBuilder() {
-      bitField0_ |= 0x00000001;
+      
       onChanged();
       return getNewRouteFieldBuilder().getBuilder();
     }
@@ -531,18 +597,7 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      Builder builder = newBuilder();
-      try {
-        builder.mergeFrom(input, extensionRegistry);
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(builder.buildPartial());
-      } catch (com.google.protobuf.UninitializedMessageException e) {
-        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(e)
-            .setUnfinishedMessage(builder.buildPartial());
-      }
-      return builder.buildPartial();
+      return new RideRegistered(input, extensionRegistry);
     }
   };
 

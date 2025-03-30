@@ -184,108 +184,109 @@ public final class Services {
       "nId\030\001 \001(\t\022B\n\010userType\030\002 \001(\01620.org.exampl" +
       "e.goeverywhere.protocol.grpc.UserType\"/\n" +
       "\032SubscribeForUpdatesRequest\022\021\n\tsessionId" +
-      "\030\001 \001(\t\"E\n\013RideRequest\022\021\n\tsessionId\030\001 \001(\t" +
-      "\022\016\n\006origin\030\002 \001(\t\022\023\n\013destination\030\003 \001(\t\"X\n" +
-      "\034UpdateCurrentLocationRequest\022\021\n\tsession" +
-      "Id\030\001 \001(\t\022%\n\010location\030\003 \001(\0132\023.google.type" +
-      ".LatLng\"\357\005\n\nRiderEvent\022Q\n\017ride_registere" +
-      "d\030\001 \001(\01326.org.example.goeverywhere.proto" +
-      "col.grpc.RideRegisteredH\000\022M\n\rride_accept" +
-      "ed\030\002 \001(\01324.org.example.goeverywhere.prot" +
-      "ocol.grpc.RideAcceptedH\000\022P\n\017driver_en_ro" +
-      "ute\030\003 \001(\01325.org.example.goeverywhere.pro" +
-      "tocol.grpc.DriverEnRouteH\000\022O\n\016driver_arr" +
-      "ived\030\004 \001(\01325.org.example.goeverywhere.pr" +
-      "otocol.grpc.DriverArrivedH\000\022K\n\014ride_star" +
-      "ted\030\005 \001(\01323.org.example.goeverywhere.pro" +
-      "tocol.grpc.RideStartedH\000\022O\n\016ride_complet" +
-      "ed\030\007 \001(\01325.org.example.goeverywhere.prot" +
-      "ocol.grpc.RideCompletedH\000\022Q\n\017driver_reje" +
-      "cted\030\010 \001(\01326.org.example.goeverywhere.pr" +
-      "otocol.grpc.DriverRejectedH\000\022S\n\020system_c" +
-      "ancelled\030\t \001(\01327.org.example.goeverywher" +
-      "e.protocol.grpc.SystemCancelledH\000\022M\n\rrou" +
-      "te_updated\030\n \001(\01324.org.example.goeverywh" +
-      "ere.protocol.grpc.RouteUpdatedH\000B\007\n\005even" +
-      "t\"R\n\016RideRegistered\022@\n\tnew_route\030\001 \001(\0132-" +
+      "\030\001 \001(\t\"d\n\013RideRequest\022\021\n\tsessionId\030\001 \001(\t" +
+      "\022\016\n\006origin\030\002 \001(\t\022\023\n\013destination\030\003 \001(\t\022\035\n" +
+      "\025scheduled_pickup_time\030\004 \001(\003\"X\n\034UpdateCu" +
+      "rrentLocationRequest\022\021\n\tsessionId\030\001 \001(\t\022" +
+      "%\n\010location\030\003 \001(\0132\023.google.type.LatLng\"\357" +
+      "\005\n\nRiderEvent\022Q\n\017ride_registered\030\001 \001(\01326" +
       ".org.example.goeverywhere.protocol.grpc." +
-      "Route\"U\n\014RideAccepted\022E\n\016route_to_rider\030" +
-      "\001 \001(\0132-.org.example.goeverywhere.protoco" +
-      "l.grpc.Route\"6\n\rDriverEnRoute\022%\n\010locatio" +
-      "n\030\001 \001(\0132\023.google.type.LatLng\"6\n\rDriverAr" +
-      "rived\022%\n\010location\030\001 \001(\0132\023.google.type.La" +
-      "tLng\"X\n\013RideStarted\022I\n\022routeToDestinatio" +
-      "n\030\001 \001(\0132-.org.example.goeverywhere.proto" +
-      "col.grpc.Route\"\035\n\rRideCompleted\022\014\n\004fare\030" +
-      "\001 \001(\001\"!\n\016DriverRejected\022\017\n\007ride_id\030\001 \001(\t" +
-      "\"\020\n\016RiderCancelled\"P\n\014RouteUpdated\022@\n\tne" +
-      "w_route\030\002 \001(\0132-.org.example.goeverywhere" +
-      ".protocol.grpc.Route\"0\n\033DriverEventSubsc" +
-      "ribeRequest\022\021\n\tsessionId\030\001 \001(\t\"\"\n\017System" +
-      "Cancelled\022\017\n\007message\030\001 \001(\t\"\206\002\n\013DriverEve" +
-      "nt\022O\n\016ride_requested\030\001 \001(\01325.org.example" +
-      ".goeverywhere.protocol.grpc.RideRequeste" +
-      "dH\000\022P\n\016ride_cancelled\030\002 \001(\01326.org.exampl" +
-      "e.goeverywhere.protocol.grpc.RiderCancel" +
-      "ledH\000\022K\n\014ride_details\030\004 \001(\01323.org.exampl" +
-      "e.goeverywhere.protocol.grpc.RideDetails" +
-      "H\000B\007\n\005event\"b\n\rRideRequested\022\020\n\010rider_id" +
-      "\030\001 \001(\t\022?\n\010newRoute\030\002 \001(\0132-.org.example.g" +
-      "oeverywhere.protocol.grpc.Route\"T\n\013RideD" +
-      "etails\022E\n\016new_full_route\030\001 \001(\0132-.org.exa" +
-      "mple.goeverywhere.protocol.grpc.Route\"3\n" +
-      "\035SubscribeForRideEventsRequest\022\022\n\nsessio" +
-      "n_id\030\001 \001(\t\"9\n\021AcceptRideRequest\022\022\n\nsessi" +
-      "on_id\030\001 \001(\t\022\020\n\010rider_id\030\002 \001(\t\"9\n\021RejectR" +
-      "ideRequest\022\022\n\nsession_id\030\001 \001(\t\022\020\n\010rider_" +
-      "id\030\002 \001(\t\"<\n\024DriverArrivedRequest\022\022\n\nsess" +
-      "ion_id\030\001 \001(\t\022\020\n\010rider_id\030\002 \001(\t\":\n\022RideSt" +
-      "artedRequest\022\022\n\nsession_id\030\001 \001(\t\022\020\n\010ride" +
-      "r_id\030\002 \001(\t\";\n\024RideCompletedRequest\022\022\n\nse" +
-      "ssion_id\030\001 \001(\t\022\017\n\007ride_id\030\002 \001(\t\"\203\001\n\005Rout" +
-      "e\022C\n\twaypoints\030\001 \003(\01320.org.example.goeve" +
-      "rywhere.protocol.grpc.Waypoint\022\031\n\021total_" +
-      "distance_km\030\002 \001(\001\022\032\n\022total_duration_min\030" +
-      "\003 \001(\001\"\306\001\n\010Waypoint\022%\n\010location\030\001 \001(\0132\023.g" +
-      "oogle.type.LatLng\022\036\n\026distance_from_start" +
-      "_km\030\002 \001(\001\022\037\n\027duration_from_start_min\030\003 \001" +
-      "(\001\022R\n\020waypointMetadata\030\004 \003(\01328.org.examp" +
-      "le.goeverywhere.protocol.grpc.WaypointMe" +
-      "tadata\"o\n\020WaypointMetadata\022J\n\014waypointTy" +
-      "pe\030\001 \001(\01624.org.example.goeverywhere.prot" +
-      "ocol.grpc.WaypointType\022\017\n\007riderId\030\002 \001(\t*" +
-      "!\n\010UserType\022\n\n\006DRIVER\020\000\022\t\n\005RIDER\020\001*:\n\014Wa" +
-      "ypointType\022\r\n\tUNDEFINED\020\000\022\n\n\006ORIGIN\020\001\022\017\n" +
-      "\013DESTINATION\020\0022\323\002\n\013UserService\022W\n\006signUp" +
-      "\0225.org.example.goeverywhere.protocol.grp" +
-      "c.SignUpRequest\032\026.google.protobuf.Empty\022" +
-      "t\n\005login\0224.org.example.goeverywhere.prot" +
-      "ocol.grpc.LoginRequest\0325.org.example.goe" +
-      "verywhere.protocol.grpc.LoginResponse\022u\n" +
-      "\025updateCurrentLocation\022D.org.example.goe" +
-      "verywhere.protocol.grpc.UpdateCurrentLoc" +
-      "ationRequest\032\026.google.protobuf.Empty2\210\001\n" +
-      "\014RiderService\022x\n\013requestRide\0223.org.examp" +
-      "le.goeverywhere.protocol.grpc.RideReques" +
-      "t\0322.org.example.goeverywhere.protocol.gr" +
-      "pc.RiderEvent0\0012\233\005\n\rDriverService\022\226\001\n\026su" +
-      "bscribeForRideEvents\022E.org.example.goeve" +
-      "rywhere.protocol.grpc.SubscribeForRideEv" +
-      "entsRequest\0323.org.example.goeverywhere.p" +
-      "rotocol.grpc.DriverEvent0\001\022_\n\nacceptRide" +
-      "\0229.org.example.goeverywhere.protocol.grp" +
-      "c.AcceptRideRequest\032\026.google.protobuf.Em" +
-      "pty\022_\n\nrejectRide\0229.org.example.goeveryw" +
-      "here.protocol.grpc.RejectRideRequest\032\026.g" +
-      "oogle.protobuf.Empty\022e\n\rdriverArrived\022<." +
-      "org.example.goeverywhere.protocol.grpc.D" +
-      "riverArrivedRequest\032\026.google.protobuf.Em" +
-      "pty\022a\n\013rideStarted\022:.org.example.goevery" +
-      "where.protocol.grpc.RideStartedRequest\032\026" +
-      ".google.protobuf.Empty\022e\n\rrideCompleted\022" +
-      "<.org.example.goeverywhere.protocol.grpc" +
-      ".RideCompletedRequest\032\026.google.protobuf." +
-      "EmptyB\002P\001b\006proto3"
+      "RideRegisteredH\000\022M\n\rride_accepted\030\002 \001(\0132" +
+      "4.org.example.goeverywhere.protocol.grpc" +
+      ".RideAcceptedH\000\022P\n\017driver_en_route\030\003 \001(\013" +
+      "25.org.example.goeverywhere.protocol.grp" +
+      "c.DriverEnRouteH\000\022O\n\016driver_arrived\030\004 \001(" +
+      "\01325.org.example.goeverywhere.protocol.gr" +
+      "pc.DriverArrivedH\000\022K\n\014ride_started\030\005 \001(\013" +
+      "23.org.example.goeverywhere.protocol.grp" +
+      "c.RideStartedH\000\022O\n\016ride_completed\030\007 \001(\0132" +
+      "5.org.example.goeverywhere.protocol.grpc" +
+      ".RideCompletedH\000\022Q\n\017driver_rejected\030\010 \001(" +
+      "\01326.org.example.goeverywhere.protocol.gr" +
+      "pc.DriverRejectedH\000\022S\n\020system_cancelled\030" +
+      "\t \001(\01327.org.example.goeverywhere.protoco" +
+      "l.grpc.SystemCancelledH\000\022M\n\rroute_update" +
+      "d\030\n \001(\01324.org.example.goeverywhere.proto" +
+      "col.grpc.RouteUpdatedH\000B\007\n\005event\"R\n\016Ride" +
+      "Registered\022@\n\tnew_route\030\001 \001(\0132-.org.exam" +
+      "ple.goeverywhere.protocol.grpc.Route\"U\n\014" +
+      "RideAccepted\022E\n\016route_to_rider\030\001 \001(\0132-.o" +
+      "rg.example.goeverywhere.protocol.grpc.Ro" +
+      "ute\"6\n\rDriverEnRoute\022%\n\010location\030\001 \001(\0132\023" +
+      ".google.type.LatLng\"6\n\rDriverArrived\022%\n\010" +
+      "location\030\001 \001(\0132\023.google.type.LatLng\"X\n\013R" +
+      "ideStarted\022I\n\022routeToDestination\030\001 \001(\0132-" +
+      ".org.example.goeverywhere.protocol.grpc." +
+      "Route\"\035\n\rRideCompleted\022\014\n\004fare\030\001 \001(\001\"!\n\016" +
+      "DriverRejected\022\017\n\007ride_id\030\001 \001(\t\"\020\n\016Rider" +
+      "Cancelled\"P\n\014RouteUpdated\022@\n\tnew_route\030\002" +
+      " \001(\0132-.org.example.goeverywhere.protocol" +
+      ".grpc.Route\"0\n\033DriverEventSubscribeReque" +
+      "st\022\021\n\tsessionId\030\001 \001(\t\"\"\n\017SystemCancelled" +
+      "\022\017\n\007message\030\001 \001(\t\"\206\002\n\013DriverEvent\022O\n\016rid" +
+      "e_requested\030\001 \001(\01325.org.example.goeveryw" +
+      "here.protocol.grpc.RideRequestedH\000\022P\n\016ri" +
+      "de_cancelled\030\002 \001(\01326.org.example.goevery" +
+      "where.protocol.grpc.RiderCancelledH\000\022K\n\014" +
+      "ride_details\030\004 \001(\01323.org.example.goevery" +
+      "where.protocol.grpc.RideDetailsH\000B\007\n\005eve" +
+      "nt\"b\n\rRideRequested\022\020\n\010rider_id\030\001 \001(\t\022?\n" +
+      "\010newRoute\030\002 \001(\0132-.org.example.goeverywhe" +
+      "re.protocol.grpc.Route\"T\n\013RideDetails\022E\n" +
+      "\016new_full_route\030\001 \001(\0132-.org.example.goev" +
+      "erywhere.protocol.grpc.Route\"3\n\035Subscrib" +
+      "eForRideEventsRequest\022\022\n\nsession_id\030\001 \001(" +
+      "\t\"9\n\021AcceptRideRequest\022\022\n\nsession_id\030\001 \001" +
+      "(\t\022\020\n\010rider_id\030\002 \001(\t\"9\n\021RejectRideReques" +
+      "t\022\022\n\nsession_id\030\001 \001(\t\022\020\n\010rider_id\030\002 \001(\t\"" +
+      "<\n\024DriverArrivedRequest\022\022\n\nsession_id\030\001 " +
+      "\001(\t\022\020\n\010rider_id\030\002 \001(\t\":\n\022RideStartedRequ" +
+      "est\022\022\n\nsession_id\030\001 \001(\t\022\020\n\010rider_id\030\002 \001(" +
+      "\t\";\n\024RideCompletedRequest\022\022\n\nsession_id\030" +
+      "\001 \001(\t\022\017\n\007ride_id\030\002 \001(\t\"\203\001\n\005Route\022C\n\twayp" +
+      "oints\030\001 \003(\01320.org.example.goeverywhere.p" +
+      "rotocol.grpc.Waypoint\022\031\n\021total_distance_" +
+      "km\030\002 \001(\001\022\032\n\022total_duration_min\030\003 \001(\001\"\306\001\n" +
+      "\010Waypoint\022%\n\010location\030\001 \001(\0132\023.google.typ" +
+      "e.LatLng\022\036\n\026distance_from_start_km\030\002 \001(\001" +
+      "\022\037\n\027duration_from_start_min\030\003 \001(\001\022R\n\020way" +
+      "pointMetadata\030\004 \003(\01328.org.example.goever" +
+      "ywhere.protocol.grpc.WaypointMetadata\"o\n" +
+      "\020WaypointMetadata\022J\n\014waypointType\030\001 \001(\0162" +
+      "4.org.example.goeverywhere.protocol.grpc" +
+      ".WaypointType\022\017\n\007riderId\030\002 \001(\t*!\n\010UserTy" +
+      "pe\022\n\n\006DRIVER\020\000\022\t\n\005RIDER\020\001*:\n\014WaypointTyp" +
+      "e\022\r\n\tUNDEFINED\020\000\022\n\n\006ORIGIN\020\001\022\017\n\013DESTINAT" +
+      "ION\020\0022\323\002\n\013UserService\022W\n\006signUp\0225.org.ex" +
+      "ample.goeverywhere.protocol.grpc.SignUpR" +
+      "equest\032\026.google.protobuf.Empty\022t\n\005login\022" +
+      "4.org.example.goeverywhere.protocol.grpc" +
+      ".LoginRequest\0325.org.example.goeverywhere" +
+      ".protocol.grpc.LoginResponse\022u\n\025updateCu" +
+      "rrentLocation\022D.org.example.goeverywhere" +
+      ".protocol.grpc.UpdateCurrentLocationRequ" +
+      "est\032\026.google.protobuf.Empty2\210\001\n\014RiderSer" +
+      "vice\022x\n\013requestRide\0223.org.example.goever" +
+      "ywhere.protocol.grpc.RideRequest\0322.org.e" +
+      "xample.goeverywhere.protocol.grpc.RiderE" +
+      "vent0\0012\233\005\n\rDriverService\022\226\001\n\026subscribeFo" +
+      "rRideEvents\022E.org.example.goeverywhere.p" +
+      "rotocol.grpc.SubscribeForRideEventsReque" +
+      "st\0323.org.example.goeverywhere.protocol.g" +
+      "rpc.DriverEvent0\001\022_\n\nacceptRide\0229.org.ex" +
+      "ample.goeverywhere.protocol.grpc.AcceptR" +
+      "ideRequest\032\026.google.protobuf.Empty\022_\n\nre" +
+      "jectRide\0229.org.example.goeverywhere.prot" +
+      "ocol.grpc.RejectRideRequest\032\026.google.pro" +
+      "tobuf.Empty\022e\n\rdriverArrived\022<.org.examp" +
+      "le.goeverywhere.protocol.grpc.DriverArri" +
+      "vedRequest\032\026.google.protobuf.Empty\022a\n\013ri" +
+      "deStarted\022:.org.example.goeverywhere.pro" +
+      "tocol.grpc.RideStartedRequest\032\026.google.p" +
+      "rotobuf.Empty\022e\n\rrideCompleted\022<.org.exa" +
+      "mple.goeverywhere.protocol.grpc.RideComp" +
+      "letedRequest\032\026.google.protobuf.EmptyB\002P\001" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -322,7 +323,7 @@ public final class Services {
     internal_static_org_example_goeverywhere_protocol_grpc_RideRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_org_example_goeverywhere_protocol_grpc_RideRequest_descriptor,
-        new java.lang.String[] { "SessionId", "Origin", "Destination", });
+        new java.lang.String[] { "SessionId", "Origin", "Destination", "ScheduledPickupTime", });
     internal_static_org_example_goeverywhere_protocol_grpc_UpdateCurrentLocationRequest_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_org_example_goeverywhere_protocol_grpc_UpdateCurrentLocationRequest_fieldAccessorTable = new

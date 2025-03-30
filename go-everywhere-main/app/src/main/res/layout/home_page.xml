@@ -87,22 +87,22 @@
                 android:textColor="@color/lavender"/>
 
             <Button
+                android:id="@+id/booking_button"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Book Ride Now"
-                android:id="@+id/booking_button"
-                android:textSize="18sp"
                 android:layout_marginTop="30dp"
-                app:cornerRadius = "20dp"/>
+                android:text="Ride Soon (1-2 Hours)"
+                android:textSize="18sp"
+                app:cornerRadius="20dp" />
 
             <Button
+                android:id="@+id/planning_button"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Plan Trip"
-                android:id="@+id/planning_button"
-                android:textSize="18sp"
                 android:layout_marginTop="30dp"
-                app:cornerRadius = "20dp"/>
+                android:text="Ride Later"
+                android:textSize="18sp"
+                app:cornerRadius="20dp" />
 
 
 

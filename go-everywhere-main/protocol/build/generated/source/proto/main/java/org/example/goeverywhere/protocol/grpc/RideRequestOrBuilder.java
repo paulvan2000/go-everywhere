@@ -42,4 +42,14 @@ public interface RideRequestOrBuilder extends
    */
   com.google.protobuf.ByteString
       getDestinationBytes();
+
+  /**
+   * <pre>
+   * epoch seconds (or another time format)
+   * </pre>
+   *
+   * <code>int64 scheduled_pickup_time = 4;</code>
+   * @return The scheduledPickupTime.
+   */
+  long getScheduledPickupTime();
 }

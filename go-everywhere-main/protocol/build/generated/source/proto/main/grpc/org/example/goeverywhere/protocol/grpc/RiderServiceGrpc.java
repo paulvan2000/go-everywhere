@@ -5,7 +5,7 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.58.0)",
+    value = "by gRPC proto compiler (version 1.71.0)",
     comments = "Source: services.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class RiderServiceGrpc {
@@ -58,6 +58,21 @@ public final class RiderServiceGrpc {
         }
       };
     return RiderServiceStub.newStub(factory, channel);
+  }
+
+  /**
+   * Creates a new blocking-style stub that supports all types of calls on the service
+   */
+  public static RiderServiceBlockingV2Stub newBlockingV2Stub(
+      io.grpc.Channel channel) {
+    io.grpc.stub.AbstractStub.StubFactory<RiderServiceBlockingV2Stub> factory =
+      new io.grpc.stub.AbstractStub.StubFactory<RiderServiceBlockingV2Stub>() {
+        @java.lang.Override
+        public RiderServiceBlockingV2Stub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+          return new RiderServiceBlockingV2Stub(channel, callOptions);
+        }
+      };
+    return RiderServiceBlockingV2Stub.newStub(factory, channel);
   }
 
   /**
@@ -140,6 +155,32 @@ public final class RiderServiceGrpc {
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service RiderService.
+   */
+  public static final class RiderServiceBlockingV2Stub
+      extends io.grpc.stub.AbstractBlockingStub<RiderServiceBlockingV2Stub> {
+    private RiderServiceBlockingV2Stub(
+        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+      super(channel, callOptions);
+    }
+
+    @java.lang.Override
+    protected RiderServiceBlockingV2Stub build(
+        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+      return new RiderServiceBlockingV2Stub(channel, callOptions);
+    }
+
+    /**
+     */
+    @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/10918")
+    public io.grpc.stub.BlockingClientCall<?, org.example.goeverywhere.protocol.grpc.RiderEvent>
+        requestRide(org.example.goeverywhere.protocol.grpc.RideRequest request) {
+      return io.grpc.stub.ClientCalls.blockingV2ServerStreamingCall(
+          getChannel(), getRequestRideMethod(), getCallOptions(), request);
+    }
+  }
+
+  /**
+   * A stub to allow clients to do limited synchronous rpc calls to service RiderService.
    */
   public static final class RiderServiceBlockingStub
       extends io.grpc.stub.AbstractBlockingStub<RiderServiceBlockingStub> {

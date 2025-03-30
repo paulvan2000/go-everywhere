@@ -52,5 +52,5 @@ public interface DriverEventOrBuilder extends
    */
   org.example.goeverywhere.protocol.grpc.RideDetailsOrBuilder getRideDetailsOrBuilder();
 
-  org.example.goeverywhere.protocol.grpc.DriverEvent.EventCase getEventCase();
+  public org.example.goeverywhere.protocol.grpc.DriverEvent.EventCase getEventCase();
 }

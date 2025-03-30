@@ -142,5 +142,5 @@ public interface RiderEventOrBuilder extends
    */
   org.example.goeverywhere.protocol.grpc.RouteUpdatedOrBuilder getRouteUpdatedOrBuilder();
 
-  org.example.goeverywhere.protocol.grpc.RiderEvent.EventCase getEventCase();
+  public org.example.goeverywhere.protocol.grpc.RiderEvent.EventCase getEventCase();
 }

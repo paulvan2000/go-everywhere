@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GoEverywhere.iml" filepath="$PROJECT_DIR$/.idea/modules/GoEverywhere.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/GoEverywhere.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/GoEverywhere.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/GoEverywhere.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/GoEverywhere.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/GoEverywhere.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/GoEverywhere.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/GoEverywhere.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/GoEverywhere.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GoEverywhere.main.iml" filepath="$PROJECT_DIR$/.idea/modules/GoEverywhere.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/protocol/GoEverywhere.protocol.iml" filepath="$PROJECT_DIR$/.idea/modules/protocol/GoEverywhere.protocol.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/protocol/GoEverywhere.protocol.main.iml" filepath="$PROJECT_DIR$/.idea/modules/protocol/GoEverywhere.protocol.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/protocol/GoEverywhere.protocol.test.iml" filepath="$PROJECT_DIR$/.idea/modules/protocol/GoEverywhere.protocol.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/GoEverywhere.server.iml" filepath="$PROJECT_DIR$/.idea/modules/server/GoEverywhere.server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/GoEverywhere.server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/server/GoEverywhere.server.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/GoEverywhere.server.test.iml" filepath="$PROJECT_DIR$/.idea/modules/server/GoEverywhere.server.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GoEverywhere.test.iml" filepath="$PROJECT_DIR$/.idea/modules/GoEverywhere.test.iml" />
+    </modules>
+  </component>
+</project>

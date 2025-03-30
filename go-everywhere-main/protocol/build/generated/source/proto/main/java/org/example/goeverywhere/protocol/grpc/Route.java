@@ -26,6 +26,71 @@ private static final long serialVersionUID = 0L;
     return new Route();
   }
 
+  @java.lang.Override
+  public final com.google.protobuf.UnknownFieldSet
+  getUnknownFields() {
+    return this.unknownFields;
+  }
+  private Route(
+      com.google.protobuf.CodedInputStream input,
+      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+      throws com.google.protobuf.InvalidProtocolBufferException {
+    this();
+    if (extensionRegistry == null) {
+      throw new java.lang.NullPointerException();
+    }
+    int mutable_bitField0_ = 0;
+    com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+        com.google.protobuf.UnknownFieldSet.newBuilder();
+    try {
+      boolean done = false;
+      while (!done) {
+        int tag = input.readTag();
+        switch (tag) {
+          case 0:
+            done = true;
+            break;
+          case 10: {
+            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+              waypoints_ = new java.util.ArrayList<org.example.goeverywhere.protocol.grpc.Waypoint>();
+              mutable_bitField0_ |= 0x00000001;
+            }
+            waypoints_.add(
+                input.readMessage(org.example.goeverywhere.protocol.grpc.Waypoint.parser(), extensionRegistry));
+            break;
+          }
+          case 17: {
+
+            totalDistanceKm_ = input.readDouble();
+            break;
+          }
+          case 25: {
+
+            totalDurationMin_ = input.readDouble();
+            break;
+          }
+          default: {
+            if (!parseUnknownField(
+                input, unknownFields, extensionRegistry, tag)) {
+              done = true;
+            }
+            break;
+          }
+        }
+      }
+    } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+      throw e.setUnfinishedMessage(this);
+    } catch (java.io.IOException e) {
+      throw new com.google.protobuf.InvalidProtocolBufferException(
+          e).setUnfinishedMessage(this);
+    } finally {
+      if (((mutable_bitField0_ & 0x00000001) != 0)) {
+        waypoints_ = java.util.Collections.unmodifiableList(waypoints_);
+      }
+      this.unknownFields = unknownFields.build();
+      makeExtensionsImmutable();
+    }
+  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return org.example.goeverywhere.protocol.grpc.Services.internal_static_org_example_goeverywhere_protocol_grpc_Route_descriptor;
@@ -40,7 +105,6 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int WAYPOINTS_FIELD_NUMBER = 1;
-  @SuppressWarnings("serial")
   private java.util.List<org.example.goeverywhere.protocol.grpc.Waypoint> waypoints_;
   /**
    * <code>repeated .org.example.goeverywhere.protocol.grpc.Waypoint waypoints = 1;</code>
@@ -81,7 +145,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int TOTAL_DISTANCE_KM_FIELD_NUMBER = 2;
-  private double totalDistanceKm_ = 0D;
+  private double totalDistanceKm_;
   /**
    * <code>double total_distance_km = 2;</code>
    * @return The totalDistanceKm.
@@ -92,7 +156,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int TOTAL_DURATION_MIN_FIELD_NUMBER = 3;
-  private double totalDurationMin_ = 0D;
+  private double totalDurationMin_;
   /**
    * <code>double total_duration_min = 3;</code>
    * @return The totalDurationMin.
@@ -125,7 +189,7 @@ private static final long serialVersionUID = 0L;
     if (java.lang.Double.doubleToRawLongBits(totalDurationMin_) != 0) {
       output.writeDouble(3, totalDurationMin_);
     }
-    getUnknownFields().writeTo(output);
+    unknownFields.writeTo(output);
   }
 
   @java.lang.Override
@@ -146,7 +210,7 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeDoubleSize(3, totalDurationMin_);
     }
-    size += getUnknownFields().getSerializedSize();
+    size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
   }
@@ -169,7 +233,7 @@ private static final long serialVersionUID = 0L;
     if (java.lang.Double.doubleToLongBits(getTotalDurationMin())
         != java.lang.Double.doubleToLongBits(
             other.getTotalDurationMin())) return false;
-    if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+    if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
 
@@ -190,7 +254,7 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + TOTAL_DURATION_MIN_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         java.lang.Double.doubleToLongBits(getTotalDurationMin()));
-    hash = (29 * hash) + getUnknownFields().hashCode();
+    hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
@@ -307,27 +371,33 @@ private static final long serialVersionUID = 0L;
 
     // Construct using org.example.goeverywhere.protocol.grpc.Route.newBuilder()
     private Builder() {
-
+      maybeForceBuilderInitialization();
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-
+      maybeForceBuilderInitialization();
+    }
+    private void maybeForceBuilderInitialization() {
+      if (com.google.protobuf.GeneratedMessageV3
+              .alwaysUseFieldBuilders) {
+        getWaypointsFieldBuilder();
+      }
     }
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      bitField0_ = 0;
       if (waypointsBuilder_ == null) {
         waypoints_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);
       } else {
-        waypoints_ = null;
         waypointsBuilder_.clear();
       }
-      bitField0_ = (bitField0_ & ~0x00000001);
       totalDistanceKm_ = 0D;
+
       totalDurationMin_ = 0D;
+
       return this;
     }
 
@@ -354,13 +424,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public org.example.goeverywhere.protocol.grpc.Route buildPartial() {
       org.example.goeverywhere.protocol.grpc.Route result = new org.example.goeverywhere.protocol.grpc.Route(this);
-      buildPartialRepeatedFields(result);
-      if (bitField0_ != 0) { buildPartial0(result); }
-      onBuilt();
-      return result;
-    }
-
-    private void buildPartialRepeatedFields(org.example.goeverywhere.protocol.grpc.Route result) {
+      int from_bitField0_ = bitField0_;
       if (waypointsBuilder_ == null) {
         if (((bitField0_ & 0x00000001) != 0)) {
           waypoints_ = java.util.Collections.unmodifiableList(waypoints_);
@@ -370,18 +434,44 @@ private static final long serialVersionUID = 0L;
       } else {
         result.waypoints_ = waypointsBuilder_.build();
       }
+      result.totalDistanceKm_ = totalDistanceKm_;
+      result.totalDurationMin_ = totalDurationMin_;
+      onBuilt();
+      return result;
     }
 
-    private void buildPartial0(org.example.goeverywhere.protocol.grpc.Route result) {
-      int from_bitField0_ = bitField0_;
-      if (((from_bitField0_ & 0x00000002) != 0)) {
-        result.totalDistanceKm_ = totalDistanceKm_;
-      }
-      if (((from_bitField0_ & 0x00000004) != 0)) {
-        result.totalDurationMin_ = totalDurationMin_;
-      }
+    @java.lang.Override
+    public Builder clone() {
+      return super.clone();
     }
-
+    @java.lang.Override
+    public Builder setField(
+        com.google.protobuf.Descriptors.FieldDescriptor field,
+        java.lang.Object value) {
+      return super.setField(field, value);
+    }
+    @java.lang.Override
+    public Builder clearField(
+        com.google.protobuf.Descriptors.FieldDescriptor field) {
+      return super.clearField(field);
+    }
+    @java.lang.Override
+    public Builder clearOneof(
+        com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+      return super.clearOneof(oneof);
+    }
+    @java.lang.Override
+    public Builder setRepeatedField(
+        com.google.protobuf.Descriptors.FieldDescriptor field,
+        int index, java.lang.Object value) {
+      return super.setRepeatedField(field, index, value);
+    }
+    @java.lang.Override
+    public Builder addRepeatedField(
+        com.google.protobuf.Descriptors.FieldDescriptor field,
+        java.lang.Object value) {
+      return super.addRepeatedField(field, value);
+    }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
       if (other instanceof org.example.goeverywhere.protocol.grpc.Route) {
@@ -426,7 +516,7 @@ private static final long serialVersionUID = 0L;
       if (other.getTotalDurationMin() != 0D) {
         setTotalDurationMin(other.getTotalDurationMin());
       }
-      this.mergeUnknownFields(other.getUnknownFields());
+      this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
     }
@@ -441,53 +531,17 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
+      org.example.goeverywhere.protocol.grpc.Route parsedMessage = null;
       try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              org.example.goeverywhere.protocol.grpc.Waypoint m =
-                  input.readMessage(
-                      org.example.goeverywhere.protocol.grpc.Waypoint.parser(),
-                      extensionRegistry);
-              if (waypointsBuilder_ == null) {
-                ensureWaypointsIsMutable();
-                waypoints_.add(m);
-              } else {
-                waypointsBuilder_.addMessage(m);
-              }
-              break;
-            } // case 10
-            case 17: {
-              totalDistanceKm_ = input.readDouble();
-              bitField0_ |= 0x00000002;
-              break;
-            } // case 17
-            case 25: {
-              totalDurationMin_ = input.readDouble();
-              bitField0_ |= 0x00000004;
-              break;
-            } // case 25
-            default: {
-              if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                done = true; // was an endgroup tag
-              }
-              break;
-            } // default:
-          } // switch (tag)
-        } // while (!done)
+        parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        parsedMessage = (org.example.goeverywhere.protocol.grpc.Route) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
-        onChanged();
-      } // finally
+        if (parsedMessage != null) {
+          mergeFrom(parsedMessage);
+        }
+      }
       return this;
     }
     private int bitField0_;
@@ -747,9 +801,8 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setTotalDistanceKm(double value) {
-
+      
       totalDistanceKm_ = value;
-      bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
@@ -758,7 +811,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearTotalDistanceKm() {
-      bitField0_ = (bitField0_ & ~0x00000002);
+      
       totalDistanceKm_ = 0D;
       onChanged();
       return this;
@@ -779,9 +832,8 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setTotalDurationMin(double value) {
-
+      
       totalDurationMin_ = value;
-      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
@@ -790,7 +842,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearTotalDurationMin() {
-      bitField0_ = (bitField0_ & ~0x00000004);
+      
       totalDurationMin_ = 0D;
       onChanged();
       return this;
@@ -828,18 +880,7 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      Builder builder = newBuilder();
-      try {
-        builder.mergeFrom(input, extensionRegistry);
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(builder.buildPartial());
-      } catch (com.google.protobuf.UninitializedMessageException e) {
-        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(e)
-            .setUnfinishedMessage(builder.buildPartial());
-      }
-      return builder.buildPartial();
+      return new Route(input, extensionRegistry);
     }
   };
 
