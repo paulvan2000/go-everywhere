@@ -76,21 +76,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
 
+        // Add back button functionality for drivers
+        if (sessionHolder.get().getUserType() == UserType.DRIVER) {
+            // Set up back button/functionality (could be a physical button or software UI element)
+            findViewById(R.id.map).setOnLongClickListener(view -> {
+                // Long press on map to return to home (temporary solution for demonstration)
+                Toast.makeText(this, "Returning to driver home...", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MapsActivity.this, DriverHomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                return true;
+            });
+        }
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        // Get intent data
+        Intent intent = getIntent();
+        boolean isDriver = intent.getBooleanExtra("is_driver", false);
+        boolean rideAccepted = intent.getBooleanExtra("ride_accepted", false);
+        String riderId = intent.getStringExtra("rider_id");
+        
         // Log user type for debugging
         System.out.println("DEBUG: User type is " + sessionHolder.get().getUserType());
 
         if (sessionHolder.get().getUserType() == UserType.DRIVER) {
-            Toast.makeText(this, "Driver Mode: Listening for ride requests", Toast.LENGTH_SHORT).show();
-            registerForRides();
+            if (isDriver && rideAccepted) {
+                // Driver has accepted a ride and is navigating to pick up the rider
+                Toast.makeText(this, "Driver Mode: Navigate to pick up rider. Long press on map to return home.", Toast.LENGTH_LONG).show();
+                // In a real app, we would start navigation to the rider's location
+            } else {
+                // Driver is in normal mode listening for ride requests
+                Toast.makeText(this, "Driver Mode: Listening for ride requests", Toast.LENGTH_SHORT).show();
+                registerForRides();
+            }
         } else {
             Toast.makeText(this, "Rider Mode: Creating ride request", Toast.LENGTH_SHORT).show();
             // Get latitude and longitude from MainActivity
-            Intent intent = getIntent();
             if (intent != null && intent.hasExtra("latitude") && intent.hasExtra("longitude")) {
                 double latitude = intent.getDoubleExtra("latitude", 0.0);
                 double longitude = intent.getDoubleExtra("longitude", 0.0);
@@ -123,24 +148,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Default origin (FOR TESTING PURPOSES)
         LatLng origin = new LatLng(26.270033371253067, -80.26316008718736); // Example origin
 
-        // Destination from intent
+        // Get intent data
         Intent intent = getIntent();
+        boolean isDriver = intent.getBooleanExtra("is_driver", false);
+        boolean rideAccepted = intent.getBooleanExtra("ride_accepted", false);
+        
+        // Destination from intent
         if (intent != null && intent.hasExtra("latitude") && intent.hasExtra("longitude")) {
             double latitude = intent.getDoubleExtra("latitude", 0.0);
             double longitude = intent.getDoubleExtra("longitude", 0.0);
             if (latitude != 0.0 && longitude != 0.0) {
                 // Setting the destination
                 LatLng destination = new LatLng(latitude, longitude);
+                
                 // Add markers to the map
-                mMap.addMarker(new MarkerOptions().position(origin).title("Origin"));
-                mMap.addMarker(new MarkerOptions().position(destination).title("Destination"));
+                mMap.addMarker(new MarkerOptions().position(origin).title(isDriver ? "Your Location" : "Origin"));
+                mMap.addMarker(new MarkerOptions().position(destination).title(isDriver ? "Rider Location" : "Destination"));
+                
                 // Move and zoom the camera
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(origin, 12));
+                
                 // Draw the route
                 addRoute(origin, destination);
-                // Submit the ride request
-                submitRideRequest(origin.latitude + "," + origin.longitude,
-                        destination.latitude + "," + destination.longitude);
+                
+                // For drivers with accepted rides, show different UI or functionality
+                if (isDriver && rideAccepted) {
+                    Toast.makeText(this, "Navigating to rider. Drive safely!", Toast.LENGTH_LONG).show();
+                    // In a real app, we would start turn-by-turn navigation here
+                } else if (!isDriver) {
+                    // Only submit ride request if user is a rider
+                    submitRideRequest(origin.latitude + "," + origin.longitude,
+                            destination.latitude + "," + destination.longitude);
+                }
             } else {
                 Toast.makeText(this, "Invalid destination coordinates received.", Toast.LENGTH_SHORT).show();
             }

@@ -115,9 +115,15 @@ public class PlanActivity extends AppCompatActivity {
             return;
         }
         
-        // Submit the plan and navigate to wait screen
+        // Save the trip data to history
+        saveRideToHistory(destination, pickup, passengers, dateTime);
+        
+        // Send trip data to drivers
+        sendPlannedTripToDrivers(destination, pickup, passengers, dateTime);
+        
+        // Submit the plan and navigate to CoffeeActivity (instead of wait screen)
         Toast.makeText(this, "Trip planned successfully!", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(PlanActivity.this, WaitActivity.class);
+        Intent intent = new Intent(PlanActivity.this, CoffeeActivity.class);
         intent.putExtra("destination", destination);
         intent.putExtra("pickup", pickup);
         intent.putExtra("passengers", passengers);
@@ -148,6 +154,38 @@ public class PlanActivity extends AppCompatActivity {
             Toast.makeText(this, "Failed to validate addresses. Check your network connection.", Toast.LENGTH_SHORT).show();
             return false;
         }
+    }
+
+    // Helper method to save ride data to history
+    private void saveRideToHistory(String destination, String pickup, String passengers, String dateTime) {
+        // In a real implementation, this would store the data in a persistent storage
+        // For now, we'll just use SharedPreferences as a simple example
+        getSharedPreferences("ride_history", MODE_PRIVATE)
+            .edit()
+            .putString("last_destination", destination)
+            .putString("last_pickup", pickup)
+            .putString("last_passengers", passengers)
+            .putString("last_dateTime", dateTime)
+            .putLong("last_timestamp", System.currentTimeMillis())
+            .apply();
+    }
+
+    // Helper method to send trip data to drivers
+    private void sendPlannedTripToDrivers(String destination, String pickup, String passengers, String dateTime) {
+        // In a production app, this would call the gRPC service to create a scheduled ride
+        // For this example, we'll just simulate it by creating a dummy ride request
+        
+        // Create a dummy ride request in the shared preferences for the driver to see
+        getSharedPreferences("driver_requests", MODE_PRIVATE)
+            .edit()
+            .putString("rider_id", sessionHolder.get().getSessionId())
+            .putString("origin", pickup)
+            .putString("destination", destination)
+            .putString("passengers", passengers)
+            .putString("dateTime", dateTime)
+            .putString("is_scheduled", "true")
+            .putLong("timestamp", System.currentTimeMillis())
+            .apply();
     }
 
     private void redirectToLogin() {

@@ -19,7 +19,7 @@ public class DriverHomeActivity extends AppCompatActivity {
 
     private Button viewRideRequestsButton;
     private Button driverStatusButton;
-    private ImageButton profileButton;
+
     private TextView welcomeTextView;
 
     @Inject
@@ -43,7 +43,7 @@ public class DriverHomeActivity extends AppCompatActivity {
         welcomeTextView = findViewById(R.id.driver_welcome_text);
         viewRideRequestsButton = findViewById(R.id.view_ride_requests_button);
         driverStatusButton = findViewById(R.id.driver_status_button);
-        profileButton = findViewById(R.id.driver_profile_button);
+
 
         // Set welcome message
         welcomeTextView.setText("Welcome, Driver");
@@ -54,7 +54,7 @@ public class DriverHomeActivity extends AppCompatActivity {
         // Set click listeners
         viewRideRequestsButton.setOnClickListener(v -> navigateToRideRequests());
         driverStatusButton.setOnClickListener(v -> toggleDriverStatus());
-        profileButton.setOnClickListener(v -> navigateToProfile());
+
     }
 
     private void navigateToRideRequests() {

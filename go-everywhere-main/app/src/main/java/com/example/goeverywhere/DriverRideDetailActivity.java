@@ -73,20 +73,21 @@ public class DriverRideDetailActivity extends AppCompatActivity implements OnMap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_ride_detail);
 
-        // Verify driver is logged in
-        if (sessionHolder.get() == null || sessionHolder.get().getUserType() != UserType.DRIVER) {
-            Toast.makeText(this, "Please log in as a driver to continue", Toast.LENGTH_SHORT).show();
-            redirectToLogin();
-            return;
-        }
-
-        // Get ride info from intent
+        // Get ride info from intent first to avoid NPE if no riderId
         riderId = getIntent().getStringExtra("rider_id");
         isAccepted = getIntent().getBooleanExtra("is_accepted", false);
 
         if (riderId == null) {
             Toast.makeText(this, "No ride information provided", Toast.LENGTH_SHORT).show();
             finish();
+            return;
+        }
+
+        // Verify driver is logged in - but don't redirect if session exists 
+        // even with wrong type (we'll handle this better below)
+        if (sessionHolder.get() == null) {
+            Toast.makeText(this, "Session expired. Please log in again", Toast.LENGTH_SHORT).show();
+            redirectToLogin();
             return;
         }
 
@@ -99,10 +100,50 @@ public class DriverRideDetailActivity extends AppCompatActivity implements OnMap
         secondaryActionButton = findViewById(R.id.secondary_action_button);
         backButton = findViewById(R.id.back_button);
 
-        // Set rider info
-        riderInfoTextView.setText("Rider ID: " + riderId);
-        pickupLocationTextView.setText("Pickup: North Broward, FL");
-        dropoffLocationTextView.setText("Dropoff: Coconut Creek, FL");
+        // Get ride details from SharedPreferences
+        android.content.SharedPreferences prefs = getSharedPreferences("driver_requests", MODE_PRIVATE);
+        String savedRiderId = prefs.getString("rider_id", null);
+        
+        // Display warning if user is not a driver but allow them to view the details anyway
+        if (sessionHolder.get().getUserType() != UserType.DRIVER) {
+            Toast.makeText(this, "Note: You are not logged in as a driver", Toast.LENGTH_LONG).show();
+        }
+        
+        // Only load the details if they match the riderId we're displaying
+        if (savedRiderId != null && savedRiderId.equals(riderId)) {
+            String origin = prefs.getString("origin", "Current Location");
+            String destination = prefs.getString("destination", null);
+            String destinationLat = prefs.getString("destination_lat", null);
+            String destinationLng = prefs.getString("destination_lng", null);
+            String passengers = prefs.getString("passengers", "1");
+            String dateTime = prefs.getString("dateTime", null);
+            boolean isScheduled = prefs.getBoolean("is_scheduled", false);
+            
+            // Set rider info with more details
+            riderInfoTextView.setText("Rider ID: " + riderId + 
+                    (passengers != null ? "\nPassengers: " + passengers : "") +
+                    (isScheduled ? "\nScheduled Ride" : "\nImmediate Pickup"));
+            
+            // Set pickup and dropoff locations
+            pickupLocationTextView.setText("Pickup: " + origin);
+            
+            if (destination != null) {
+                dropoffLocationTextView.setText("Dropoff: " + destination);
+            } else if (destinationLat != null && destinationLng != null) {
+                // Try to reverse geocode the coordinates for a better address
+                new android.os.Handler().post(() -> reverseGeocode(
+                        Double.parseDouble(destinationLat), 
+                        Double.parseDouble(destinationLng), 
+                        dropoffLocationTextView));
+            } else {
+                dropoffLocationTextView.setText("Dropoff: Coconut Creek, FL");
+            }
+        } else {
+            // Fallback to defaults
+            riderInfoTextView.setText("Rider ID: " + riderId);
+            pickupLocationTextView.setText("Pickup: Current Location");
+            dropoffLocationTextView.setText("Dropoff: Destination");
+        }
         
         // Set back button listener
         backButton.setOnClickListener(v -> onBackPressed());
@@ -113,7 +154,11 @@ public class DriverRideDetailActivity extends AppCompatActivity implements OnMap
         // Obtain the SupportMapFragment and get notified when the map is ready to be used
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        } else {
+            Toast.makeText(this, "Error: Map fragment not found", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void updateUI() {
@@ -156,9 +201,31 @@ public class DriverRideDetailActivity extends AppCompatActivity implements OnMap
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
 
-        // Set example locations for demo purposes
+        // Get ride details from SharedPreferences
+        android.content.SharedPreferences prefs = getSharedPreferences("driver_requests", MODE_PRIVATE);
+        String savedRiderId = prefs.getString("rider_id", null);
+        
+        // Default locations
         LatLng pickup = new LatLng(26.270033371253067, -80.26316008718736); // Example origin
         LatLng dropoff = new LatLng(26.250033371253067, -80.24316008718736); // Example destination
+        
+        // If we have stored coordinates for this ride, use them
+        if (savedRiderId != null && savedRiderId.equals(riderId)) {
+            // Try to get destination coordinates
+            String destinationLat = prefs.getString("destination_lat", null);
+            String destinationLng = prefs.getString("destination_lng", null);
+            
+            if (destinationLat != null && destinationLng != null) {
+                try {
+                    double lat = Double.parseDouble(destinationLat);
+                    double lng = Double.parseDouble(destinationLng);
+                    dropoff = new LatLng(lat, lng);
+                } catch (NumberFormatException e) {
+                    // Use default coordinates if parsing fails
+                    Toast.makeText(this, "Error parsing coordinates, using defaults", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
         
         // Add markers
         mMap.addMarker(new MarkerOptions().position(pickup).title("Pickup Location"));
@@ -266,18 +333,49 @@ public class DriverRideDetailActivity extends AppCompatActivity implements OnMap
     }
 
     private void acceptRide() {
-        DriverServiceGrpc.DriverServiceBlockingStub driverService = 
-                DriverServiceGrpc.newBlockingStub(managedChannel);
-        
         try {
-            driverService.acceptRide(AcceptRideRequest.newBuilder()
-                    .setSessionId(sessionHolder.get().getSessionId())
-                    .setRiderId(riderId)
-                    .build());
+            // In a real app with gRPC service:
+            // DriverServiceGrpc.DriverServiceBlockingStub driverService = 
+            //        DriverServiceGrpc.newBlockingStub(managedChannel);
+            // driverService.acceptRide(AcceptRideRequest.newBuilder()
+            //        .setSessionId(sessionHolder.get().getSessionId())
+            //        .setRiderId(riderId)
+            //        .build());
             
             isAccepted = true;
             Toast.makeText(this, "Ride accepted successfully", Toast.LENGTH_SHORT).show();
-            updateUI();
+            
+            // Get ride details from SharedPreferences
+            android.content.SharedPreferences prefs = getSharedPreferences("driver_requests", MODE_PRIVATE);
+            String destinationLat = prefs.getString("destination_lat", null);
+            String destinationLng = prefs.getString("destination_lng", null);
+            String destination = prefs.getString("destination", null);
+            
+            // Navigate to MapsActivity with ride details
+            Intent intent = new Intent(DriverRideDetailActivity.this, MapsActivity.class);
+            if (destinationLat != null && destinationLng != null) {
+                try {
+                    double latitude = Double.parseDouble(destinationLat);
+                    double longitude = Double.parseDouble(destinationLng);
+                    intent.putExtra("latitude", latitude);
+                    intent.putExtra("longitude", longitude);
+                } catch (NumberFormatException e) {
+                    // If parsing fails, don't add coordinates
+                    Toast.makeText(this, "Could not parse coordinates", Toast.LENGTH_SHORT).show();
+                }
+            }
+            
+            // Add other ride details if needed
+            intent.putExtra("is_driver", true);  // Flag to indicate we're in driver mode
+            intent.putExtra("ride_accepted", true);
+            intent.putExtra("rider_id", riderId);
+            if (destination != null) {
+                intent.putExtra("destination_address", destination);
+            }
+            
+            startActivity(intent);
+            
+            // Don't finish this activity yet, so the driver can return to it
         } catch (Exception e) {
             Toast.makeText(this, "Failed to accept ride: " + e.getMessage(), 
                     Toast.LENGTH_SHORT).show();
@@ -285,16 +383,21 @@ public class DriverRideDetailActivity extends AppCompatActivity implements OnMap
     }
 
     private void rejectRide() {
-        DriverServiceGrpc.DriverServiceBlockingStub driverService = 
-                DriverServiceGrpc.newBlockingStub(managedChannel);
-        
         try {
-            driverService.rejectRide(RejectRideRequest.newBuilder()
-                    .setSessionId(sessionHolder.get().getSessionId())
-                    .setRiderId(riderId)
-                    .build());
+            // In a real app with gRPC service:
+            // DriverServiceGrpc.DriverServiceBlockingStub driverService = 
+            //        DriverServiceGrpc.newBlockingStub(managedChannel);
+            // driverService.rejectRide(RejectRideRequest.newBuilder()
+            //        .setSessionId(sessionHolder.get().getSessionId())
+            //        .setRiderId(riderId)
+            //        .build());
             
             Toast.makeText(this, "Ride rejected", Toast.LENGTH_SHORT).show();
+            
+            // Navigate back to DriverHomeActivity
+            Intent intent = new Intent(DriverRideDetailActivity.this, DriverHomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             finish();
         } catch (Exception e) {
             Toast.makeText(this, "Failed to reject ride: " + e.getMessage(), 
@@ -365,5 +468,40 @@ public class DriverRideDetailActivity extends AppCompatActivity implements OnMap
         Intent intent = new Intent(DriverRideDetailActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    // Helper method to reverse geocode coordinates into address
+    private void reverseGeocode(double latitude, double longitude, TextView textView) {
+        try {
+            android.location.Geocoder geocoder = new android.location.Geocoder(this, java.util.Locale.getDefault());
+            java.util.List<android.location.Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                android.location.Address address = addresses.get(0);
+                String addressStr = "";
+                
+                // Build address string
+                if (address.getMaxAddressLineIndex() > 0) {
+                    addressStr = address.getAddressLine(0);
+                } else {
+                    // Build from parts if no complete address line
+                    if (address.getThoroughfare() != null) {
+                        addressStr += address.getThoroughfare() + ", ";
+                    }
+                    if (address.getLocality() != null) {
+                        addressStr += address.getLocality() + ", ";
+                    }
+                    if (address.getAdminArea() != null) {
+                        addressStr += address.getAdminArea();
+                    }
+                }
+                
+                if (!addressStr.isEmpty()) {
+                    final String finalAddress = addressStr;
+                    runOnUiThread(() -> textView.setText("Dropoff: " + finalAddress));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 } 

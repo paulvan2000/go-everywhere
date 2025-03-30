@@ -46,18 +46,37 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void loadRideHistory() {
-        // This would typically fetch data from a backend service
-        // For demonstration, we'll set some placeholder values
+        // Read ride history from shared preferences
+        android.content.SharedPreferences sharedPreferences = getSharedPreferences("ride_history", MODE_PRIVATE);
         
-        // In a real implementation, you would use gRPC to fetch this data
-        // Example: RideHistoryRequest request = RideHistoryRequest.newBuilder()
-        //                                          .setUserId(sessionHolder.get().getUserId())
-        //                                          .build();
+        String destination = sharedPreferences.getString("last_destination", null);
+        String pickup = sharedPreferences.getString("last_pickup", null);
+        String passengers = sharedPreferences.getString("last_passengers", null);
+        String dateTimeStr = sharedPreferences.getString("last_dateTime", null);
+        long timestamp = sharedPreferences.getLong("last_timestamp", 0);
         
-        dateDetails.setText("Date: February 15, 2023");
-        timeDetails.setText("Time: 10:30 AM - 11:15 AM");
-        pickupLocation.setText("Pick-up Location: 123 Main St, Rural County");
-        dropoffLocation.setText("Drop-off Location: Rural County Hospital");
+        if (destination != null && pickup != null) {
+            // Format date and time
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMMM dd, yyyy", java.util.Locale.US);
+            java.text.SimpleDateFormat timeSdf = new java.text.SimpleDateFormat("hh:mm a", java.util.Locale.US);
+            String date = dateTimeStr != null ? dateTimeStr.split(" ")[0] : sdf.format(new java.util.Date(timestamp));
+            String time = dateTimeStr != null ? dateTimeStr.split(" ")[1] : timeSdf.format(new java.util.Date(timestamp));
+            
+            // Update UI with ride history
+            dateDetails.setText("Date: " + date);
+            timeDetails.setText("Time: " + time);
+            pickupLocation.setText("Pick-up Location: " + pickup);
+            dropoffLocation.setText("Drop-off Location: " + destination);
+        } else {
+            // No ride history available, show placeholder data
+            dateDetails.setText("Date: No recent trips");
+            timeDetails.setText("Time: N/A");
+            pickupLocation.setText("Pick-up Location: N/A");
+            dropoffLocation.setText("Drop-off Location: N/A");
+        }
+        
+        // In a real app, you would fetch multiple ride history entries from a database
+        // and display them in a RecyclerView or similar
     }
 
     private void navigateToProfile() {
