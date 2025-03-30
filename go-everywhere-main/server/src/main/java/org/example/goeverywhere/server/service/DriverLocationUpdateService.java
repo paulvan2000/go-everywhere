@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.concurrent.*;
 
+import jakarta.annotation.PreDestroy;
+
 @Service
 public class DriverLocationUpdateService {
 
@@ -42,5 +44,18 @@ public class DriverLocationUpdateService {
         }
     }
 
-
+    @PreDestroy
+    public void shutdownScheduler() {
+        System.out.println("Shutting down DriverLocationUpdateService scheduler...");
+        scheduler.shutdown();
+        try {
+            if (!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {
+                scheduler.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            scheduler.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
+        System.out.println("DriverLocationUpdateService scheduler shut down.");
+    }
 }

@@ -68,18 +68,23 @@ public class DriverServiceGprcImpl extends DriverServiceGrpc.DriverServiceImplBa
 
     @Override
     public void rideCompleted(RideCompletedRequest request, StreamObserver<Empty> responseObserver) {
-        validateIdentity(request.getSessionId(), request.getRideId());
-        rideStateMachineService.sendEvent(request.getRideId(), RideEvent.RIDE_COMPLETED);
+        // Now uses rider_id consistently
+        validateIdentity(request.getSessionId(), request.getRiderId());
+        rideStateMachineService.sendEvent(request.getRiderId(), RideEvent.RIDE_COMPLETED); // Use rider_id
         responseObserver.onNext(Empty.getDefaultInstance());
         responseObserver.onCompleted();
     }
 
-    private void validateIdentity(String sessionId, String rideId) {
-        Objects.requireNonNull(sessionId);
-        Objects.requireNonNull(rideId);
-        StateMachine<RideState, RideEvent> stateMachine = rideStateMachineService.getStateMachine(rideId);
-        if(!stateMachine.getExtendedState().getVariables().get(DRIVER_SESSION_ID_KEY).equals(sessionId)) {
-            throw new RuntimeException("Invalid session id");
+    private void validateIdentity(String driverSessionId, String associatedRiderId) {
+        Objects.requireNonNull(driverSessionId);
+        Objects.requireNonNull(associatedRiderId);
+        StateMachine<RideState, RideEvent> stateMachine = rideStateMachineService.getStateMachine(associatedRiderId); // Use rider ID to get SM
+        if (stateMachine == null) {
+            throw new RuntimeException("State machine not found for riderId: " + associatedRiderId);
+        }
+        Object storedDriverId = stateMachine.getExtendedState().getVariables().get(DRIVER_SESSION_ID_KEY);
+        if (storedDriverId == null || !storedDriverId.equals(driverSessionId)) {
+            throw new RuntimeException("Invalid driver session id (" + driverSessionId + ") for ride associated with rider " + associatedRiderId);
         }
     }
 }

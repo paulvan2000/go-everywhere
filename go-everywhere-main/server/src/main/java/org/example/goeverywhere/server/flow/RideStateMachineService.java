@@ -45,4 +45,16 @@ public class RideStateMachineService {
         rideMachines.remove(rideId);
     }
 
+    public void stopStateMachine(String riderId) {
+        StateMachine<RideState, RideEvent> stateMachine = rideMachines.remove(riderId); // Remove and get
+        if (stateMachine != null && !stateMachine.isComplete()) {
+            try {
+                stateMachine.stopReactively().block(); // Or stateMachine.stop(); if not reactive
+                System.out.println("Stopped state machine for riderId: " + riderId);
+            } catch (Exception e) {
+                System.err.println("Error stopping state machine for riderId " + riderId + ": " + e.getMessage());
+            }
+        }
+    }
+
 }

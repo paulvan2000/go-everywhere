@@ -175,7 +175,7 @@ message RideStartedRequest {
 
 message RideCompletedRequest {
   string session_id = 1;
-  string ride_id = 2;
+  string rider_id = 2;
 }
 
 message Route {
