@@ -69,16 +69,53 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        // Check if user is logged in
+        if (sessionHolder.get() == null) {
+            Toast.makeText(this, "Please log in to continue", Toast.LENGTH_SHORT).show();
+            redirectToLogin();
+            return;
+        }
+
+        // Add back button functionality for drivers
+        if (sessionHolder.get().getUserType() == UserType.DRIVER) {
+            // Set up back button/functionality (could be a physical button or software UI element)
+            findViewById(R.id.map).setOnLongClickListener(view -> {
+                // Long press on map to return to home (temporary solution for demonstration)
+                Toast.makeText(this, "Returning to driver home...", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MapsActivity.this, DriverHomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                return true;
+            });
+        }
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        // Get intent data
+        Intent intent = getIntent();
+        boolean isDriver = intent.getBooleanExtra("is_driver", false);
+        boolean rideAccepted = intent.getBooleanExtra("ride_accepted", false);
+        String riderId = intent.getStringExtra("rider_id");
+        
+        // Log user type for debugging
+        System.out.println("DEBUG: User type is " + sessionHolder.get().getUserType());
+
         if (sessionHolder.get().getUserType() == UserType.DRIVER) {
-            registerForRides();
+            if (isDriver && rideAccepted) {
+                // Driver has accepted a ride and is navigating to pick up the rider
+                Toast.makeText(this, "Driver Mode: Navigate to pick up rider. Long press on map to return home.", Toast.LENGTH_LONG).show();
+                // In a real app, we would start navigation to the rider's location
+            } else {
+                // Driver is in normal mode listening for ride requests
+                Toast.makeText(this, "Driver Mode: Listening for ride requests", Toast.LENGTH_SHORT).show();
+                registerForRides();
+            }
         } else {
+            Toast.makeText(this, "Rider Mode: Creating ride request", Toast.LENGTH_SHORT).show();
             // Get latitude and longitude from MainActivity
-            Intent intent = getIntent();
             if (intent != null && intent.hasExtra("latitude") && intent.hasExtra("longitude")) {
                 double latitude = intent.getDoubleExtra("latitude", 0.0);
                 double longitude = intent.getDoubleExtra("longitude", 0.0);
@@ -111,24 +148,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Default origin (FOR TESTING PURPOSES)
         LatLng origin = new LatLng(26.270033371253067, -80.26316008718736); // Example origin
 
-        // Destination from intent
+        // Get intent data
         Intent intent = getIntent();
+        boolean isDriver = intent.getBooleanExtra("is_driver", false);
+        boolean rideAccepted = intent.getBooleanExtra("ride_accepted", false);
+        
+        // Destination from intent
         if (intent != null && intent.hasExtra("latitude") && intent.hasExtra("longitude")) {
             double latitude = intent.getDoubleExtra("latitude", 0.0);
             double longitude = intent.getDoubleExtra("longitude", 0.0);
             if (latitude != 0.0 && longitude != 0.0) {
                 // Setting the destination
                 LatLng destination = new LatLng(latitude, longitude);
+                
                 // Add markers to the map
-                mMap.addMarker(new MarkerOptions().position(origin).title("Origin"));
-                mMap.addMarker(new MarkerOptions().position(destination).title("Destination"));
+                mMap.addMarker(new MarkerOptions().position(origin).title(isDriver ? "Your Location" : "Origin"));
+                mMap.addMarker(new MarkerOptions().position(destination).title(isDriver ? "Rider Location" : "Destination"));
+                
                 // Move and zoom the camera
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(origin, 12));
+                
                 // Draw the route
                 addRoute(origin, destination);
-                // Submit the ride request
-                submitRideRequest(origin.latitude + "," + origin.longitude,
-                        destination.latitude + "," + destination.longitude);
+                
+                // For drivers with accepted rides, show different UI or functionality
+                if (isDriver && rideAccepted) {
+                    Toast.makeText(this, "Navigating to rider. Drive safely!", Toast.LENGTH_LONG).show();
+                    // In a real app, we would start turn-by-turn navigation here
+                } else if (!isDriver) {
+                    // Only submit ride request if user is a rider
+                    submitRideRequest(origin.latitude + "," + origin.longitude,
+                            destination.latitude + "," + destination.longitude);
+                }
             } else {
                 Toast.makeText(this, "Invalid destination coordinates received.", Toast.LENGTH_SHORT).show();
             }
@@ -208,9 +259,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 blockingDriverService.acceptRide(
                                         AcceptRideRequest.newBuilder()
                                                 .setSessionId(sessionHolder.get().getSessionId())
-                                                .setRideId(driverEvent.getRideRequested().getRideId())
+                                                .setRiderId(driverEvent.getRideRequested().getRiderId())
                                                 .build());
-                                userService.updateCurrentLocation(UpdateCurrentLocationRequest.newBuilder().build());
+                                
+                                // Get current location and update it with proper session ID
+                                if (ActivityCompat.checkSelfPermission(MapsActivity.this, 
+                                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                                    // Use last known location from the map if available
+                                    if (mMap != null && mMap.getMyLocation() != null) {
+                                        android.location.Location myLocation = mMap.getMyLocation();
+                                        userService.updateCurrentLocation(UpdateCurrentLocationRequest.newBuilder()
+                                                .setSessionId(sessionHolder.get().getSessionId())
+                                                .setLocation(com.google.type.LatLng.newBuilder()
+                                                        .setLatitude(myLocation.getLatitude())
+                                                        .setLongitude(myLocation.getLongitude())
+                                                        .build())
+                                                .build());
+                                    } else {
+                                        // If map location isn't available, just log for debugging
+                                        System.out.println("Cannot update location: Map or location is null");
+                                    }
+                                }
                                 break;
                             case RIDE_CANCELLED:
                                 // Rider cancelled the ride, notify the driver as needed
@@ -292,5 +361,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             poly.add(new LatLng(((double) lat / 1E5), ((double) lng / 1E5)));
         }
         return poly;
+    }
+
+    private void redirectToLogin() {
+        Intent intent = new Intent(MapsActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -28,6 +28,7 @@
             android:background="@drawable/lavender_border">
 
             <TextView
+                android:id="@+id/user_type_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sign Up"
@@ -35,27 +36,6 @@
                 android:textAlignment="center"
                 android:textStyle="bold"
                 android:textColor="@color/lavender"/>
-
-            <RadioGroup
-                android:id="@+id/role_radio_group"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp">
-
-                <RadioButton
-                    android:id="@+id/radio_rider"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Rider"
-                    android:checked="true" />
-
-                <RadioButton
-                    android:id="@+id/radio_driver"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Driver" />
-            </RadioGroup>
 
             <EditText
                 android:layout_width="match_parent"

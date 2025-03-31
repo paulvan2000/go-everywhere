@@ -10,6 +10,7 @@ import org.example.goeverywhere.server.grpc.UserServiceGrpcImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
@@ -20,6 +21,7 @@ import java.util.concurrent.Executors;
  * Initializes and starts the gRPC server to handle incoming client requests.
  */
 @SpringBootApplication
+@EnableScheduling
 public class GoEverywhereServer {
 
     @Autowired

@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+    <layouts>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+        <config>
+          <theme>@style/Theme.GoEverywhere</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_plan.xml">
+        <config>
+          <theme>@style/Theme.GoEverywhere</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/home_page.xml">
+        <config>
+          <theme>@style/Theme.GoEverywhere</theme>
+        </config>
+      </layout>
+    </layouts>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8430293c-d537-424c-9a3e-48ec65c7abf3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_activity_activity_1_9_3_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_activity_activity_compose_1_9_3_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_activity_activity_ktx_1_9_3_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_annotation_annotation_experimental_1_4_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_annotation_annotation_jvm_1_8_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_appcompat_appcompat_1_7_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_appcompat_appcompat_resources_1_7_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_arch_core_core_common_2_2_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_2_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_cardview_cardview_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_collection_collection_jvm_1_4_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_animation_animation_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_animation_animation_core_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_foundation_foundation_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_foundation_foundation_layout_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_material3_material3_android_1_2_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_material_material_icons_core_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_material_material_ripple_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_runtime_runtime_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_runtime_runtime_saveable_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_ui_ui_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_ui_ui_geometry_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_ui_ui_graphics_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_ui_ui_test_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_ui_ui_test_junit4_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_ui_ui_test_manifest_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_ui_ui_text_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_ui_ui_tooling_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_ui_ui_tooling_data_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_ui_ui_tooling_preview_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_ui_ui_unit_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_compose_ui_ui_util_android_1_6_6_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_concurrent_concurrent_futures_1_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_concurrent_concurrent_futures_ktx_1_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_2_2_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_1_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_core_core_1_13_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_core_core_ktx_1_13_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_customview_customview_1_1_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_databinding_viewbinding_8_7_3_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_1_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_dynamicanimation_dynamicanimation_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_fragment_fragment_1_5_4_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_jvm_2_8_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_8_7_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_8_7_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_ktx_2_8_7_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_android_2_8_7_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_ktx_android_2_8_7_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_android_2_8_7_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_ktx_2_8_7_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_savedstate_2_8_7_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_1_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_resourceinspection_resourceinspection_annotation_1_0_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_savedstate_savedstate_1_2_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_savedstate_savedstate_ktx_1_2_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_test_core_1_6_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_6_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_6_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_test_ext_junit_1_2_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_test_monitor_1_7_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_test_runner_1_6_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_test_services_storage_1_5_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_tracing_tracing_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_transition_transition_1_5_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_1_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_1_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_1_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_viewpager2_viewpager2_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__ch_qos_logback_logback_classic_1_5_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__ch_qos_logback_logback_core_1_5_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_fasterxml_classmate_1_7_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_annotations_2_17_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_core_2_17_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_databind_2_17_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_17_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_android_annotations_4_1_1_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_android_gms_play_services_base_18_5_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_android_gms_play_services_basement_18_4_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_android_gms_play_services_location_21_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_android_gms_play_services_maps_19_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_18_2_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_android_material_material_1_12_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_api_grpc_proto_google_common_protos_2_22_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_code_findbugs_jsr305_3_0_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_code_gson_gson_2_10_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_dagger_dagger_2_48_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_dagger_dagger_lint_aar_2_48_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_dagger_hilt_android_2_48_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_dagger_hilt_core_2_48_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_errorprone_error_prone_annotations_2_20_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_errorprone_error_prone_annotations_2_26_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_firebase_firebase_annotations_16_2_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_firebase_firebase_appcheck_interop_17_1_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_firebase_firebase_auth_interop_20_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_firebase_firebase_common_21_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_firebase_firebase_common_ktx_21_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_firebase_firebase_components_18_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_firebase_firebase_database_21_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_firebase_firebase_database_collection_18_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_guava_failureaccess_1_0_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_guava_guava_32_0_1_android.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_guava_listenablefuture_9999_0_empty_to_avoid_conflict_with_guava.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_j2objc_j2objc_annotations_2_8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_maps_google_maps_services_0_19_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_maps_google_maps_services_2_2_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_protobuf_protobuf_java_3_24_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_google_protobuf_protobuf_java_3_24_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_jayway_jsonpath_json_path_2_9_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_4_10_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_4_12_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_squareup_okio_okio_jvm_3_0_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_squareup_okio_okio_jvm_3_6_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_sun_istack_istack_commons_runtime_4_1_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_vaadin_external_google_android_json_0_0_20131108_vaadin1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_zaxxer_HikariCP_5_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_grpc_grpc_api_1_58_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_grpc_grpc_context_1_25_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_grpc_grpc_context_1_27_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_grpc_grpc_context_1_58_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_grpc_grpc_core_1_58_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_grpc_grpc_netty_1_58_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_grpc_grpc_protobuf_1_58_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_grpc_grpc_protobuf_lite_1_58_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_grpc_grpc_stub_1_58_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_grpc_grpc_util_1_58_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_micrometer_micrometer_commons_1_13_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_micrometer_micrometer_observation_1_13_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_buffer_4_1_112_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_buffer_4_1_93_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_codec_4_1_112_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_codec_4_1_93_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_codec_http2_4_1_112_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_codec_http2_4_1_93_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_codec_http_4_1_112_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_codec_http_4_1_93_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_codec_socks_4_1_112_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_codec_socks_4_1_93_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_common_4_1_112_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_common_4_1_93_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_handler_4_1_112_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_handler_4_1_93_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_handler_proxy_4_1_112_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_handler_proxy_4_1_93_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_resolver_4_1_112_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_resolver_4_1_93_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_transport_4_1_112_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_transport_4_1_93_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_transport_native_unix_common_4_1_112_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_netty_netty_transport_native_unix_common_4_1_93_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_opencensus_opencensus_api_0_25_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_opencensus_opencensus_api_0_31_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_perfmark_perfmark_api_0_26_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_projectreactor_reactor_core_3_6_9.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__io_smallrye_jandex_3_1_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__jakarta_activation_jakarta_activation_api_2_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__jakarta_annotation_jakarta_annotation_api_2_1_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__jakarta_inject_jakarta_inject_api_2_0_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__jakarta_persistence_jakarta_persistence_api_3_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__jakarta_transaction_jakarta_transaction_api_2_0_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__jakarta_xml_bind_jakarta_xml_bind_api_4_0_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__javax_annotation_javax_annotation_api_1_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__javax_inject_javax_inject_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__junit_junit_4_13_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__net_bytebuddy_byte_buddy_1_14_19.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__net_bytebuddy_byte_buddy_agent_1_14_19.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__net_minidev_accessors_smart_2_5_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__net_minidev_json_smart_2_5_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_antlr_antlr4_runtime_4_13_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_apache_logging_log4j_log4j_api_2_23_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_apache_logging_log4j_log4j_to_slf4j_2_23_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_apiguardian_apiguardian_api_1_1_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_aspectj_aspectjweaver_1_9_22_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_assertj_assertj_core_3_27_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_awaitility_awaitility_4_2_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_checkerframework_checker_qual_3_33_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_codehaus_mojo_animal_sniffer_annotations_1_23.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_eclipse_angus_angus_activation_2_0_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_glassfish_jaxb_jaxb_core_4_0_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_glassfish_jaxb_jaxb_runtime_4_0_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_glassfish_jaxb_txw2_4_0_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_hamcrest_hamcrest_2_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_hibernate_common_hibernate_commons_annotations_6_0_6_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_hibernate_orm_hibernate_community_dialects_6_6_0_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_hibernate_orm_hibernate_core_6_5_2_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_jboss_logging_jboss_logging_3_5_3_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_jetbrains_annotations_13_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_jetbrains_annotations_23_0_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_9_25.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_2_0_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_8_22.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_9_25.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk8_1_8_22.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk8_1_9_25.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_android_1_7_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_core_jvm_1_7_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_play_services_1_7_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_test_jvm_1_7_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_5_11_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_api_5_10_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_engine_5_10_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_params_5_10_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_junit_platform_junit_platform_commons_1_10_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_junit_platform_junit_platform_engine_1_10_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_mockito_mockito_core_5_14_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_mockito_mockito_junit_jupiter_5_11_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_objenesis_objenesis_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_opentest4j_opentest4j_1_3_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_ow2_asm_asm_9_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_reactivestreams_reactive_streams_1_0_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_skyscreamer_jsonassert_1_5_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_slf4j_jul_to_slf4j_2_0_16.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_slf4j_slf4j_api_2_0_16.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_boot_spring_boot_3_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_boot_spring_boot_actuator_3_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_boot_spring_boot_actuator_autoconfigure_3_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_boot_spring_boot_autoconfigure_3_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_3_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_aop_3_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_data_jpa_3_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_jdbc_3_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_logging_3_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_test_3_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_boot_spring_boot_test_3_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_boot_spring_boot_test_autoconfigure_3_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_data_spring_data_commons_3_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_data_spring_data_jpa_3_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_security_spring_security_crypto_6_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_spring_aop_6_1_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_spring_aspects_6_1_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_spring_beans_6_1_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_spring_context_6_1_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_spring_core_6_1_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_spring_expression_6_1_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_spring_jcl_6_1_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_spring_jdbc_6_1_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_spring_messaging_6_1_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_spring_orm_6_1_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_spring_test_6_1_10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_spring_tx_6_1_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_statemachine_spring_statemachine_autoconfigure_3_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_statemachine_spring_statemachine_core_3_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_springframework_statemachine_spring_statemachine_starter_3_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_xerial_sqlite_jdbc_3_34_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_xmlunit_xmlunit_core_2_9_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Gradle__org_yaml_snakeyaml_2_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules/GoEverywhere.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules/GoEverywhere.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules/GoEverywhere.test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules/app/GoEverywhere.app.androidTest.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules/app/GoEverywhere.app.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules/app/GoEverywhere.app.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules/app/GoEverywhere.app.unitTest.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules/protocol/GoEverywhere.protocol.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules/protocol/GoEverywhere.protocol.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules/protocol/GoEverywhere.protocol.test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules/server/GoEverywhere.server.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules/server/GoEverywhere.server.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules/server/GoEverywhere.server.test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/runConfigurations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/runConfigurations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/migrations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/google-services.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/example/goeverywhere/ExampleInstrumentedTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/CoffeeActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/DriverHomeActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/DriverRideDetailActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/DriverRideRequestsActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/GoEverywhereApp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/GrpcModule.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/HistoryActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/HomeActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/LoginActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/MainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/MapsActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/NotificationsActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/PaymentActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/PlanActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/ProfileActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/SafetyActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/SignupActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/UserTypeSelectionActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/goeverywhere/WaitActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_account_box_24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_check_box_24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_check_box_outline_blank_24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_coffee_24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_date_range_24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_email_24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_front_hand_24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_house_24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_lock_24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_map_24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_person_24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_person_pin_24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/checkbox_selector.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/lavender_border.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/pagebkg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acitivty_coffee.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_driver_home.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_driver_ride_detail.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_driver_ride_requests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_history.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_notifications.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_payment.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_plan.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_profile.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_safety.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_signup.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_type_selection.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_wait.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/home_page.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_ride_request.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-night/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/backup_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/example/goeverywhere/ExampleUnitTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mydatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/mydatabase.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/.transforms/c8ebf7cc09077443688a74792a390582/transformed/main/desugar_graph.bin" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/build/.transforms/c8ebf7cc09077443688a74792a390582/transformed/main/desugar_graph.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/.transforms/c8ebf7cc09077443688a74792a390582/transformed/main/org/example/goeverywhere/protocol/grpc/RideCompletedRequest$Builder.dex" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/build/.transforms/c8ebf7cc09077443688a74792a390582/transformed/main/org/example/goeverywhere/protocol/grpc/RideCompletedRequest$Builder.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/.transforms/c8ebf7cc09077443688a74792a390582/transformed/main/org/example/goeverywhere/protocol/grpc/RideCompletedRequest.dex" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/build/.transforms/c8ebf7cc09077443688a74792a390582/transformed/main/org/example/goeverywhere/protocol/grpc/RideCompletedRequest.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/.transforms/c8ebf7cc09077443688a74792a390582/transformed/main/org/example/goeverywhere/protocol/grpc/RideCompletedRequestOrBuilder.dex" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/build/.transforms/c8ebf7cc09077443688a74792a390582/transformed/main/org/example/goeverywhere/protocol/grpc/RideCompletedRequestOrBuilder.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/.transforms/c8ebf7cc09077443688a74792a390582/transformed/main/org/example/goeverywhere/protocol/grpc/Services.dex" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/build/.transforms/c8ebf7cc09077443688a74792a390582/transformed/main/org/example/goeverywhere/protocol/grpc/Services.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/classes/java/main/org/example/goeverywhere/protocol/grpc/RideCompletedRequest$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/build/classes/java/main/org/example/goeverywhere/protocol/grpc/RideCompletedRequest$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/classes/java/main/org/example/goeverywhere/protocol/grpc/RideCompletedRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/build/classes/java/main/org/example/goeverywhere/protocol/grpc/RideCompletedRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/classes/java/main/org/example/goeverywhere/protocol/grpc/RideCompletedRequestOrBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/build/classes/java/main/org/example/goeverywhere/protocol/grpc/RideCompletedRequestOrBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/classes/java/main/org/example/goeverywhere/protocol/grpc/Services.class" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/build/classes/java/main/org/example/goeverywhere/protocol/grpc/Services.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/generated/source/proto/main/java/org/example/goeverywhere/protocol/grpc/RideCompletedRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/build/generated/source/proto/main/java/org/example/goeverywhere/protocol/grpc/RideCompletedRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/generated/source/proto/main/java/org/example/goeverywhere/protocol/grpc/RideCompletedRequestOrBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/build/generated/source/proto/main/java/org/example/goeverywhere/protocol/grpc/RideCompletedRequestOrBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/generated/source/proto/main/java/org/example/goeverywhere/protocol/grpc/Services.java" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/build/generated/source/proto/main/java/org/example/goeverywhere/protocol/grpc/Services.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/libs/protocol-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/build/libs/protocol-1.0.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/resources/main/services.proto" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/build/resources/main/services.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/AcceptRideRequest$1.class.uniqueId83" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/AcceptRideRequest$Builder.class.uniqueId14" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/AcceptRideRequest.class.uniqueId82" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverArrived$1.class.uniqueId98" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverArrived$Builder.class.uniqueId13" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverArrived.class.uniqueId46" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverArrivedRequest$1.class.uniqueId51" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverArrivedRequest$Builder.class.uniqueId73" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverArrivedRequest.class.uniqueId122" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverEnRoute$1.class.uniqueId74" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverEnRoute$Builder.class.uniqueId107" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverEnRoute.class.uniqueId15" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverEvent$1.class.uniqueId36" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverEvent$Builder.class.uniqueId106" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverEvent$EventCase.class.uniqueId56" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverEvent.class.uniqueId114" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverEventOrBuilder.class.uniqueId127" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverEventSubscribeRequest$1.class.uniqueId101" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverEventSubscribeRequest$Builder.class.uniqueId31" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverEventSubscribeRequest.class.uniqueId94" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverRejected$1.class.uniqueId67" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverRejected$Builder.class.uniqueId115" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverRejected.class.uniqueId62" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverServiceGrpc$1.class.uniqueId17" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverServiceGrpc$2.class.uniqueId41" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverServiceGrpc$3.class.uniqueId61" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverServiceGrpc$AsyncService.class.uniqueId53" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverServiceGrpc$DriverServiceBaseDescriptorSupplier.class.uniqueId57" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverServiceGrpc$DriverServiceBlockingStub.class.uniqueId25" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverServiceGrpc$DriverServiceFileDescriptorSupplier.class.uniqueId139" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverServiceGrpc$DriverServiceFutureStub.class.uniqueId47" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverServiceGrpc$DriverServiceImplBase.class.uniqueId54" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverServiceGrpc$DriverServiceMethodDescriptorSupplier.class.uniqueId35" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverServiceGrpc$DriverServiceStub.class.uniqueId110" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverServiceGrpc$MethodHandlers.class.uniqueId78" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/DriverServiceGrpc.class.uniqueId65" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/LoginRequest$1.class.uniqueId39" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/LoginRequest$Builder.class.uniqueId125" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/LoginRequest.class.uniqueId44" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/LoginResponse$1.class.uniqueId120" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/LoginResponse$Builder.class.uniqueId96" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/LoginResponse.class.uniqueId70" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RejectRideRequest$1.class.uniqueId102" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RejectRideRequest$Builder.class.uniqueId105" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RejectRideRequest.class.uniqueId4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideAccepted$1.class.uniqueId34" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideAccepted$Builder.class.uniqueId97" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideAccepted.class.uniqueId2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideAcceptedOrBuilder.class.uniqueId128" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideCompleted$1.class.uniqueId16" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideCompleted$Builder.class.uniqueId92" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideCompleted.class.uniqueId48" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideCompletedRequest$1.class.uniqueId18" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideCompletedRequest$Builder.class.uniqueId59" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideCompletedRequest.class.uniqueId108" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideDetails$1.class.uniqueId133" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideDetails$Builder.class.uniqueId30" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideDetails.class.uniqueId42" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideDetailsOrBuilder.class.uniqueId60" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideRegistered$1.class.uniqueId64" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideRegistered$Builder.class.uniqueId37" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideRegistered.class.uniqueId49" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideRegisteredOrBuilder.class.uniqueId90" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideRequest$1.class.uniqueId12" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideRequest$Builder.class.uniqueId80" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideRequest.class.uniqueId100" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideRequested$1.class.uniqueId11" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideRequested$Builder.class.uniqueId103" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideRequested.class.uniqueId130" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideRequestedOrBuilder.class.uniqueId89" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideStarted$1.class.uniqueId136" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideStarted$Builder.class.uniqueId21" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideStarted.class.uniqueId33" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideStartedOrBuilder.class.uniqueId91" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideStartedRequest$1.class.uniqueId71" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideStartedRequest$Builder.class.uniqueId117" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RideStartedRequest.class.uniqueId23" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderCancelled$1.class.uniqueId19" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderCancelled$Builder.class.uniqueId45" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderCancelled.class.uniqueId0" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderCancelled.class.uniqueId0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderEvent$1.class.uniqueId69" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderEvent$Builder.class.uniqueId10" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderEvent$EventCase.class.uniqueId9" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderEvent.class.uniqueId123" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderEventOrBuilder.class.uniqueId93" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderServiceGrpc$1.class.uniqueId111" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderServiceGrpc$2.class.uniqueId121" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderServiceGrpc$3.class.uniqueId20" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderServiceGrpc$AsyncService.class.uniqueId28" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderServiceGrpc$MethodHandlers.class.uniqueId118" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderServiceGrpc$RiderServiceBaseDescriptorSupplier.class.uniqueId3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderServiceGrpc$RiderServiceBlockingStub.class.uniqueId50" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderServiceGrpc$RiderServiceFileDescriptorSupplier.class.uniqueId66" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderServiceGrpc$RiderServiceFutureStub.class.uniqueId112" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderServiceGrpc$RiderServiceImplBase.class.uniqueId40" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderServiceGrpc$RiderServiceMethodDescriptorSupplier.class.uniqueId32" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderServiceGrpc$RiderServiceStub.class.uniqueId55" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RiderServiceGrpc.class.uniqueId75" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/Route$1.class.uniqueId5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/Route$Builder.class.uniqueId27" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/Route.class.uniqueId88" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RouteOrBuilder.class.uniqueId76" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RouteUpdated$1.class.uniqueId22" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RouteUpdated$Builder.class.uniqueId24" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RouteUpdated.class.uniqueId134" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/RouteUpdatedOrBuilder.class.uniqueId87" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/SignUpRequest$1.class.uniqueId84" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/SignUpRequest$Builder.class.uniqueId126" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/SignUpRequest.class.uniqueId63" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/SubscribeForRideEventsRequest$1.class.uniqueId109" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/SubscribeForRideEventsRequest$Builder.class.uniqueId81" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/SubscribeForRideEventsRequest.class.uniqueId95" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/SubscribeForUpdatesRequest$1.class.uniqueId132" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/SubscribeForUpdatesRequest$Builder.class.uniqueId58" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/SubscribeForUpdatesRequest.class.uniqueId104" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/SystemCancelled$1.class.uniqueId26" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/SystemCancelled$Builder.class.uniqueId68" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/SystemCancelled.class.uniqueId8" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/UpdateCurrentLocationRequest$1.class.uniqueId77" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/UpdateCurrentLocationRequest$Builder.class.uniqueId116" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/UpdateCurrentLocationRequest.class.uniqueId38" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/UserServiceGrpc$1.class.uniqueId113" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/UserServiceGrpc$2.class.uniqueId131" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/UserServiceGrpc$3.class.uniqueId85" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/UserServiceGrpc$AsyncService.class.uniqueId138" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/UserServiceGrpc$MethodHandlers.class.uniqueId43" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/UserServiceGrpc$UserServiceBaseDescriptorSupplier.class.uniqueId119" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/UserServiceGrpc$UserServiceBlockingStub.class.uniqueId135" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/UserServiceGrpc$UserServiceFileDescriptorSupplier.class.uniqueId6" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/UserServiceGrpc$UserServiceFutureStub.class.uniqueId52" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/UserServiceGrpc$UserServiceImplBase.class.uniqueId86" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/UserServiceGrpc$UserServiceMethodDescriptorSupplier.class.uniqueId72" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/UserServiceGrpc$UserServiceStub.class.uniqueId99" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/UserServiceGrpc.class.uniqueId29" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/Waypoint$1.class.uniqueId124" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/Waypoint$Builder.class.uniqueId137" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/Waypoint.class.uniqueId129" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/WaypointMetadata$1.class.uniqueId79" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/WaypointMetadata$Builder.class.uniqueId1" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/WaypointMetadata$Builder.class.uniqueId1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/WaypointMetadata.class.uniqueId140" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/compileTransaction/stash-dir/WaypointOrBuilder.class.uniqueId7" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/protocol/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/flow/RideStateMachineConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/flow/RideStateMachineConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/flow/RideStateMachineService.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/flow/RideStateMachineService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/grpc/DriverServiceGprcImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/grpc/DriverServiceGprcImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/DriverLocationUpdateService.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/DriverLocationUpdateService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/EventProcessor$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/EventProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/EventProcessor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/RideBatchScheduler.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/RideBatchScheduler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/UserRegistry$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/UserRegistry$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/UserRegistry$AbstractUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/UserRegistry$AbstractUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/UserRegistry$Driver.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/UserRegistry$Driver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/UserRegistry$Rider.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/UserRegistry$Rider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/UserRegistry.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/UserRegistry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/routing/OptimizedRouteService.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/org/example/goeverywhere/server/service/routing/OptimizedRouteService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/DriverServiceGprcImpl.class.uniqueId16" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/EventProcessor$1.class.uniqueId12" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/EventProcessor.class.uniqueId13" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/GoEverywhereServer.class.uniqueId5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/GoogleMapsRouteService.class.uniqueId4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/MockRouteService.class.uniqueId14" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/OptimizedRouteService.class.uniqueId21" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/RideBatchScheduler.class.uniqueId9" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/RideStateMachineConfig.class.uniqueId19" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/RiderServiceGrpcImpl.class.uniqueId20" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/RouteService.class.uniqueId18" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/RouteUtils.class.uniqueId17" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/UserRegistry$1.class.uniqueId10" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/UserRegistry$AbstractUser.class.uniqueId8" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/UserRegistry$Driver.class.uniqueId6" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/UserRegistry.class.uniqueId15" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/UserService.class.uniqueId7" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/UserServiceGrpcImpl.class.uniqueId11" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/org/example/goeverywhere/server/service/routing/OptimizedRouteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/org/example/goeverywhere/server/service/routing/OptimizedRouteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\Laxad\.android\avd\Medium_Phone_API_35.avd)]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="GoEverywhere" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2v2oL66myP7IllCoBruCrGxt49P" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Android App.app.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.go-everywhere-main:server [:server:org.example.goeverywhere.server.GoEverywhereServer.main()].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.android.tools.idea.streaming.zoom.toolbar.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Working-order&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Laxad/Documents/GitHub/go-everywhere/go-everywhere-main&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Laxad\Documents\GitHub\go-everywhere\go-everywhere-main\server\native_libs" />
+      <recent name="C:\Users\Laxad\Documents\GitHub\go-everywhere\go-everywhere-main\server" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.example.goeverywhere.server.service" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.GoEverywhereServer">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="GoEverywhere.app.main" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="RESTORE_ENABLED" value="false" />
+      <option name="RESTORE_FILE" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Hybrid>
+      <Java>
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Java>
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GoEverywhereServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.goeverywhere.server.GoEverywhereServer" />
+      <module name="GoEverywhere.server.main" />
+      <option name="VM_PARAMETERS" value="-Djava.library.path=&quot;C:\Users\Laxad\Documents\GitHub\go-everywhere\go-everywhere-main\server\native_libs&quot;" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.goeverywhere.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Android App.app" />
+      <item itemvalue="Application.GoEverywhereServer" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.GoEverywhereServer" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8430293c-d537-424c-9a3e-48ec65c7abf3" name="Changes" comment="" />
+      <created>1743352470872</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1743352470872</updated>
+    </task>
+    <servers />
+  </component>
+</project>

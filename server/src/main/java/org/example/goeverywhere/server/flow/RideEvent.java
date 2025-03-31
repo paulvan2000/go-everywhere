@@ -18,5 +18,7 @@ public enum RideEvent {
     //  The ride ends.
     RIDE_COMPLETED,
     // No drivers found to complete the ride
-    NO_AVAILABLE_DRIVERS;
+    NO_AVAILABLE_DRIVERS,
+    SCHEDULED_RIDE_TRIGGERED;
+
 }

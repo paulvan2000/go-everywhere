@@ -25,7 +25,7 @@ public class GrpcModule {
 
     @Provides
     @Singleton
-    public AtomicReference<LoginResponse> sessionIdHolder() {
+    public AtomicReference<LoginResponse> sessionHolder() {
         return new AtomicReference<>();
     }
 }

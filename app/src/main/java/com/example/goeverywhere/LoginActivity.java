@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @AndroidEntryPoint
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String TAG = "LoginActivity";
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
     @Inject
@@ -50,6 +52,13 @@ public class LoginActivity extends AppCompatActivity {
         loginPassword = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.login_button);
         signupRedirectText = findViewById(R.id.signupRedirectText);
+
+        // Check if we have an email from signup
+        String emailFromSignup = getIntent().getStringExtra("EMAIL");
+        if (emailFromSignup != null && !emailFromSignup.isEmpty()) {
+            loginEmail.setText(emailFromSignup);
+            loginPassword.requestFocus(); // Focus on password field
+        }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -84,25 +93,41 @@ public class LoginActivity extends AppCompatActivity {
             loginUser(email, password, lastLocation);
         });
 
-        //Redirecting to signup
+        //Redirecting to signup selection screen
         signupRedirectText.setOnClickListener(view -> {
-            Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+            Log.d(TAG, "Signup redirect clicked - going to UserTypeSelectionActivity");
+            Intent intent = new Intent(LoginActivity.this, UserTypeSelectionActivity.class);
             startActivity(intent);
+            // Keep login screen in back stack
         });
     }
 
     private void loginUser(String email, String password, Task<Location> lastLocation) {
         UserServiceGrpc.UserServiceBlockingStub userService = UserServiceGrpc.newBlockingStub(managedChannel);
         try {
-            Location result = lastLocation.getResult();
-            LoginResponse loginResponse = userService.login(LoginRequest.newBuilder()
+            Log.d(TAG, "Attempting login for: " + email);
+            
+            // Clear existing session if any
+            sessionHolder.set(null);
+            
+            // Build login request
+            LoginRequest loginRequest = LoginRequest.newBuilder()
                     .setEmail(email)
                     .setPassword(password)
-                    .build());
+                    .build();
+            
+            // Execute login request
+            LoginResponse loginResponse = userService.login(loginRequest);
+                    
+            Log.d(TAG, "Login successful");
+            Log.d(TAG, "Received user type: " + loginResponse.getUserType() + " (value: " + loginResponse.getUserTypeValue() + ")");
+            
+            // Save session
             sessionHolder.set(loginResponse);
             
             // Try to update location, but don't let it crash the app if it fails
             try {
+                Location result = lastLocation.getResult();
                 if (result != null) {
                     userService.updateCurrentLocation(UpdateCurrentLocationRequest.newBuilder()
                             .setSessionId(loginResponse.getSessionId())
@@ -111,18 +136,29 @@ public class LoginActivity extends AppCompatActivity {
                                     .setLongitude(result.getLongitude())
                                     .build())
                             .build());
+                    Log.d(TAG, "Location updated successfully");
                 }
             } catch (Exception locationError) {
                 // Log the error but continue with login process
-                System.err.println("Failed to update location: " + locationError.getMessage());
+                Log.e(TAG, "Failed to update location: " + locationError.getMessage());
                 // Not showing toast to avoid confusing the user
             }
             
-            // Redirect to HomeActivity instead of MainActivity
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            // Redirect based on user type
+            Intent intent;
+            if (loginResponse.getUserType() == UserType.DRIVER) {
+                Log.d(TAG, "User is a driver, redirecting to DriverHomeActivity");
+                intent = new Intent(LoginActivity.this, DriverHomeActivity.class);
+                Toast.makeText(this, "Logging in as Driver", Toast.LENGTH_SHORT).show();
+            } else {
+                Log.d(TAG, "User is a rider, redirecting to HomeActivity");
+                intent = new Intent(LoginActivity.this, HomeActivity.class);
+                Toast.makeText(this, "Logging in as Rider", Toast.LENGTH_SHORT).show();
+            }
             startActivity(intent);
             finish();
         } catch (Exception e) {
+            Log.e(TAG, "Login failed", e);
             Toast.makeText(LoginActivity.this, "Login failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace(); // Just log the error instead of throwing it
         }
