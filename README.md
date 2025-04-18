@@ -85,8 +85,6 @@ The Android client provides distinct interfaces for riders and drivers:
 10. **Ride Details (Driver):** Shows pickup/dropoff locations, passenger count, status, and map overview. Accept/Reject buttons.
 11. **Active Ride Map (Driver):** Shows the route on the map during an active ride.
 
-*(Refer to the provided screenshot images for visual representation of these screens)*
-
 ## Technologies Used
 
 *   **Server:**
