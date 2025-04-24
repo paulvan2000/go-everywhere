@@ -14,6 +14,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Button historyButton;
     private Button safetyButton;
     private Button notificationsButton;
+    private Button trackRiderButton;
     private ImageButton profileButton;
     private ImageButton homeButton;
 
@@ -27,6 +28,7 @@ public class ProfileActivity extends AppCompatActivity {
         historyButton = findViewById(R.id.planning_button); // ID is planning_button but used for history
         safetyButton = findViewById(R.id.safety_button);
         notificationsButton = findViewById(R.id.Notifications_button);
+        trackRiderButton = findViewById(R.id.track_rider_button);
         profileButton = findViewById(R.id.profile);
         homeButton = findViewById(R.id.home);
 
@@ -35,6 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
         historyButton.setOnClickListener(v -> navigateToHistory());
         safetyButton.setOnClickListener(v -> navigateToSafety());
         notificationsButton.setOnClickListener(v -> navigateToNotifications());
+        trackRiderButton.setOnClickListener(v -> navigateToTrackRider());
         homeButton.setOnClickListener(v -> navigateToHome());
         // Profile button doesn't need action as we're already on profile page
     }
@@ -56,6 +59,21 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void navigateToNotifications() {
         Intent intent = new Intent(ProfileActivity.this, NotificationsActivity.class);
+        startActivity(intent);
+    }
+
+    private void navigateToTrackRider() {
+        Intent intent = new Intent(ProfileActivity.this, TrackRiderActivity.class);
+        
+        // Get ride ID from SharedPreferences if available
+        String rideId = getSharedPreferences("driver_requests", MODE_PRIVATE)
+                .getString("rider_id", "");
+                
+        // Add it to the intent
+        if (rideId != null && !rideId.isEmpty()) {
+            intent.putExtra("ride_id", rideId);
+        }
+        
         startActivity(intent);
     }
 

@@ -117,6 +117,11 @@
             android:exported="false">
         </activity>
 
+        <activity
+            android:name=".TrackRiderActivity"
+            android:exported="false">
+        </activity>
+
     </application>
 
 </manifest>
