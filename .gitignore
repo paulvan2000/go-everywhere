@@ -13,3 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Generated output and machine-local IDE state
+**/build/
+.idea/
